@@ -21,6 +21,7 @@ import android.content.ContentResolver;
 import android.database.ContentObserver;
 import android.os.Handler;
 import android.os.UserHandle;
+import android.provider.Settings;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.DisplayCutout;
@@ -268,6 +269,8 @@ public class HeadsUpAppearanceController implements OnHeadsUpChangedListener,
     }
 
     private void setShown(boolean isShown) {
+        final int clockStyle = Settings.System.getIntForUser(mClockView.getContext().getContentResolver(),
+                Settings.System.STATUSBAR_CLOCK_STYLE, 0, UserHandle.USER_CURRENT);
         if (mShown != isShown) {
             mShown = isShown;
             if (isShown) {
@@ -286,8 +289,12 @@ public class HeadsUpAppearanceController implements OnHeadsUpChangedListener,
                                 0 /* delay */, () -> mCustomCarrierLabel.setVisibility(View.INVISIBLE));
                 }
             } else {
-                CrossFadeHelper.fadeIn(mClockView, CONTENT_FADE_DURATION /* duration */,
-                        CONTENT_FADE_DELAY /* delay */);
+                if (clockStyle == 0) {
+                    CrossFadeHelper.fadeIn(mClockView, CONTENT_FADE_DURATION /* duration */,
+                            CONTENT_FADE_DELAY /* delay */);
+                } else {
+                    mClockView.setVisibility(View.GONE);
+                }
                 // Only make the custom views visible if needed.
                 if (mShowLogo) {
                     CrossFadeHelper.fadeIn(mDULogo, CONTENT_FADE_DURATION /* duration */,
