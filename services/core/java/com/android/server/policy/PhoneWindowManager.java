@@ -984,6 +984,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.TORCH_POWER_BUTTON_GESTURE), false, this,
                     UserHandle.USER_ALL);
+	    resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LONG_PRESS_KILL_DELAY), false, this,
+                    UserHandle.USER_ALL);
             updateSettings();
         }
 
@@ -2173,9 +2176,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         mHandleVolumeKeysInWM = mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_handleVolumeKeysInWindowManager);
 
-        mBackKillTimeout = mContext.getResources().getInteger(
-                com.android.internal.R.integer.config_backKillTimeout);
-
         mPerDisplayFocusEnabled = mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_perDisplayFocusEnabled);
 
@@ -2400,6 +2400,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mVolumeMusicControl = Settings.System.getIntForUser(resolver,
                     Settings.System.VOLUME_BUTTON_MUSIC_CONTROL, 0,
                     UserHandle.USER_CURRENT) != 0;
+
+            mBackKillTimeout = Settings.System.getIntForUser(resolver,
+                    Settings.System.LONG_PRESS_KILL_DELAY, 1000, UserHandle.USER_CURRENT);
 
             //Three Finger Gesture
             boolean threeFingerGesture = Settings.System.getIntForUser(resolver,
