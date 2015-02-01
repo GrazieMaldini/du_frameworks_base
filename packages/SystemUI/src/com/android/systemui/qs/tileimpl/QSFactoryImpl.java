@@ -53,6 +53,7 @@ import com.android.systemui.qs.tiles.SmartPixelsTile;
 import com.android.systemui.qs.tiles.SoundSearchTile;
 import com.android.systemui.qs.tiles.SyncTile;
 import com.android.systemui.qs.tiles.UiModeNightTile;
+import com.android.systemui.qs.tiles.UsbTetherTile;
 import com.android.systemui.qs.tiles.UserTile;
 import com.android.systemui.qs.tiles.WifiTile;
 import com.android.systemui.qs.tiles.WorkModeTile;
@@ -100,6 +101,7 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<DcDimmingTile> mDcDimmingTileProvider;
     private final Provider<DataSwitchTile> mDataSwitchTileProvider;
     private final Provider<SyncTile> mSyncTileProvider;
+    private final Provider<UsbTetherTile> mUsbTetherTileProvider;
 
     private final Lazy<QSHost> mQsHostLazy;
 
@@ -135,7 +137,8 @@ public class QSFactoryImpl implements QSFactory {
             Provider<GamingModeTile> gamingModeTileProvider,
             Provider<SmartPixelsTile> smartPixelsTileProvider,
             Provider<DataSwitchTile> dataSwitchTileProvider,
-            Provider<SyncTile> syncTileProvider) {
+            Provider<SyncTile> syncTileProvider,
+            Provider<UsbTetherTile> usbTetherTileProvider) {
         mQsHostLazy = qsHostLazy;
         mWifiTileProvider = wifiTileProvider;
         mBluetoothTileProvider = bluetoothTileProvider;
@@ -168,6 +171,7 @@ public class QSFactoryImpl implements QSFactory {
         mDcDimmingTileProvider = dcDimTileProvider;
         mDataSwitchTileProvider = dataSwitchTileProvider;
         mSyncTileProvider = syncTileProvider;
+        mUsbTetherTileProvider = usbTetherTileProvider;
     }
 
     public QSTile createTile(String tileSpec) {
@@ -241,6 +245,8 @@ public class QSFactoryImpl implements QSFactory {
                 return mDataSwitchTileProvider.get();
             case "sync":
                 return mSyncTileProvider.get();
+            case "usb_tether":
+                return mUsbTetherTileProvider.get();
         }
 
         // Custom tiles
