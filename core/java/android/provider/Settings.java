@@ -9918,6 +9918,12 @@ public final class Settings {
         private static final Validator FACE_UNLOCK_DISMISSES_KEYGUARD_VALIDATOR =
                 BOOLEAN_VALIDATOR;
 
+         /**
+          * Whether to allow killing of the foreground app by long-pressing the Back button
+          * @hide
+          */
+         public static final String KILL_APP_LONGPRESS_BACK = "kill_app_longpress_back";
+
         /**
          * Whether or not media is shown automatically when bypassing as a heads up.
          * @hide

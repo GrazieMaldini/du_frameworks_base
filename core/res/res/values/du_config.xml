@@ -202,4 +202,7 @@
         <item>com.trtf.blue</item>   
         <item>com.facebook.katana.LoginActivity</item> 
     </string-array>
+
+    <!-- kill app long press back -->
+    <integer name="config_backKillTimeout">1000</integer>
 </resources>
