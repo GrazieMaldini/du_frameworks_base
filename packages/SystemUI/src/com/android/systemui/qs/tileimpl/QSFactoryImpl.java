@@ -40,6 +40,7 @@ import com.android.systemui.qs.tiles.ImmersiveTile;
 import com.android.systemui.qs.tiles.IntentTile;
 import com.android.systemui.qs.tiles.LocationTile;
 import com.android.systemui.qs.tiles.MusicTile;
+import com.android.systemui.qs.tiles.NavBarTile;
 import com.android.systemui.qs.tiles.NfcTile;
 import com.android.systemui.qs.tiles.NightDisplayTile;
 import com.android.systemui.qs.tiles.RebootTile;
@@ -131,6 +132,8 @@ public class QSFactoryImpl implements QSFactory {
                 return new MusicTile(mHost);
             case "volume_panel":
                 return new VolumeTile(mHost);
+            case "navbar":
+                return new NavBarTile(mHost);
         }
 
         // Intent tiles.
