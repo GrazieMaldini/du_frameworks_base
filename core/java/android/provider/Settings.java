@@ -5253,6 +5253,17 @@ public final class Settings {
         public static final String VOLUME_ROCKER_WAKE = "volume_rocker_wake";
 
         /**
+         * whether to enable or disable vibration on succesful fingerprint auth
+         *
+         * @hide
+         */
+        public static final String FINGERPRINT_SUCCESS_VIB = "fingerprint_success_vib";
+
+        /** @hide */
+        private static final Validator FINGERPRINT_SUCCESS_VIB_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5332,7 +5343,8 @@ public final class Settings {
             NETWORK_TRAFFIC_EXPANDED_STATUS_BAR_STATE,
             USE_OLD_MOBILETYPE,
             THEMING_SETTINGS_DASHBOARD_ICONS,
-            LOCK_HIDE_STATUS_BAR
+            LOCK_HIDE_STATUS_BAR,
+            FINGERPRINT_SUCCESS_VIB
         };
 
         /**
@@ -5490,6 +5502,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(LOCK_HIDE_STATUS_BAR);
             PRIVATE_SETTINGS.add(SHOW_LOCKSCREEN_ICON);
             PRIVATE_SETTINGS.add(SHOW_LOCKSCREEN_INDICATOR_DISPLAY);
+            PRIVATE_SETTINGS.add(FINGERPRINT_SUCCESS_VIB);
         }
 
         /**
@@ -5608,6 +5621,7 @@ public final class Settings {
             VALIDATORS.put(USE_OLD_MOBILETYPE, USE_OLD_MOBILETYPE_VALIDATOR);
             VALIDATORS.put(THEMING_SETTINGS_DASHBOARD_ICONS, THEMING_SETTINGS_DASHBOARD_ICONS_VALIDATOR);
             VALIDATORS.put(LOCK_HIDE_STATUS_BAR,LOCK_HIDE_STATUS_BAR_VALIDATOR);
+            VALIDATORS.put(FINGERPRINT_SUCCESS_VIB, FINGERPRINT_SUCCESS_VIB_VALIDATOR);
         }
 
         /**
