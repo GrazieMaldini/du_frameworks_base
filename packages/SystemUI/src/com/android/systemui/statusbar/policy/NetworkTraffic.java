@@ -68,6 +68,7 @@ public class NetworkTraffic extends TextView implements StatusIconDisplayable {
     private int txtSize;
     private int txtImgPadding;
     private int mTrafficType;
+    private boolean mHideArrow;
     private int mAutoHideThreshold;
     private int mTintColor;
     private int mVisibleState = -1;
@@ -185,6 +186,9 @@ public class NetworkTraffic extends TextView implements StatusIconDisplayable {
                     this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System
                     .getUriFor(Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD), false,
+                    this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System
+                    .getUriFor(Settings.System.NETWORK_TRAFFIC_HIDEARROW), false,
                     this, UserHandle.USER_ALL);
         }
 
@@ -306,6 +310,9 @@ public class NetworkTraffic extends TextView implements StatusIconDisplayable {
         mAutoHideThreshold = Settings.System.getIntForUser(resolver,
                 Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD, 1,
                 UserHandle.USER_CURRENT);
+        mHideArrow = Settings.System.getIntForUser(resolver,
+                Settings.System.NETWORK_TRAFFIC_HIDEARROW, 0,
+                UserHandle.USER_CURRENT) == 1;
     }
 
     private void clearHandlerCallbacks() {
