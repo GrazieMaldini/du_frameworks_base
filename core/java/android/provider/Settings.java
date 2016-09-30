@@ -5250,6 +5250,18 @@ public final class Settings {
         public static final String LOCK_OWNER_FONTS = "lock_owner_fonts";
 
         /**
+         * Whether to use a custom color for the visualizer on the lock screen
+         * @hide
+         */
+        public static final String LOCK_SCREEN_VISUALIZER_USE_CUSTOM_COLOR = "lock_screen_visualizer_use_custom_color";
+
+        /**
+         * Custom color of the visualizer on the lock screen
+         * @hide
+         */
+        public static final String LOCK_SCREEN_VISUALIZER_CUSTOM_COLOR = "lock_screen_visualizer_custom_color";
+
+        /**
          * Select which lockscreen date style to display
          * @hide
          */
