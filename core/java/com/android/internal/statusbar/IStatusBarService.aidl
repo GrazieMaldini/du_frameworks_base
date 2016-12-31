@@ -118,4 +118,5 @@ interface IStatusBarService
      * ABC
      */
     void toggleCameraFlash();
+    void restartUI();
 }
