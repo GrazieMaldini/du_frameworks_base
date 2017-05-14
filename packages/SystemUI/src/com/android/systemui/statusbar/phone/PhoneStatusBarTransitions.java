@@ -33,6 +33,7 @@ public final class PhoneStatusBarTransitions extends BarTransitions {
     private final float mIconAlphaWhenOpaque;
 
     private View mLeftSide, mStatusIcons, mBattery;
+    private View mHavocLogo, mHavocLogoRight;
     private Animator mCurrentAnimation;
 
     /**
@@ -45,6 +46,8 @@ public final class PhoneStatusBarTransitions extends BarTransitions {
         mLeftSide = statusBarView.findViewById(R.id.status_bar_left_side);
         mStatusIcons = statusBarView.findViewById(R.id.statusIcons);
         mBattery = statusBarView.findViewById(R.id.battery);
+        mHavocLogo = statusBarView.findViewById(R.id.havoc_logo);
+        mHavocLogoRight = statusBarView.findViewById(R.id.havoc_logo_right);
         applyModeBackground(-1, getMode(), false /*animate*/);
         applyMode(getMode(), false /*animate*/);
     }
@@ -87,7 +90,9 @@ public final class PhoneStatusBarTransitions extends BarTransitions {
             anims.playTogether(
                     animateTransitionTo(mLeftSide, newAlpha),
                     animateTransitionTo(mStatusIcons, newAlpha),
-                    animateTransitionTo(mBattery, newAlphaBC)
+                    animateTransitionTo(mBattery, newAlphaBC),
+                    animateTransitionTo(mHavocLogo, newAlpha),
+                    animateTransitionTo(mHavocLogoRight, newAlpha)
                     );
             if (isLightsOut(mode)) {
                 anims.setDuration(LIGHTS_OUT_DURATION);
@@ -98,6 +103,8 @@ public final class PhoneStatusBarTransitions extends BarTransitions {
             mLeftSide.setAlpha(newAlpha);
             mStatusIcons.setAlpha(newAlpha);
             mBattery.setAlpha(newAlphaBC);
+            mHavocLogo.setAlpha(newAlpha);
+            mHavocLogoRight.setAlpha(newAlpha);
         }
     }
 }
