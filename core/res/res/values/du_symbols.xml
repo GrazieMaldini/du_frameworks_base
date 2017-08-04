@@ -216,4 +216,7 @@
   <java-symbol type="string" name="config_SmartChargingSysfsNode" />
   <java-symbol type="string" name="config_SmartChargingSupspendValue" />
   <java-symbol type="string" name="config_SmartChargingResumeValue" />
+
+  <java-symbol type="array" name="config_blockPackagesSensorDrain" />
+
 </resources>
