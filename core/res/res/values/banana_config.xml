@@ -126,6 +126,7 @@
 
     <bool name="config_has_Soli">false</bool>
 
+<<<<<<< HEAD
     <bool name="config_has_weird_dt_sensor">false</bool>
 
     <bool name="config_has_elmyra">false</bool>
@@ -146,5 +147,11 @@
     <!-- Do the battery/notification LEDs support pulsing?
          Used to decide if we show pulse settings -->
     <bool name="config_ledCanPulse">true</bool>
+
+    <!-- Path to fast charging status file to detect whether an oem fast charger is active -->
+    <string name="config_oemFastChargerStatusPath" translatable="false"></string>
+
+    <!-- Expected value from fast charging status file  -->
+    <string name="config_oemFastChargerStatusValue" translatable="false"></string>
 
 </resources>
