@@ -23,6 +23,11 @@
         <!-- Power menu item for taking a screenshot [CHAR LIMIT=20]-->
     <string name="global_action_screenshot_cust">"Screen/Rec"</string>
 
+    <!-- Power menu -->
+    <string name="global_action_restart_advanced">Advanced restart</string>
+    <string name="global_action_restart_recovery">Recovery</string>
+    <string name="global_action_restart_bootloader">Bootloader</string>
+
     <!-- QS customizer -->
     <string name="drag_or_tap_to_add_tiles">Drag or tap to add/remove tiles</string>
 
