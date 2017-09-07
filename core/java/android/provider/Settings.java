@@ -5211,6 +5211,24 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
+         * Disable dashboard conditions in settings
+         * @hide
+         */
+        public static final String ENABLE_CONDITIONS = "enable_conditions";
+        /** @hide */
+        private static final Validator ENABLE_CONDITIONS_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
+         * Disable dashboard suggestions in settings
+         * @hide
+         */
+        public static final String ENABLE_SUGGESTIONS = "enable_suggestions";
+        /** @hide */
+        private static final Validator ENABLE_SUGGESTIONS_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5309,6 +5327,8 @@ public final class Settings {
             HEADS_UP_TIMEOUT,
             LESS_BORING_HEADS_UP,
             NOTIFICATION_GUTS_KILL_APP_BUTTON,
+            ENABLE_CONDITIONS,
+            ENABLE_SUGGESTIONS,
         };
 
         /**
@@ -5472,6 +5492,8 @@ public final class Settings {
             PRIVATE_SETTINGS.add(HEADS_UP_TIMEOUT);
             PRIVATE_SETTINGS.add(LESS_BORING_HEADS_UP);
             PRIVATE_SETTINGS.add(NOTIFICATION_GUTS_KILL_APP_BUTTON);
+            PRIVATE_SETTINGS.add(ENABLE_CONDITIONS);
+            PRIVATE_SETTINGS.add(ENABLE_SUGGESTIONS);
         }
 
         /**
@@ -5604,6 +5626,8 @@ public final class Settings {
             VALIDATORS.put(HEADS_UP_TIMEOUT,HEADS_UP_TIMEOUT_VALIDATOR);
             VALIDATORS.put(LESS_BORING_HEADS_UP, LESS_BORING_HEADS_UP_VALIDATOR);
             VALIDATORS.put(NOTIFICATION_GUTS_KILL_APP_BUTTON, NOTIFICATION_GUTS_KILL_APP_BUTTON_VALIDATOR);
+            VALIDATORS.put(ENABLE_CONDITIONS, ENABLE_CONDITIONS_VALIDATOR);
+            VALIDATORS.put(ENABLE_SUGGESTIONS, ENABLE_SUGGESTIONS_VALIDATOR);
         }
 
         /**
