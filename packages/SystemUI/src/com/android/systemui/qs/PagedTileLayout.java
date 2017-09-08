@@ -5,9 +5,12 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.UserHandle;
+import android.provider.Settings;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -433,6 +436,7 @@ public class PagedTileLayout extends ViewPager implements QSTileLayout {
 
         public TilePage(Context context, AttributeSet attrs) {
             super(context, attrs);
+            updateResources();
         }
 
         public boolean isFull() {
@@ -443,7 +447,17 @@ public class PagedTileLayout extends ViewPager implements QSTileLayout {
             // Each page should be able to hold at least one tile. If there's not enough room to
             // show even 1 or there are no tiles, it probably means we are in the middle of setting
             // up.
-            return Math.max(mColumns * mRows, 1);
+            final Resources res = getContext().getResources();
+            final ContentResolver resolver = mContext.getContentResolver();
+
+            if (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                return Settings.System.getIntForUser(resolver,
+                        Settings.System.QS_ROWS_PORTRAIT, 3,
+                        UserHandle.USER_CURRENT);
+            }
+            return Settings.System.getIntForUser(resolver,
+                        Settings.System.QS_ROWS_LANDSCAPE, 2,
+                        UserHandle.USER_CURRENT);
         }
 
         @Override
