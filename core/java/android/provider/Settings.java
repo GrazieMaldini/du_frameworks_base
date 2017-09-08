@@ -4786,6 +4786,12 @@ public final class Settings {
         public static final String WAKE_WHEN_PLUGGED_OR_UNPLUGGED = "wake_when_plugged_or_unplugged";
 
         /**
+         * Whether to show heads up only for dialer and sms apps
+         * @hide
+         */
+        public static final String LESS_BORING_HEADS_UP = "less_boring_heads_up";
+		
+        /**
          * Whether to use icon pack for Recents
          * @hide
          */
