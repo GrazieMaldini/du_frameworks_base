@@ -14,9 +14,7 @@
 -->
 <resources>
 
-    <color name="du_themes_qs_inactive_color">#FFDCDCDC</color>
-
-    <color name="toast_bg">@color/white</color>
-    <color name="toast_text">@color/black</color>
+    <color name="toast_bg">@color/material_grey_800</color>
+    <color name="toast_text">@color/white</color>
 
 </resources>
