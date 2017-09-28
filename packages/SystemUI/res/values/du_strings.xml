@@ -28,7 +28,11 @@
     <string name="accessibility_quick_settings_sync_changed_on">Sync turned on</string>
 
     <string name="global_action_restart_advanced">Advanced reboot</string>
-    <string name="statusbar_items_title">Statusbar Icons</string>
+
+    <!-- SystemUI Tuner -->
+    <string name="statusbar_items_title">Statusbar icon</string>
+    <string name="lockscreen_default">Default</string>
+    <string name="lockscreen_hidden">None</string>
 
     <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
     <string name="custom_hint">Swipe from icon to launch</string>
