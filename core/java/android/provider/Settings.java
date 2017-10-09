@@ -10544,6 +10544,13 @@ public final class Settings {
          */
         public static final String SYSUI_ROUNDED_FWVALS = "sysui_rounded_fwvals";
 
+	/*
+         * Hide lockscreen shortcuts on secure lock screens
+         *
+         * @hide
+         */
+        public static final String HIDE_LOCK_SHORTCUTS = "hide_lock_shortcuts";
+
         /**
          * This are the settings to be backed up.
          *
