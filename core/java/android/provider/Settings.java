@@ -4680,6 +4680,13 @@ public final class Settings {
          */
         public static final String PULSE_SOLID_FUDGE_FACTOR = "pulse_solid_fudge_factor";
 
+       /**
+        * Statusbar logo Style
+        * @hide
+         */
+        public static final String STATUS_BAR_LOGO_STYLE = "status_bar_logo_style";
+
+
         /**
          * Pulse Lavamp Animation Speed
          * @hide
