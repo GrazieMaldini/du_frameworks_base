@@ -21,6 +21,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.UserHandle;
+import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
@@ -38,6 +40,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto;
+import com.android.settingslib.Utils;
 import com.android.systemui.Dependency;
 import com.android.systemui.R;
 import com.android.systemui.plugins.qs.QS;
@@ -67,7 +70,6 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     private final QSDetailClipper mClipper;
     private final LightBarController mLightBarController;
     private final TileQueryHelper mTileQueryHelper;
-    private final View mTransparentView;
 
     private boolean isShown;
     private QSTileHost mHost;
@@ -81,6 +83,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     private int mY;
     private boolean mOpening;
     private boolean mIsShowingNavBackdrop;
+    private GridLayoutManager mGlm;
 
     public QSCustomizer(Context context, AttributeSet attrs) {
         super(new ContextThemeWrapper(context, R.style.edit_theme), attrs);
@@ -103,14 +106,13 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
                 mContext.getString(com.android.internal.R.string.reset));
         mToolbar.setTitle(R.string.qs_edit);
         mRecyclerView = findViewById(android.R.id.list);
-        mTransparentView = findViewById(R.id.customizer_transparent_view);
         mTileAdapter = new TileAdapter(getContext());
         mTileQueryHelper = new TileQueryHelper(context, mTileAdapter);
         mRecyclerView.setAdapter(mTileAdapter);
         mTileAdapter.getItemTouchHelper().attachToRecyclerView(mRecyclerView);
-        GridLayoutManager layout = new GridLayoutManager(getContext(), 3);
-        layout.setSpanSizeLookup(mTileAdapter.getSizeLookup());
-        mRecyclerView.setLayoutManager(layout);
+        mGlm = new GridLayoutManager(getContext(), 5);
+        mGlm.setSpanSizeLookup(mTileAdapter.getSizeLookup());
+        mRecyclerView.setLayoutManager(mGlm);
         mRecyclerView.addItemDecoration(mTileAdapter.getItemDecoration());
         DefaultItemAnimator animator = new DefaultItemAnimator();
         animator.setMoveDuration(TileAdapter.MOVE_DURATION);
@@ -123,14 +125,6 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         updateNavBackDrop(newConfig);
-        updateResources();
-    }
-
-    private void updateResources() {
-        LayoutParams lp = (LayoutParams) mTransparentView.getLayoutParams();
-        lp.height = mContext.getResources().getDimensionPixelSize(
-                com.android.internal.R.dimen.quick_qs_offset_height);
-        mTransparentView.setLayoutParams(lp);
     }
 
     private void updateNavBackDrop(Configuration newConfig) {
@@ -338,4 +332,19 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
             mNotifQsContainer.setCustomizerAnimating(false);
         }
     };
+
+    public void updateResources() {
+        final int columns;
+        if (mContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            columns = Settings.System.getIntForUser(mContext.getContentResolver(),
+                    Settings.System.QS_COLUMNS_PORTRAIT, 5,
+                    UserHandle.USER_CURRENT);
+        } else {
+            columns = Settings.System.getIntForUser(mContext.getContentResolver(),
+                    Settings.System.QS_COLUMNS_LANDSCAPE, 5,
+                    UserHandle.USER_CURRENT);
+        }
+        mTileAdapter.setColumns(columns);
+        mGlm.setSpanCount(columns);
+    }
 }
