@@ -42,4 +42,6 @@
   <!-- Fastscroller -->
   <java-symbol type="color" name="fastscroller_text_color" />
 
+  <java-symbol type="array" name="config_vendorPlatformSignatures" />
+
 </resources>
