@@ -107,4 +107,9 @@
     <string name="qs_menu_item_titles">Show labels</string>
     <string name="qs_menu_item_qs_columns">Columns (Quickbar)</string>
     <string name="qs_menu_item_columns_auto">Automatic</string>
+
+    <!-- CPUInfo tile -->
+    <string name="quick_settings_cpuinfo_label">CPU Info</string>
+    <string name="accessibility_quick_settings_cpuinfo_off">CPU Info off</string>
+    <string name="accessibility_quick_settings_cpuinfo_on">CPU Info on</string>
 </resources>
