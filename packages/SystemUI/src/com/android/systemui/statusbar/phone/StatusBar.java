@@ -215,6 +215,7 @@ import com.android.systemui.statusbar.notification.logging.NotificationLogger;
 import com.android.systemui.statusbar.notification.row.ExpandableNotificationRow;
 import com.android.systemui.statusbar.notification.row.NotificationGutsManager;
 import com.android.systemui.statusbar.notification.stack.NotificationListContainer;
+import com.android.systemui.statusbar.notification.stack.NotificationStackScrollLayout;
 import com.android.systemui.statusbar.phone.dagger.StatusBarComponent;
 import com.android.systemui.statusbar.policy.BatteryController;
 import com.android.systemui.statusbar.policy.BrightnessMirrorController;
@@ -426,6 +427,8 @@ public class StatusBar extends SystemUI implements DemoMode,
     private View mQSBarHeader;
 
     private boolean mExpandedVisible;
+
+    private boolean mFpDismissNotifications;
 
     private final int[] mAbsPos = new int[2];
 
@@ -2027,6 +2030,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_MEDIA_BLUR),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.Secure.FP_SWIPE_TO_DISMISS_NOTIFICATIONS),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -2040,6 +2046,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_MEDIA_BLUR))) {
                 setLockScreenMediaBlurLevel();
+            } else if (uri.equals(Settings.Secure.getUriFor(
+                    Settings.Secure.FP_SWIPE_TO_DISMISS_NOTIFICATIONS))) {
+                setFpToDismissNotifications();
             }
         }
 
@@ -2047,6 +2056,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             setQsBatteryPercentMode();
             setPulseOnNewTracks();
             setLockScreenMediaBlurLevel();
+            setFpToDismissNotifications();
         }
     }
 
@@ -2068,6 +2078,12 @@ public class StatusBar extends SystemUI implements DemoMode,
         if (mMediaManager != null) {
             mMediaManager.setLockScreenMediaBlurLevel();
         }
+    }
+
+    private void setFpToDismissNotifications() {
+        mFpDismissNotifications = Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                Settings.Secure.FP_SWIPE_TO_DISMISS_NOTIFICATIONS, 0,
+                UserHandle.USER_CURRENT) == 1;
     }
 
     /**
@@ -2154,6 +2170,15 @@ public class StatusBar extends SystemUI implements DemoMode,
                 mNotificationPanelViewController.flingSettings(0 /* velocity */,
                         NotificationPanelView.FLING_EXPAND);
                 mMetricsLogger.count(NotificationPanelView.COUNTER_PANEL_OPEN_QS, 1);
+            }
+        } else if (mFpDismissNotifications && (KeyEvent.KEYCODE_SYSTEM_NAVIGATION_LEFT == key
+                || KeyEvent.KEYCODE_SYSTEM_NAVIGATION_RIGHT == key)) {
+            if (!mNotificationPanelViewController.isFullyCollapsed() && !mNotificationPanelViewController.isExpanding()){
+                mMetricsLogger.action(MetricsEvent.ACTION_DISMISS_ALL_NOTES);
+                ((NotificationStackScrollLayout)mStackScroller).clearNotifications(
+                        ((NotificationStackScrollLayout)mStackScroller).ROWS_ALL/*all notifications*/,
+                        true/*collapse the panel*/,
+                        KeyEvent.KEYCODE_SYSTEM_NAVIGATION_LEFT == key/*left swipe animation*/);
             }
         }
 
