@@ -5190,6 +5190,13 @@ public final class Settings {
                 ANY_INTEGER_VALIDATOR;
 
         /**
+         * Whether to use blackaf themes in place of dark
+         *
+         * @hide
+         */
+        public static final String USE_BLACKAF_THEME = "use_blackaf_theme";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
