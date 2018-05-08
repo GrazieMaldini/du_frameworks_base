@@ -29,6 +29,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
 import android.os.UserManager;
+import android.provider.Settings;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
@@ -271,7 +272,8 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
 
         mMultiUserSwitch.setVisibility(showUserSwitcher(isDemo) ? View.VISIBLE : View.INVISIBLE);
         mEdit.setVisibility(isDemo || !mExpanded ? View.INVISIBLE : View.VISIBLE);
-        mRunningServicesButton.setVisibility(!isDemo && mExpanded ? View.VISIBLE : View.INVISIBLE);
+        mRunningServicesButton.setVisibility(isRunningServicesEnabled() ? !isDemo && mExpanded ? View.VISIBLE : View.INVISIBLE : View.GONE);
+
     }
 
     private boolean showUserSwitcher(boolean isDemo) {
@@ -329,6 +331,11 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
                             : MetricsProto.MetricsEvent.ACTION_QS_COLLAPSED_SETTINGS_LAUNCH);
             startRunningServicesActivity();
         }
+    }
+
+    public boolean isRunningServicesEnabled() {
+        return Settings.System.getInt(mContext.getContentResolver(),
+            Settings.System.QS_RUNNING_SERVICES_TOGGLE, 0) == 1;
     }
 
     @Override
