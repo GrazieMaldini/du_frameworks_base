@@ -334,6 +334,7 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
 
         mBuildText.setVisibility(mExpanded && mShouldShowBuildText ? View.VISIBLE : View.GONE);
         mRunningServicesButton.setVisibility(!isDemo && mExpanded ? View.VISIBLE : View.INVISIBLE);
+        mRunningServicesButton.setVisibility(isRunningServicesEnabled() ? !isDemo && mExpanded ? View.VISIBLE : View.INVISIBLE : View.GONE);
     }
 
     private boolean showUserSwitcher() {
@@ -360,6 +361,11 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
     public boolean isEditEnabled() {
         return Settings.System.getInt(mContext.getContentResolver(),
             Settings.System.QS_EDIT_TOGGLE, 1) == 1;
+    }
+
+    public boolean isRunningServicesEnabled() {
+        return Settings.System.getInt(mContext.getContentResolver(),
+            Settings.System.QS_RUNNING_SERVICES_TOGGLE, 0) == 1;
     }
 
     @Override
