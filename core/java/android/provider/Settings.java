@@ -5175,6 +5175,13 @@ public final class Settings {
         public static final String LOCK_DATE_FONTS = "lock_date_fonts";
 
         /**
+         * Change fonts for the owner info text
+         *
+         * @hide
+         */
+        public static final String LOCK_OWNER_FONTS = "lock_owner_fonts";
+
+        /**
          * Whether to automatically enable the gaming mode
          * if the launched app is a game
          *
