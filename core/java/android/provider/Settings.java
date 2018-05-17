@@ -4585,6 +4585,13 @@ public final class Settings {
         public static final String LOCK_CLOCK_FONTS = "lock_clock_fonts";
 
         /**
+         * Change fonts for the system lockscreen date
+         *
+         * @hide
+         */
+        public static final String LOCK_DATE_FONTS = "lock_date_fonts";
+
+        /**
          * Select various accents to go along with system themes
          *
          * @hide
