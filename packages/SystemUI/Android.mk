@@ -60,7 +60,8 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
     SystemUI-proto
 
 LOCAL_JAVA_LIBRARIES := telephony-common \
-    android.car
+    android.car \
+    ims-common
 
 LOCAL_FULL_LIBS_MANIFEST_FILES += external/google/systemui/GoogleManifest.xml
 
