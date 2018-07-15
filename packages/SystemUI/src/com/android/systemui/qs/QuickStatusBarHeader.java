@@ -837,5 +837,7 @@ public class QuickStatusBarHeader extends RelativeLayout implements
             mIsQsAutoBrightnessEnabled = TunerService.parseIntegerSwitch(newValue, true);
             updateResources();
         }
+        mClockView.setClockVisibleByUser(!StatusBarIconController.getIconBlacklist(
+                mContext, newValue).contains("clock"));
     }
 }
