@@ -206,9 +206,9 @@ public class VisualizerView extends View
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        mObserver = new SettingsObserver(new Handler());
-        mObserver.observe();
-        mObserver.update();
+        mSettingObserver = new SettingsObserver(new Handler());
+        mSettingObserver.observe();
+        mSettingObserver.update();
     }
 
     @Override
@@ -297,6 +297,11 @@ public class VisualizerView extends View
     private void setVisualizerEnabled() {
         mVisualizerEnabled = Settings.Secure.getInt(mContext.getContentResolver(),
                 Settings.Secure.LOCKSCREEN_VISUALIZER_ENABLED, 0) == 1;
+    }
+
+    private void setAmbientVisualizerEnabled() {
+        mAmbientVisualizerEnabled = Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                Settings.Secure.AMBIENT_VISUALIZER_ENABLED, 0, UserHandle.USER_CURRENT) == 1;
     }
 
     private void setLavaLampEnabled() {
@@ -453,8 +458,21 @@ public class VisualizerView extends View
     }
 
     private void checkStateChanged() {
-        boolean isVisible = getVisibility() == View.VISIBLE;
-        if (isVisible && mPlaying && !mDozing && !mPowerSaveMode
+        if (getVisibility() == View.VISIBLE && mVisible && mPlaying && mDozing && mAmbientVisualizerEnabled && !mPowerSaveMode
+                 && mVisualizerEnabled && !mOccluded) {
+            if (!mDisplaying) {
+                mDisplaying = true;
+                AsyncTask.execute(mLinkVisualizer);
+                animate()
+                        .alpha(0.40f)
+                        .setDuration(800);
+            } else {
+                mPaint.setColor(mColor);
+                animate()
+                        .alpha(0.40f)
+                        .setDuration(800);
+            }
+        } else if (getVisibility() == View.VISIBLE && mVisible && mPlaying && !mDozing && !mPowerSaveMode
                 && mVisualizerEnabled && !mOccluded) {
             if (!mDisplaying) {
                 mDisplaying = true;
@@ -464,12 +482,17 @@ public class VisualizerView extends View
                         .withEndAction(null)
                         .setDuration(800);
                 if (mLavaLampEnabled) mLavaLamp.start();
+            } else {
+                mPaint.setColor(mColor);
+                animate()
+                        .alpha(1f)
+                        .setDuration(800);
             }
         } else {
             if (mDisplaying) {
                 mDisplaying = false;
                 mLavaLamp.stop();
-                if (isVisible) {
+                if (mVisible && !mAmbientVisualizerEnabled) {
                     animate()
                             .alpha(0f)
                             .withEndAction(mAsyncUnlinkVisualizer)
@@ -495,6 +518,9 @@ public class VisualizerView extends View
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.LOCKSCREEN_VISUALIZER_ENABLED),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                Settings.Secure.AMBIENT_VISUALIZER_ENABLED),
+                false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.LOCKSCREEN_LAVALAMP_ENABLED),
                     false, this, UserHandle.USER_ALL);
@@ -544,6 +570,11 @@ public class VisualizerView extends View
             } else if (uri.equals(Settings.Secure.getUriFor(
                     Settings.Secure.LOCKSCREEN_SOLID_UNITS_OPACITY))) {
                 setSolidUnitsOpacity();
+            } else if (uri.equals(Settings.Secure.getUriFor(
+                    Settings.Secure.AMBIENT_VISUALIZER_ENABLED))) {
+                setAmbientVisualizerEnabled();
+                checkStateChanged();
+                updateViewVisibility();
             }
         }
 
@@ -552,6 +583,7 @@ public class VisualizerView extends View
                 getContext().getContentResolver(), Settings.System.AMBIENT_VISUALIZER_ENABLED, 0,
                 UserHandle.USER_CURRENT) == 1;
             setVisualizerEnabled();
+            setAmbientVisualizerEnabled();
             setLavaLampEnabled();
             setLavaLampSpeed();
             setAutoColorEnabled();
