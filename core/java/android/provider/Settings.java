@@ -5161,6 +5161,13 @@ public final class Settings {
         public static final String GAMING_MODE_SPEAKER_IN_CALL_TOGGLE = "gaming_mode_speaker_in_call_toggle";
 
         /**
+         * Change fonts for the system lockscreen clock widget
+         *
+         * @hide
+         */
+        public static final String LOCK_CLOCK_FONTS = "lock_clock_fonts";
+
+        /**
          * Whether to automatically enable the gaming mode
          * if the launched app is a game
          *
