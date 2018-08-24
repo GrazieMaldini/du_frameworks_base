@@ -45,4 +45,8 @@
   <java-symbol type="string" name="config_bodyFontFamily" />
   <java-symbol type="string" name="config_bodyFontFamilyMedium" />
 
+  <!-- Max visible notification icons -->
+  <java-symbol type="integer" name="config_maxVisibleNotificationIcons" />
+  <java-symbol type="integer" name="config_maxVisibleNotificationIconsWhenDark" />
+
 </resources>
