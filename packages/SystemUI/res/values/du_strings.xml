@@ -41,6 +41,7 @@
 
     <!-- SystemUI tuner -->
     <string name="systemui_tuner_navbar_title">Layout</string>
+    <string name="tuner_show_info_header_title">Show information header</string>
 
     <!-- Theme tile -->
     <string name="system_theme_style_title">Theme</string>
