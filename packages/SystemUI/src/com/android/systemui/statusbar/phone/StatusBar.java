@@ -208,6 +208,7 @@ import com.android.systemui.statusbar.DragDownHelper;
 import com.android.systemui.statusbar.EmptyShadeView;
 import com.android.systemui.statusbar.ExpandableNotificationRow;
 import com.android.systemui.statusbar.FooterView;
+import com.android.systemui.statusbar.policy.TelephonyIcons;
 import com.android.systemui.statusbar.GestureRecorder;
 import com.android.systemui.statusbar.KeyboardShortcuts;
 import com.android.systemui.statusbar.KeyguardIndicationController;
@@ -355,6 +356,8 @@ public class StatusBar extends SystemUI implements DemoMode,
      * libhwui.
      */
     private static final float SRC_MIN_ALPHA = 0.002f;
+
+    public static boolean USE_OLD_MOBILETYPE = false;
 
     static {
         boolean onlyCoreApps;
@@ -5630,6 +5633,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.HEADS_UP_BLACKLIST_VALUES),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.USE_OLD_MOBILETYPE),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -5648,6 +5654,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.LESS_BORING_HEADS_UP))) {
                 setUseLessBoringHeadsUp();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.USE_OLD_MOBILETYPE))) {
+                mCommandQueue.restartUI();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_MEDIA_METADATA))) {
                 setLockscreenMediaMetadata();
@@ -5696,6 +5705,11 @@ public class StatusBar extends SystemUI implements DemoMode,
             updateKeyguardStatusBarSettings();
             setHeadsUpStoplist();
             setHeadsUpBlacklist();
+            ContentResolver resolver = mContext.getContentResolver();
+            USE_OLD_MOBILETYPE = Settings.System.getIntForUser(mContext.getContentResolver(),
+                    Settings.System.USE_OLD_MOBILETYPE, 0,
+                    UserHandle.USER_CURRENT) != 0;
+            TelephonyIcons.updateIcons(USE_OLD_MOBILETYPE);
         }
     }
 
