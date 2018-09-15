@@ -164,4 +164,10 @@
   <!-- In call notification vibration strength -->
   <java-symbol type="integer" name="config_in_call_notification_vibration_strength" />
 
+  <!-- FireHound Gaming -->
+  <java-symbol type="string" name="gaming_notif_title" />
+  <java-symbol type="string" name="gaming_notif_ticker" />
+  <java-symbol type="string" name="notification_channel_gaming" />
+  <java-symbol type="drawable" name="ic_gaming_notif" />
+
 </resources>
