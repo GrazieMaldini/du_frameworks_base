@@ -30,4 +30,10 @@
     <string name="reboot_message">Перезагрузка системы</string>
     <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
     <string name="system_error_vendorprint">Ваш образ ПО производителя не соответствует системе. Пожалуйста, прошейте <xliff:g id="string">%s</xliff:g> образ ПО производителя для вашего устройства</string>
+
+    <!-- FireHound Gaming -->
+    <string name="notification_channel_gaming">Игровой режим</string>
+    <string name="gaming_notif_title">Игровой режим включен</string>
+    <string name="gaming_notif_ticker">Игровой режим включен</string>
+
 </resources>
