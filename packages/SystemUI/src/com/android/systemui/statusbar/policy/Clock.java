@@ -154,12 +154,14 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
     public static final int FONT_VIBUR = 37;
     public static final int FONT_VOLTAIRE = 38;
     public int DEFAULT_CLOCK_SIZE = 14;
+    public int DEFAULT_CLOCK_COLOR = 0xffffffff;
 
     protected int mClockDateDisplay = CLOCK_DATE_DISPLAY_GONE;
     protected int mClockDateStyle = CLOCK_DATE_STYLE_REGULAR;
     protected int mClockStyle = STYLE_CLOCK_LEFT;
     protected int mClockDatePosition;
     protected boolean mShowClock;
+    private int mClockColor = 0xffffffff;
     private int mClockSize = 14;
     private int mAmPmStyle;
     private final boolean mShowDark;
@@ -229,12 +231,16 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_CLOCK_FONT_STYLE),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_CLOCK_COLOR),
+                    false, this, UserHandle.USER_ALL);
             updateSettings();
         }
 
         @Override
         public void onChange(boolean selfChange) {
             updateSettings();
+            updateClockColor();
             updateClockSize();
             updateClockFontStyle();
         }
@@ -339,6 +345,7 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
         mSettingsObserver.observe();
         updateSettings();
         updateShowSeconds();
+	updateClockColor();
         updateClockSize();
         updateClockFontStyle();
     }
@@ -444,8 +451,10 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
     @Override
     public void onDarkChanged(Rect area, float darkIntensity, int tint) {
         mNonAdaptedColor = DarkIconDispatcher.getTint(area, this, tint);
-        if (!mUseWallpaperTextColor) {
+        if (mClockColor == 0xFFFFFFFF) {
             setTextColor(mNonAdaptedColor);
+        } else {
+            setTextColor(mClockColor);
         }
     }
 
@@ -466,18 +475,9 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
      * to dark-mode-based/tinted colors.
      *
      * @param shouldUseWallpaperTextColor whether we should use wallpaperTextColor for text color
-     */
+     **/
     public void useWallpaperTextColor(boolean shouldUseWallpaperTextColor) {
-        if (shouldUseWallpaperTextColor == mUseWallpaperTextColor) {
-            return;
-        }
-        mUseWallpaperTextColor = shouldUseWallpaperTextColor;
-
-        if (mUseWallpaperTextColor) {
-            setTextColor(Utils.getColorAttr(mContext, R.attr.wallpaperTextColor));
-        } else {
-            setTextColor(mNonAdaptedColor);
-        }
+            setTextColor(mClockColor);
     }
 
     private void updateShowSeconds() {
@@ -677,6 +677,7 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
             updateClockVisibility();
             updateClock();
             updateShowSeconds();
+            updateClockColor();
             updateClockSize();
             updateClockFontStyle();
         }
@@ -745,6 +746,18 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
 		UserHandle.USER_CURRENT);
 		setTextSize(mClockSize);
 		updateClock();
+    }
+
+    private void updateClockColor() {
+        mClockColor = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_CLOCK_COLOR, DEFAULT_CLOCK_COLOR,
+                UserHandle.USER_CURRENT);
+                if (mClockColor == 0xFFFFFFFF) {
+                    setTextColor(mNonAdaptedColor);
+                } else {
+                    setTextColor(mClockColor);
+                }
+   	        updateClock();
     }
 
     private void updateClockFontStyle() {
