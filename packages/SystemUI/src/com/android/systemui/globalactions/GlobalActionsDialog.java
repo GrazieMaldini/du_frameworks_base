@@ -547,11 +547,11 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
 
         @Override
         public boolean onLongPress() {
-            UserManager um = (UserManager) mContext.getSystemService(Context.USER_SERVICE);
+            /*UserManager um = (UserManager) mContext.getSystemService(Context.USER_SERVICE);
             if (!um.hasUserRestriction(UserManager.DISALLOW_SAFE_BOOT)) {
                 mWindowManagerFuncs.reboot(true);
                 return true;
-            }
+            }*/
             return false;
         }
 
