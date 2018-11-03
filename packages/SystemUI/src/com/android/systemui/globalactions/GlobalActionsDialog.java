@@ -447,9 +447,9 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
             }
             if (GLOBAL_ACTION_KEY_POWER.equals(actionKey)) {
                 mItems.add(new PowerAction());
-            } else if (GLOBAL_ACTION_KEY_AIRPLANE.equals(actionKey)) {
+            /*} else if (GLOBAL_ACTION_KEY_AIRPLANE.equals(actionKey)) {
                 mItems.add(mAirplaneModeOn);
-            /*} else if (GLOBAL_ACTION_KEY_BUGREPORT.equals(actionKey)) {
+            } else if (GLOBAL_ACTION_KEY_BUGREPORT.equals(actionKey)) {
                 if (Settings.Global.getInt(mContext.getContentResolver(),
                         Settings.Global.BUGREPORT_IN_POWER_MENU, 0) != 0 && isCurrentUserOwner()) {
                     mItems.add(new BugReportAction());
@@ -476,9 +476,15 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
             } else if (GLOBAL_ACTION_KEY_ASSIST.equals(actionKey)) {
                 mItems.add(getAssistAction());*/
             } else if (GLOBAL_ACTION_KEY_RESTART.equals(actionKey)) {
-                mItems.add(new RestartAction());
+                if (Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                            Settings.Secure.REBOOT_IN_POWER_MENU, 1, getCurrentUser().id) != 0) {
+                    mItems.add(new RestartAction());
+                }
             } else if (GLOBAL_ACTION_KEY_SCREENSHOT.equals(actionKey)) {
-                mItems.add(new ScreenshotAction());
+                if (Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                            Settings.Secure.SCREENSHOT_IN_POWER_MENU, 1, getCurrentUser().id) != 0) {
+                    mItems.add(new ScreenshotAction());
+                }
             /*} else if (GLOBAL_ACTION_KEY_LOGOUT.equals(actionKey)) {
                 if (mDevicePolicyManager.isLogoutEnabled()
                         && getCurrentUser().id != UserHandle.USER_SYSTEM) {
@@ -490,7 +496,11 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
                     mItems.add(new EmergencyDialerAction());
                 }*/
             } else if (GLOBAL_ACTION_KEY_ADVANCED.equals(actionKey)) {
-                mItems.add(mShowAdvancedToggles);
+                if (Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                            Settings.Secure.ADVANCED_REBOOT_IN_POWER_MENU, 0,
+                            getCurrentUser().id) != 0) {
+                    mItems.add(mShowAdvancedToggles);
+                }
             } else {
                 Log.e(TAG, "Invalid global action key " + actionKey);
             }
