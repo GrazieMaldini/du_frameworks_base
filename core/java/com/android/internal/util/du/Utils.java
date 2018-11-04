@@ -17,6 +17,8 @@
 package com.android.internal.util.du;
 
 import android.Manifest;
+import android.app.ActivityManagerNative;
+import android.app.IActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -138,6 +140,7 @@ public class Utils {
         }
     }
 
+    // Method to toggle flashlight
     public static boolean deviceHasFlashlight(Context ctx) {
         return ctx.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
     }
@@ -168,6 +171,27 @@ public class Utils {
                     // do nothing.
                 }
             }
+        }
+    }
+
+    // Method to check if task is in lock task mode
+    public static boolean isInLockTaskMode() {
+        try {
+            return ActivityManagerNative.getDefault().isInLockTaskMode();
+        } catch (RemoteException e) {
+            return false;
+        }
+    }
+
+    // Method to trigger a hot reboot
+    public static void doHotReboot() {
+        try {
+            final IActivityManager am =
+                  ActivityManagerNative.asInterface(ServiceManager.checkService("activity"));
+            if (am != null) {
+                am.restart();
+            }
+        } catch (RemoteException e) {
         }
     }
 }
