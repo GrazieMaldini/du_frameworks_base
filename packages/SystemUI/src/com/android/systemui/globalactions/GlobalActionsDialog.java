@@ -22,9 +22,7 @@ import static com.android.internal.widget.LockPatternUtils.StrongAuthTracker.STR
 import static com.android.internal.widget.LockPatternUtils.StrongAuthTracker.STRONG_AUTH_REQUIRED_AFTER_USER_LOCKDOWN;
 
 import android.app.ActivityManager;
-import android.app.ActivityManagerNative;
 import android.app.Dialog;
-import android.app.IActivityManager;
 import android.app.KeyguardManager;
 import android.app.PendingIntent;
 import android.app.StatusBarManager;
@@ -102,6 +100,7 @@ import com.android.systemui.statusbar.phone.ScrimController;
 import com.android.systemui.statusbar.phone.UnlockMethodCache;
 import com.android.systemui.statusbar.policy.ConfigurationController;
 import com.android.systemui.util.EmergencyDialerConstants;
+import com.android.internal.util.du.Utils;
 import com.android.systemui.util.leak.RotationUtils;
 import com.android.systemui.volume.SystemUIInterpolators.LogAccelerateInterpolator;
 
@@ -466,7 +465,7 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
             } else if (GLOBAL_ACTION_KEY_LOCKDOWN.equals(actionKey)) {
                 if (Settings.Secure.getIntForUser(mContext.getContentResolver(),
                             Settings.Secure.LOCKDOWN_IN_POWER_MENU, 0, getCurrentUser().id) != 0
-                        && shouldDisplayLockdown() && !isInLockTaskMode()) {
+                        && shouldDisplayLockdown() && !Utils.isInLockTaskMode()) {
                     mItems.add(getLockdownAction());
                     mHasLockdownButton = true;
                 }
@@ -482,7 +481,7 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
             } else if (GLOBAL_ACTION_KEY_SCREENSHOT.equals(actionKey)) {
                 if (Settings.Secure.getIntForUser(mContext.getContentResolver(),
                             Settings.Secure.SCREENSHOT_IN_POWER_MENU, 1, getCurrentUser().id) != 0
-                        && !isInLockTaskMode()) {
+                        && !Utils.isInLockTaskMode()) {
                     mItems.add(new ScreenshotAction());
                 }
             /*} else if (GLOBAL_ACTION_KEY_LOGOUT.equals(actionKey)) {
@@ -498,7 +497,7 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
             } else if (GLOBAL_ACTION_KEY_ADVANCED.equals(actionKey)) {
                 if (Settings.Secure.getIntForUser(mContext.getContentResolver(),
                             Settings.Secure.ADVANCED_REBOOT_IN_POWER_MENU, 0,
-                            getCurrentUser().id) != 0 && !isInLockTaskMode()) {
+                            getCurrentUser().id) != 0 && !Utils.isInLockTaskMode()) {
                     mItems.add(mShowAdvancedToggles);
                 }
             } else {
@@ -1493,7 +1492,7 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
         switch (type) {
             case RESTART_HOT_BUTTON:
                 h.sendEmptyMessage(MESSAGE_DISMISS);
-                doHotReboot();
+                Utils.doHotReboot();
                 break;
             case RESTART_RECOVERY_BUTTON:
                 h.sendEmptyMessage(MESSAGE_DISMISS);
@@ -1509,7 +1508,7 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
                 won't show the LegacyGlobalActions after systemui restart
                 */
                 funcs.onGlobalActionsHidden();
-                restartSystemUI(ctx);
+                Process.killProcess(Process.myPid());
                 break;
             default:
                 break;
@@ -2067,29 +2066,5 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
      */
     private static boolean shouldUseSeparatedView() {
         return true;
-    }
-
-    public static void restartSystemUI(Context ctx) {
-        Process.killProcess(Process.myPid());
-    }
-
-    private static void doHotReboot() {
-        try {
-            final IActivityManager am =
-                  ActivityManagerNative.asInterface(ServiceManager.checkService("activity"));
-            if (am != null) {
-                am.restart();
-            }
-        } catch (RemoteException e) {
-            Log.e(TAG, "failure trying to perform hot reboot", e);
-        }
-    }
-
-    private boolean isInLockTaskMode() {
-        try {
-            return ActivityManagerNative.getDefault().isInLockTaskMode();
-        } catch (RemoteException e) {
-            return false;
-        }
     }
 }
