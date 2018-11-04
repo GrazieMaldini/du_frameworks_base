@@ -307,4 +307,9 @@ public class QuickQSPanel extends QSPanel {
             return getPaddingStart() + column *  (mCellWidth + mCellMarginHorizontal);
         }
     }
+
+        @Override
+        public boolean isShowTitles() {
+            return false;
+        }
 }
