@@ -4659,6 +4659,11 @@ public final class Settings {
         /**
          * @hide
          */
+        public static final String QS_HEADER_STYLE = "qs_header_style";
+
+        /**
+         * @hide
+         */
         public static final String FULL_GESTURE_NAVBAR = "full_gesture_navbar";
 
         /**
@@ -5644,6 +5649,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(SHOW_LOCKSCREEN_INDICATOR_DISPLAY);
             PRIVATE_SETTINGS.add(FINGERPRINT_SUCCESS_VIB);
             PRIVATE_SETTINGS.add(TOAST_ICON);
+            PRIVATE_SETTINGS.add(QS_HEADER_STYLE);
         }
 
         /**
