@@ -292,4 +292,6 @@
   <!-- FoD -->
   <java-symbol type="bool" name="config_needCustomFODView" />
   <java-symbol type="bool" name="config_usesOnePlusFOD" />
+  <!-- Old QTI Blobs -->
+  <java-symbol type="bool" name="config_oldQtiTelephony" />
 </resources>
