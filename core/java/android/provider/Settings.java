@@ -4883,6 +4883,13 @@ public final class Settings {
         public static final String SYSUI_ROUNDED_FWVALS = "sysui_rounded_fwvals";
 
         /**
+         * Whether to display set of animations when prompting the power menu
+         *
+         * @hide
+         */
+        public static final String POWER_MENU_ANIMATIONS = "power_menu_animations";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
