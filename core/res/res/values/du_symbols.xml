@@ -35,6 +35,11 @@
   <java-symbol type="style" name="GlobalActionsAnimation" />
   <java-symbol type="style" name="GlobalActionsAnimationTop" />
   <java-symbol type="style" name="GlobalActionsAnimationEnter" />
+  <java-symbol type="style" name="GlobalActionsAnimationFly" />
+  <java-symbol type="style" name="GlobalActionsAnimationTn" />
+  <java-symbol type="style" name="GlobalActionsAnimationTranslucent" />
+  <java-symbol type="style" name="GlobalActionsAnimationXylon" />
+  <java-symbol type="style" name="GlobalActionsAnimationCard" />
 
   <!-- Screen off delay -->
   <java-symbol type="integer" name="config_screen_off_delay" />
