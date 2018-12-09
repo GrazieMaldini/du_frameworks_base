@@ -4909,6 +4909,16 @@ public final class Settings {
         public static final String NETWORK_TRAFFIC_TYPE = "network_traffic_type";
 
         /**
+         * Wheter to show network traffic indicator in statusbar
+         * @hide
+         */
+        public static final String NETWORK_TRAFFIC_EXPANDED_STATUS_BAR_STATE =
+                "network_traffic_expanded_status_bar_state";
+
+        /** @hide */
+        private static final Validator NETWORK_TRAFFIC_EXPANDED_STATUS_BAR_STATE_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
          * Whether to show arrows in the navigation bar while typing
          * @hide
          */
@@ -5067,7 +5077,8 @@ public final class Settings {
             STATUS_BAR_SHOW_TICKER,
             STATUS_BAR_TICKER_ANIMATION_MODE,
             STATUS_BAR_TICKER_TICK_DURATION,
-            STATUS_BAR_LOGO
+            STATUS_BAR_LOGO,
+            NETWORK_TRAFFIC_EXPANDED_STATUS_BAR_STATE
         };
 
         /**
@@ -5219,6 +5230,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_STATE);
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_TYPE);
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD);
+            PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_EXPANDED_STATUS_BAR_STATE);
         }
 
         /**
@@ -5333,6 +5345,7 @@ public final class Settings {
             VALIDATORS.put(STATUS_BAR_SHOW_TICKER, STATUS_BAR_SHOW_TICKER_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_TICKER_ANIMATION_MODE, STATUS_BAR_TICKER_ANIMATION_MODE_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_TICKER_TICK_DURATION, STATUS_BAR_TICKER_TICK_DURATION_VALIDATOR);
+            VALIDATORS.put(NETWORK_TRAFFIC_EXPANDED_STATUS_BAR_STATE, NETWORK_TRAFFIC_EXPANDED_STATUS_BAR_STATE_VALIDATOR);
         }
 
         /**
