@@ -885,6 +885,11 @@ public final class DefaultPermissionGrantPolicy {
         // Google Dialer
         grantSystemFixedPermissionsToSystemPackage(pm,"com.google.android.dialer", userId,
                 PHONE_PERMISSIONS, CONTACTS_PERMISSIONS, SMS_PERMISSIONS);
+
+        // Media Scanner
+        grantSystemFixedPermissionsToSystemPackage(pm,
+                getDefaultProviderAuthorityPackage("com.android.providers.media.MediaProvider", userId),
+                userId, STORAGE_PERMISSIONS);
     }
 
     private String getDefaultSystemHandlerActivityPackageForCategory(PackageManagerWrapper pm,
