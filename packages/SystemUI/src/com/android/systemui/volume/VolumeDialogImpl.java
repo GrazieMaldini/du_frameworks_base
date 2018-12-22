@@ -216,7 +216,7 @@ public class VolumeDialogImpl implements VolumeDialog {
 
         mDialog.setCanceledOnTouchOutside(true);
         mDialog.setOnShowListener(dialog -> {
-            if (!isLandscape()) mDialogView.setTranslationX((mDialogView.getWidth() / 2)*(isAudioPanelOnLeftSide() ? 1 : -1));
+            if (!isLandscape()) mDialogView.setTranslationX((mDialogView.getWidth() / 2)*(!isAudioPanelOnLeftSide() ? 1 : -1));
             mDialogView.setAlpha(0);
             mDialogView.animate()
                     .alpha(1)
@@ -670,7 +670,7 @@ public class VolumeDialogImpl implements VolumeDialog {
                     mExpanded = false;
                     mExpandRows.setExpanded(mExpanded);
                 }, 50));
-        if (!isLandscape()) animator.translationX((mDialogView.getWidth() / 2)*(isAudioPanelOnLeftSide() ? 1 : -1));
+        if (!isLandscape()) animator.translationX((mDialogView.getWidth() / 2)*(!isAudioPanelOnLeftSide() ? 1 : -1));
         animator.start();
 
         Events.writeEvent(mContext, Events.EVENT_DISMISS_DIALOG, reason);
