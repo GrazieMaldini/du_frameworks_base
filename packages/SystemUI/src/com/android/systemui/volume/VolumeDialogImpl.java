@@ -263,16 +263,15 @@ public class VolumeDialogImpl implements VolumeDialog {
         lp.setTitle(VolumeDialogImpl.class.getSimpleName());
         if(!mLeftVolumeRocker){
             lp.gravity = Gravity.RIGHT | Gravity.CENTER_VERTICAL;
-            mDialog.setContentView(R.layout.volume_dialog);
         } else {
             lp.gravity = Gravity.LEFT | Gravity.CENTER_VERTICAL;
-            mDialog.setContentView(R.layout.volume_dialog_left);
         }
         lp.windowAnimations = -1;
         mWindow.setAttributes(lp);
         mWindow.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         mDialog.setCanceledOnTouchOutside(true);
+        mDialog.setContentView(R.layout.volume_dialog);
         mDialog.setOnShowListener(dialog -> {
             if (!isLandscape()) mDialogView.setTranslationX((mDialogView.getWidth() / 2)*(!mLeftVolumeRocker ? 1 : -1));
             mDialogView.setAlpha(0);
@@ -307,7 +306,7 @@ public class VolumeDialogImpl implements VolumeDialog {
         mRinger = mDialog.findViewById(R.id.ringer);
         mExpandRowsView = mDialog.findViewById(R.id.expandable_indicator_container);
         mExpandRows = mDialog.findViewById(R.id.expandable_indicator);
-        if(!isAudioPanelOnLeftSide()) {
+        if(!mLeftVolumeRocker) {
             mRinger.setForegroundGravity(Gravity.RIGHT);
             mExpandRows.setForegroundGravity(Gravity.RIGHT);
             mExpandRows.setRotation(90);
