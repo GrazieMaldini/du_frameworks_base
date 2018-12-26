@@ -4925,6 +4925,12 @@ public final class Settings {
         private static final Validator NETWORK_TRAFFIC_EXPANDED_STATUS_BAR_STATE_VALIDATOR = BOOLEAN_VALIDATOR;
 
         /**
+         * Network traffic location
+         * @hide
+         */
+        public static final String NETWORK_TRAFFIC_LOCATION = "network_traffic_location";
+
+        /**
          * Whether to show arrows in the navigation bar while typing
          * @hide
          */
