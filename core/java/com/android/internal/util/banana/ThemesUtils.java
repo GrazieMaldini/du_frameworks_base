@@ -122,4 +122,9 @@ public class ThemesUtils {
             "com.android.theme.navbar.sammy",
             "com.android.theme.navbar.tecno",
     };
+
+    public static final String[] SWITCH_STYLE = {
+        "com.android.system.switch.md2", // 1
+        "com.android.system.switch.oneplus", // 2
+    };
 }
