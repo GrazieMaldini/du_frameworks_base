@@ -4429,6 +4429,16 @@ public class StatusBar extends SystemUI implements DemoMode,
         ThemeAccentUtils.unlockQsTileStyles(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
     }
 
+    public void updateSwitchStyle() {
+        int switchStyle = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.SWITCH_STYLE, 2, mLockscreenUserManager.getCurrentUserId());
+        ThemeAccentUtils.updateSwitchStyle(mOverlayManager, mLockscreenUserManager.getCurrentUserId(), switchStyle);
+    }
+
+    public void stockSwitchStyle() {
+        ThemeAccentUtils.stockSwitchStyle(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
+    }
+
     private void updateDozingState() {
         Trace.traceCounter(Trace.TRACE_TAG_APP, "dozing", mDozing ? 1 : 0);
         Trace.beginSection("StatusBar#updateDozingState");
@@ -5725,6 +5735,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.LOCKSCREEN_ALBUM_ART_FILTER),
                   false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.SWITCH_STYLE),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -5784,6 +5797,10 @@ public class StatusBar extends SystemUI implements DemoMode,
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_ALBUM_ART_FILTER))) {
                 updateLockscreenFilter();
+            }  else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.SWITCH_STYLE))) {
+                stockSwitchStyle();
+                updateSwitchStyle();
             }
         }
 
