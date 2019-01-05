@@ -19,4 +19,7 @@
     <!-- Network traffic monitor -->
     <dimen name="net_traffic_multi_text_size">7dp</dimen>
     <dimen name="net_traffic_txt_img_padding">2dp</dimen>
+
+    <!-- the padding on the start and the end of the statusbar -->
+    <dimen name="status_bar_extra_padding">0dp</dimen>
 </resources>
