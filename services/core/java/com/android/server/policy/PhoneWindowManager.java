@@ -425,6 +425,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     boolean mSafeMode;
     private WindowState mKeyguardCandidate = null;
 
+    // Navigation height and width
+    int mNavigationBarHeight;
+    int mNavigationBarHeightLandscape;
+    int mNavigationBarWidth;
+
     private LongSparseArray<IShortcutService> mShortcutKeyServices = new LongSparseArray<>();
 
     // Whether to allow dock apps with METADATA_DOCK_HOME to temporarily take over the Home key.
@@ -833,6 +838,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     UserHandle.USER_ALL);
 	    resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.THREE_FINGER_GESTURE), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.NAVIGATION_BAR_HEIGHT), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.NAVIGATION_BAR_HEIGHT_LANDSCAPE), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.NAVIGATION_BAR_WIDTH), false, this,
                     UserHandle.USER_ALL);
             updateSettings();
         }
@@ -2135,6 +2149,68 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             boolean threeFingerGesture = Settings.System.getIntForUser(resolver,
                     Settings.System.THREE_FINGER_GESTURE, 0, UserHandle.USER_CURRENT) == 1;
             enableSwipeThreeFingerGesture(threeFingerGesture);
+
+            mNavigationBarHeight =
+                    Settings.System.getIntForUser(mContext.getContentResolver(),
+                            Settings.System.NAVIGATION_BAR_HEIGHT, -2,
+                            UserHandle.USER_CURRENT);
+            if (mNavigationBarHeight == -2) {
+                mNavigationBarHeight = mContext.getResources().getDimensionPixelSize(
+                        com.android.internal.R.dimen.navigation_bar_height);
+            } else {
+                mNavigationBarHeight =
+                        Utils.dpToPx(mContext, mNavigationBarHeight);
+            }
+
+            mNavigationBarHeightLandscape =
+                    Settings.System.getIntForUser(mContext.getContentResolver(),
+                            Settings.System.NAVIGATION_BAR_HEIGHT_LANDSCAPE, -2,
+                            UserHandle.USER_CURRENT);
+            if (mNavigationBarHeightLandscape == -2) {
+                mNavigationBarHeightLandscape = mContext.getResources().getDimensionPixelSize(
+                        com.android.internal.R.dimen.navigation_bar_height_landscape);
+            } else {
+                mNavigationBarHeightLandscape =
+                        Utils.dpToPx(mContext, mNavigationBarHeightLandscape);
+            }
+
+            mNavigationBarWidth =
+                    Settings.System.getIntForUser(mContext.getContentResolver(),
+                            Settings.System.NAVIGATION_BAR_WIDTH, -2,
+                            UserHandle.USER_CURRENT);
+            if (mNavigationBarWidth == -2) {
+                mNavigationBarWidth = mContext.getResources().getDimensionPixelSize(
+                        com.android.internal.R.dimen.navigation_bar_width);
+            } else {
+                mNavigationBarWidth =
+                        Utils.dpToPx(mContext, mNavigationBarWidth);
+            }
+
+            if (!hasNavigationBar()) {
+                // Set the navigation bar's dimensions to 0
+                mNavigationBarWidthForRotationDefault[mPortraitRotation]
+                        = mNavigationBarWidthForRotationDefault[mUpsideDownRotation]
+                        = mNavigationBarWidthForRotationDefault[mLandscapeRotation]
+                        = mNavigationBarWidthForRotationDefault[mSeascapeRotation]
+                        = mNavigationBarHeightForRotationDefault[mPortraitRotation]
+                        = mNavigationBarHeightForRotationDefault[mUpsideDownRotation]
+                        = mNavigationBarHeightForRotationDefault[mLandscapeRotation]
+                        = mNavigationBarHeightForRotationDefault[mSeascapeRotation] = 0;
+            } else {
+                // Height of the navigation bar when presented horizontally at bottom
+                mNavigationBarHeightForRotationDefault[mPortraitRotation] =
+                mNavigationBarHeightForRotationDefault[mUpsideDownRotation] = mNavigationBarHeight;
+
+                mNavigationBarHeightForRotationDefault[mLandscapeRotation] =
+                mNavigationBarHeightForRotationDefault[mSeascapeRotation] = mNavigationBarHeightLandscape;
+
+                // Width of the navigation bar when presented vertically along one side
+                mNavigationBarWidthForRotationDefault[mPortraitRotation] =
+                mNavigationBarWidthForRotationDefault[mUpsideDownRotation] =
+                mNavigationBarWidthForRotationDefault[mLandscapeRotation] =
+                mNavigationBarWidthForRotationDefault[mSeascapeRotation] = mNavigationBarWidth;
+        	updateSettings();
+            }
 
             // Configure wake gesture.
             boolean wakeGestureEnabledSetting = Settings.Secure.getIntForUser(resolver,
