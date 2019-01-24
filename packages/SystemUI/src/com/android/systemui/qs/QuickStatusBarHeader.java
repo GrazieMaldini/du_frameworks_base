@@ -28,6 +28,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.ContentResolver;
+import android.database.ContentObserver;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.media.AudioManager;
@@ -100,6 +102,7 @@ public class QuickStatusBarHeader extends RelativeLayout implements
     private boolean mListening;
     private boolean mQsDisabled;
     private boolean mLandscape;
+    private boolean mHeaderImageEnabled;
 
     protected QuickQSPanel mHeaderQsPanel;
     protected QSTileHost mHost;
@@ -138,6 +141,26 @@ public class QuickStatusBarHeader extends RelativeLayout implements
     private int mUser;
 
     private NetworkTraffic mTraffic;
+
+    private class HeaderSettingsObserver extends ContentObserver {
+        HeaderSettingsObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            ContentResolver resolver = getContext().getContentResolver();
+            resolver.registerContentObserver(Settings.System
+                    .getUriFor(Settings.System.STATUS_BAR_CUSTOM_HEADER), false,
+                    this, UserHandle.USER_ALL);
+            }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            updateSettings();
+        }
+    }
+
+    private HeaderSettingsObserver mHeaderSettingsObserver = new HeaderSettingsObserver(mHandler);
 
     private final BroadcastReceiver mRingerReceiver = new BroadcastReceiver() {
         @Override
@@ -197,6 +220,7 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         mBatteryRemainingIcon = findViewById(R.id.batteryRemainingIcon);
 
         mUser = ActivityManager.getCurrentUser();
+        updateSettings();
 
         int estimatepos = Settings.System.getIntForUser(getContext().getContentResolver(),
                 BATTERY_ESTIMATE_POSITION, 0, mUser);
@@ -297,16 +321,10 @@ public class QuickStatusBarHeader extends RelativeLayout implements
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        mLandscape = newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE;
 	mTraffic.useWallpaperTextColor(mLandscape);
         updateResources();
-
-        // Update color schemes in landscape to use wallpaperTextColor
-        boolean shouldUseWallpaperTextColor =
-                newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE;
-        if (!mBatteryInQS) {
-            mBatteryMeterView.useWallpaperTextColor(shouldUseWallpaperTextColor);
-        }
-        mClockView.useWallpaperTextColor(shouldUseWallpaperTextColor);
+        updateStatusbarProperties();
     }
 
     @Override
@@ -337,18 +355,25 @@ public class QuickStatusBarHeader extends RelativeLayout implements
                 resources.getDimensionPixelSize(R.dimen.qs_header_tooltip_height);
         mHeaderTextContainerView.setLayoutParams(mHeaderTextContainerView.getLayoutParams());
 
-        mSystemIconsView.getLayoutParams().height = resources.getDimensionPixelSize(
-                com.android.internal.R.dimen.quick_qs_offset_height);
+        int topMargin = resources.getDimensionPixelSize(
+                com.android.internal.R.dimen.quick_qs_offset_height) + (mHeaderImageEnabled ?
+                resources.getDimensionPixelSize(R.dimen.qs_header_image_offset) : 0);
+
+        mSystemIconsView.getLayoutParams().height = topMargin;
         mSystemIconsView.setLayoutParams(mSystemIconsView.getLayoutParams());
 
         FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) getLayoutParams();
         if (mQsDisabled) {
-            lp.height = resources.getDimensionPixelSize(
-                    com.android.internal.R.dimen.quick_qs_offset_height);
+             lp.height = topMargin;
         } else {
-            lp.height = Math.max(getMinimumHeight(),
-                    resources.getDimensionPixelSize(
-                            com.android.internal.R.dimen.quick_qs_total_height));
+            int qsHeight = resources.getDimensionPixelSize(
+                    com.android.internal.R.dimen.quick_qs_total_height);
+
+            if (mHeaderImageEnabled) {
+                qsHeight += resources.getDimensionPixelSize(R.dimen.qs_header_image_offset);
+            }
+
+            lp.height = Math.max(getMinimumHeight(), qsHeight);
         }
 
         setLayoutParams(lp);
@@ -693,5 +718,19 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         if (QS_SHOW_INFO_HEADER.equals(key)) {
             mHeaderTextContainerView.setVisibility(newValue == null || Integer.parseInt(newValue) != 0 ? VISIBLE : GONE);
         }
+    }
+
+    private void updateSettings() {
+        mHeaderImageEnabled = Settings.System.getIntForUser(getContext().getContentResolver(),
+                Settings.System.STATUS_BAR_CUSTOM_HEADER, 0,
+                UserHandle.USER_CURRENT) == 1;
+        updateResources();
+        updateStatusbarProperties();
+    }
+
+    // Update color schemes in landscape to use wallpaperTextColor
+    private void updateStatusbarProperties() {
+        boolean shouldUseWallpaperTextColor = mLandscape && !mHeaderImageEnabled;
+        mClockView.useWallpaperTextColor(shouldUseWallpaperTextColor);
     }
 }

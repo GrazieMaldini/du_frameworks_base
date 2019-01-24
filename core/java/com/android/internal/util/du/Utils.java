@@ -281,6 +281,20 @@ public class Utils {
                 ForC ? c * 9/5 + 32:c);
     }
 
+    // Custom headers
+    public static boolean isPackageAvailable(String packageName, Context context) {
+        Context mContext = context;
+        final PackageManager pm = mContext.getPackageManager();
+        try {
+            pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+            int enabled = pm.getApplicationEnabledSetting(packageName);
+            return enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED &&
+                enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
     // Method to detect countries that use Fahrenheit
     public static boolean mccCheck(Context context) {
         // MCC's belonging to countries that use Fahrenheit
