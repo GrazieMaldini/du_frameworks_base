@@ -122,6 +122,13 @@ public class ThemeAccentUtils {
      	"org.evolutionx.overlay.accent.twitter", // 51
       	"org.evolutionx.overlay.accent.xbox", // 52
       	"org.evolutionx.overlay.accent.xiaomi", // 53
+        "com.accents.nblue", // 54
+        "com.accents.nbrown", // 55
+        "com.accents.ngreen", // 56
+        "com.accents.norange", // 57
+        "com.accents.npink", // 58
+        "com.accents.npurple", // 59
+        "com.accents.nred", // 60
     };
 
     private static final String[] QS_TILE_THEMES = {
