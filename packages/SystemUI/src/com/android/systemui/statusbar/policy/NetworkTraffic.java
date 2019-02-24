@@ -41,7 +41,6 @@ import com.android.systemui.R;
 */
 public class NetworkTraffic extends TextView {
 
-    private static final int INTERVAL = 1500; //ms
     private static final int KB = 1024;
     private static final int MB = KB * KB;
     private static final int GB = MB * KB;
@@ -54,6 +53,7 @@ public class NetworkTraffic extends TextView {
     private long lastUpdateTime;
     private int mAutoHideThreshold;
     protected int mTintColor;
+    private int mRefreshInterval = 1;
 
     private boolean mScreenOn = true;
     protected boolean mVisible = true;
@@ -64,7 +64,7 @@ public class NetworkTraffic extends TextView {
         public void handleMessage(Message msg) {
             long timeDelta = SystemClock.elapsedRealtime() - lastUpdateTime;
 
-            if (timeDelta < INTERVAL * .95) {
+            if (timeDelta < mRefreshInterval * 1000 * .95) {
                 if (msg.what != 1) {
                     // we just updated the view, nothing further to do
                     return;
@@ -109,7 +109,7 @@ public class NetworkTraffic extends TextView {
             totalRxBytes = newTotalRxBytes;
             totalTxBytes = newTotalTxBytes;
             clearHandlerCallbacks();
-            mTrafficHandler.postDelayed(mRunnable, INTERVAL);
+            mTrafficHandler.postDelayed(mRunnable, mRefreshInterval * 1000);
         }
 
         private CharSequence formatOutput(long timeDelta, long data, String symbol) {
@@ -270,6 +270,9 @@ public class NetworkTraffic extends TextView {
             resolver.registerContentObserver(Settings.System
                     .getUriFor(Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD), false,
                     this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.NETWORK_TRAFFIC_REFRESH_INTERVAL),
+                    false, this, UserHandle.USER_ALL);
         }
 
         /*
@@ -326,6 +329,9 @@ public class NetworkTraffic extends TextView {
                 UserHandle.USER_CURRENT) == 1;
         mAutoHideThreshold = Settings.System.getIntForUser(resolver,
                 Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD, 1,
+                UserHandle.USER_CURRENT);
+        mRefreshInterval = Settings.System.getIntForUser(resolver,
+                Settings.System.NETWORK_TRAFFIC_REFRESH_INTERVAL, 1,
                 UserHandle.USER_CURRENT);
         setGravity(Gravity.CENTER);
         setMaxLines(2);
