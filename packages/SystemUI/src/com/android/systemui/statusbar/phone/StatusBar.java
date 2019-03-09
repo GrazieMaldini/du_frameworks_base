@@ -4352,7 +4352,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                     == Configuration.UI_MODE_NIGHT_YES;
         final boolean useBlackAFTheme = nightModeWantsDarkTheme && (Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.USE_BLACKAF_THEME, 0, UserHandle.USER_CURRENT) == 1);
-        final boolean useDarkTheme = nightModeWantsDarkTheme;
+        final boolean useDarkTheme = nightModeWantsDarkTheme && !useBlackAFTheme;
         if (themeNeedsRefresh || isUsingDarkTheme() != useDarkTheme) {
             mUiOffloadThread.submit(() -> {
                 unfuckBlackWhiteAccent();
@@ -5800,7 +5800,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                 setForceAmbient();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.USE_BLACKAF_THEME))) {
-                updateTheme();
+                updateTheme(false);
             } else if (uri.equals(Settings.System.getUriFor(Settings.System.LOCKSCREEN_CLOCK)) ||
                    uri.equals(Settings.System.getUriFor(Settings.System.LOCKSCREEN_INFO)) ||
                    uri.equals(Settings.System.getUriFor(Settings.System.LOCKSCREEN_CLOCK_SELECTION))) {
@@ -5834,7 +5834,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             setForceAmbient();
             updateTickerAnimation();
             updateTickerTickDuration();
-            updateTheme();
+            updateTheme(false);
             updateKeyguardStatusSettings();
             updateKeyguardStatusBarSettings();
             setHeadsUpStoplist();
