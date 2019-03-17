@@ -236,6 +236,9 @@
     <!-- Font tile -->
     <uses-permission android:name="android.permission.ACCESS_FONT_MANAGER" />
 
+    <!-- Internet -->
+    <uses-permission android:name="android.permission.INTERNET"/> 
+
     <application
         android:name=".SystemUIApplication"
         android:persistent="true"
