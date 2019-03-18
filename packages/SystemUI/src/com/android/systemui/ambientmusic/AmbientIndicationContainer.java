@@ -124,7 +124,7 @@ public class AmbientIndicationContainer extends AutoReinflateContainer {
                 @Override
                 public void run() {
                     mText.setEllipsize(TruncateAt.MARQUEE);
-                    mText.setMarqueeRepeatLimit(2);
+                    mText.setMarqueeRepeatLimit(5);
                     boolean rtl = TextUtils.getLayoutDirectionFromLocale(
                             Locale.getDefault()) == View.LAYOUT_DIRECTION_RTL;
                     mText.setCompoundDrawables(rtl ? null : mAnimatedIcon, null, rtl ?
