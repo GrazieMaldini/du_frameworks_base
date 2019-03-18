@@ -3584,4 +3584,7 @@
     <!-- Stop listening to the fingerprint reader when NON-WAKEUP proximity sensor is covered & screen is off.
          config_proximityCheckOnWake must be true. -->
     <bool name="config_proximityCheckOnFingerprintWake">false</bool>
+
+    <!-- Set interval to trigger idleMaint -->
+    <integer name="config_idleMaintSecs">0</integer>
 </resources>
