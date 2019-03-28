@@ -214,4 +214,7 @@
   <java-symbol type="integer" name="config_screenBrightnessPulse" />
 
   <java-symbol type="integer" name="config_flashlightProximityTimeout" />
+
+  <!-- Smart charging battery percentage -->
+  <java-symbol type="integer" name="config_smartChargingBatteryLevel" />
 </resources>
