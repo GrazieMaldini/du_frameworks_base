@@ -91,4 +91,7 @@
        or FOD Circle hiding after the screen is put to sleep  -->
   <java-symbol type="bool" name="config_hideFodCircleGoingToSleep" />
 
+    <!-- Smart charging battery percentage -->
+    <java-symbol type="integer" name="config_smartChargingBatteryLevel" />
+
 </resources>
