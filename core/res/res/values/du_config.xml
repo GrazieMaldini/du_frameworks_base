@@ -35,4 +35,7 @@
        platform signatures, specifically for use on devices with a vendor partition. -->
   <string-array name="config_vendorPlatformSignatures">
   </string-array>
+
+    <!-- Whether to show a custom view for FOD -->
+    <bool name="config_needCustomFODView">false</bool>
 </resources>
