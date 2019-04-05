@@ -3881,7 +3881,7 @@ public final class Settings {
 
         /** @hide */
         public static final Validator NOTIFICATION_LIGHT_PULSE_VALIDATOR = BOOLEAN_VALIDATOR;
-
+ 
         /**
          * Show pointer location on screen?
          * 0 = no
