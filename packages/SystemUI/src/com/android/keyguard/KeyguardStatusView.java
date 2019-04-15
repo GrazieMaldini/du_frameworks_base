@@ -580,7 +580,7 @@ public class KeyguardStatusView extends GridLayout implements
                        View.GONE) : View.VISIBLE);
                 mClockView.setVisibility(View.GONE);
                 mDuClockView.setVisibility(View.GONE);
-		mKeyguardSlice.setVisibility(View.GONE);
+		mKeyguardSlice.setVisibility(mShowInfo ? View.VISIBLE : View.GONE);
                 mCustomClockView.setVisibility(View.GONE);
         }
     }
