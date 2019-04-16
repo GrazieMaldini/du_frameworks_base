@@ -80,6 +80,9 @@ public class KeyguardStatusView extends GridLayout implements
     private CustomAnalogClock mDuClockView;
     private LinearLayout mTextClock;
     private TextClock mClockView;
+    private TextView mTextClockV0;
+    private TextView mTextClockV1;
+    private TextView mTextClockV2;
     private View mClockSeparator;
     private TextView mOwnerInfo;
     private KeyguardSliceView mKeyguardSlice;
@@ -206,6 +209,9 @@ public class KeyguardStatusView extends GridLayout implements
         }
         mCustomClockView = findViewById(R.id.custom_clock_view);
         mTextClock = findViewById(R.id.custom_textclock_view);
+        mTextClockV0 = findViewById(R.id.custom_textclock_view0);
+        mTextClockV1 = findViewById(R.id.custom_textclock_view1);
+        mTextClockV2 = findViewById(R.id.custom_textclock_view2);
         mDuClockView = findViewById(R.id.du_clock_view);
         mOwnerInfo = findViewById(R.id.owner_info);
         mKeyguardSlice = findViewById(R.id.keyguard_status_area);
@@ -281,6 +287,10 @@ public class KeyguardStatusView extends GridLayout implements
                 R.dimen.keyguard_security_view_top_margin);
         mTextClock.setLayoutParams(textlayoutParams);
 
+        /* TODO: Switch case for diff clock variants */
+        mTextClockV0.setTextAppearance(getContext(), R.style.customtextclock_big_thin);
+        mTextClockV1.setTextAppearance(getContext(), R.style.customtextclock_big_thin);
+        mTextClockV2.setTextAppearance(getContext(), R.style.customtextclock_big_thin);
         layoutParams = (RelativeLayout.LayoutParams) mClockSeparator.getLayoutParams();
         layoutParams.topMargin = smallClock ? (int) mWidgetPadding : 0;
         layoutParams.bottomMargin = layoutParams.topMargin;
@@ -576,8 +586,7 @@ public class KeyguardStatusView extends GridLayout implements
                 mTextClock.setVisibility(View.GONE);
                 break;
             case 7: // custom text clock
-                mTextClock.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
-                       View.GONE) : View.VISIBLE);
+                mTextClock.setVisibility(View.VISIBLE);
                 mClockView.setVisibility(View.GONE);
                 mDuClockView.setVisibility(View.GONE);
 		mKeyguardSlice.setVisibility(mShowInfo ? View.VISIBLE : View.GONE);
