@@ -104,6 +104,10 @@ public class ThemeTile extends QSTileImpl<BooleanState> {
                 R.string.quick_settings_theme_tile_color_teal, "com.android.theme.color.teal"));
         sThemeItems.add(new ThemeTileItem(23, R.color.quick_settings_theme_tile_yellow,
                 R.string.quick_settings_theme_tile_color_yellow, "com.android.theme.color.yellow"));
+        sThemeItems.add(new ThemeTileItem(24, R.color.quick_settings_theme_tile_oneplusred,
+                R.string.quick_settings_theme_tile_color_oneplusred, "com.android.theme.color.yellow"));
+        sThemeItems.add(new ThemeTileItem(25, R.color.quick_settings_theme_tile_pixelblue,
+                R.string.quick_settings_theme_tile_color_pixelblue, "com.android.theme.color.yellow"));
     }
 
     static final List<ThemeTileItem> sStyleItems = new ArrayList<ThemeTileItem>();

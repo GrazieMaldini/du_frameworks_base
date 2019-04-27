@@ -47,5 +47,7 @@
     <color name="quick_settings_theme_tile_red">#FF990C04</color>
     <color name="quick_settings_theme_tile_teal">#FF009688</color>
     <color name="quick_settings_theme_tile_yellow">#FFFFEB3B</color>
+    <color name="quick_settings_theme_tile_oneplusred">#FFEB0028</color>
+    <color name="quick_settings_theme_tile_pixelblue">#FF1A73E8</color>
 
 </resources>

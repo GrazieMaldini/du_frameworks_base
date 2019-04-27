@@ -44,6 +44,8 @@ public class ThemesUtils {
             "com.android.theme.color.red", // Red
             "com.android.theme.color.teal", // Teal
             "com.android.theme.color.yellow", // Yellow
+            "com.android.theme.color.oneplusred", // OnePlus Red
+            "com.android.theme.color.pixelblue", // Pixel Blue
     };
 
     public static final String[] ADAPTIVE_ICON_SHAPE = {

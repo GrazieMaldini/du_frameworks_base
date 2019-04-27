@@ -150,6 +150,8 @@
     <string name="quick_settings_theme_tile_color_red">Red</string>
     <string name="quick_settings_theme_tile_color_teal">Teal</string>
     <string name="quick_settings_theme_tile_color_yellow">Yellow</string>
+    <string name="quick_settings_theme_tile_color_oneplusred">OnePlus Red</string>
+    <string name="quick_settings_theme_tile_color_pixelblue">Pixel Blue</string>
     <string name="quick_settings_theme_tile_color_black">Black</string>
     <string name="quick_settings_theme_tile_color_white">White</string>
 
