@@ -2043,6 +2043,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.LOCKSCREEN_CLOCK_SELECTION),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.Secure.LOCKSCREEN_DATE_SELECTION),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -2054,9 +2057,8 @@ public class StatusBar extends SystemUI implements DemoMode,
                 setQsRowsColumns();
             } else if (uri.equals(Settings.System.getUriFor(Settings.System.QS_TILE_TITLE_VISIBILITY))) {
                 updateQsPanelResources();
-            } else if (uri.equals(Settings.System.getUriFor(Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN))) {
-                setStatusBarWindowViewOptions();
-            } else if (uri.equals(Settings.System.getUriFor(Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN))) {
+            } else if (uri.equals(Settings.System.getUriFor(Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN)) ||
+                       uri.equals(Settings.System.getUriFor(Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN))) {
                 setStatusBarWindowViewOptions();
             } else if (uri.equals(Settings.System.getUriFor(Settings.System.PULSE_ON_NEW_TRACKS))) {
                 setPulseOnNewTracks();
@@ -2066,7 +2068,8 @@ public class StatusBar extends SystemUI implements DemoMode,
             } else if (uri.equals(Settings.Secure.getUriFor(
                     Settings.Secure.AMBIENT_VISUALIZER_ENABLED))) {
                 setAmbientVis();
-            } else if (uri.equals(Settings.Secure.getUriFor(Settings.Secure.LOCKSCREEN_CLOCK_SELECTION))) {
+            } else if (uri.equals(Settings.Secure.getUriFor(Settings.Secure.LOCKSCREEN_CLOCK_SELECTION)) ||
+                       uri.equals(Settings.Secure.getUriFor(Settings.Secure.LOCKSCREEN_DATE_SELECTION))) {
                 updateKeyguardStatusSettings();
             }
             update();
