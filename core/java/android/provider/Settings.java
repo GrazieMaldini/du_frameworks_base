@@ -5182,6 +5182,12 @@ public final class Settings {
         public static final String LOCK_OWNER_FONTS = "lock_owner_fonts";
 
         /**
+         * Select which lockscreen date style to display
+         * @hide
+         */
+        public static final String LOCKSCREEN_DATE_SELECTION = "lockscreen_date_selection";
+
+        /**
          * Whether to automatically enable the gaming mode
          * if the launched app is a game
          *
