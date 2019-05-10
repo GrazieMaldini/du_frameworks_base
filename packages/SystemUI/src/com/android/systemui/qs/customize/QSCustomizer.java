@@ -34,6 +34,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toolbar;
 import android.widget.Toolbar.OnMenuItemClickListener;
@@ -85,6 +86,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     private boolean mIsShowingNavBackdrop;
     private GridLayoutManager mGlm;
     private int mDefaultColumns;
+    private View mTopMarginView;
 
     public QSCustomizer(Context context, AttributeSet attrs) {
         super(new ContextThemeWrapper(context, R.style.edit_theme), attrs);
@@ -92,6 +94,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         LayoutInflater.from(getContext()).inflate(R.layout.qs_customize_panel_content, this);
         mClipper = new QSDetailClipper(findViewById(R.id.customize_container));
         mToolbar = findViewById(com.android.internal.R.id.action_bar);
+        mTopMarginView = findViewById(R.id.qs_customizer_top_space);
         TypedValue value = new TypedValue();
         mContext.getTheme().resolveAttribute(android.R.attr.homeAsUpIndicator, value, true);
         mToolbar.setNavigationIcon(
@@ -357,5 +360,18 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         }
         mTileAdapter.setColumns(columns);
         mGlm.setSpanCount(columns);
+    }
+
+    public void updateTopMargin() {
+        // move down if we show a header image
+        boolean headerImageEnabled = Settings.System.getIntForUser(getContext().getContentResolver(),
+                Settings.System.STATUS_BAR_CUSTOM_HEADER, 0,
+                UserHandle.USER_CURRENT) == 1;
+        int topMargin = mContext.getResources().getDimensionPixelSize(
+                com.android.internal.R.dimen.quick_qs_offset_height) + (headerImageEnabled ?
+                mContext.getResources().getDimensionPixelSize(R.dimen.qs_header_image_offset) : 0);
+        ViewGroup.LayoutParams lp = mTopMarginView.getLayoutParams();
+        lp.height = topMargin;
+        mTopMarginView.setLayoutParams(lp);
     }
 }
