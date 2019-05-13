@@ -117,8 +117,8 @@
     <family name="snowstorm-sys">
         <font weight="300" style="normal">Snowstorm-Regular.ttf</font>
     </family>
-    <family name="googlesans-sys">
-        <font weight="300" style="normal">GoogleSans-Medium.ttf</font>
+    <family name="productsans-sys">
+        <font weight="300" style="normal">ProductSans-Light.ttf</font>
     </family>
     <family name="themeable-clock">
         <font weight="300" style="normal">ThemeableClock-vcrosd.ttf</font>
