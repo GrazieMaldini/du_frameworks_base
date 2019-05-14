@@ -43,6 +43,8 @@ import com.android.systemui.SysUiServiceProvider;
 import com.android.systemui.plugins.statusbar.StatusBarStateController;
 import com.android.systemui.statusbar.CommandQueue;
 import com.android.systemui.statusbar.phone.StatusBarIconController.DarkIconManager;
+import com.android.systemui.plugins.DarkIconDispatcher;
+import com.android.systemui.plugins.DarkIconDispatcher.DarkReceiver;
 import com.android.systemui.statusbar.policy.EncryptionHelper;
 import com.android.systemui.statusbar.policy.KeyguardMonitor;
 import com.android.systemui.statusbar.policy.NetworkController;
@@ -441,4 +443,5 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
                 animateHiddenState(mDULogo, View.GONE, animate);
          }
      }
+   }
 }

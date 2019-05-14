@@ -30,6 +30,8 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.metrics.LogMaker;
 import android.os.Bundle;
+import android.os.UserHandle;
+import android.provider.Settings;
 import android.os.Handler;
 import android.os.Message;
 import android.service.quicksettings.Tile;
