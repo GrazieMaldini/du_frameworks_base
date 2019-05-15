@@ -730,7 +730,7 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         KeyguardSliceProvider keyguardSliceProvider = KeyguardSliceProvider.getAttachedInstance();
         if (keyguardSliceProvider != null) {
-            keyguardSliceProvider.setMediaManager(mMediaManager);
+            keyguardSliceProvider.initialize(mMediaManager, mDozeServiceHost);
         } else {
             Log.w("StatusBar", "Cannot init KeyguardSliceProvider dependencies");
         }
@@ -5531,6 +5531,10 @@ public class StatusBar extends SystemUI implements DemoMode,
                         ((AmbientIndicationContainer)mAmbientIndicationContainer).setOnPulseEvent(
                                 reason, pulsing);
                     }
+                    KeyguardSliceProvider keyguardSliceProvider = KeyguardSliceProvider.getAttachedInstance();
+                    if (keyguardSliceProvider != null) {
+                        keyguardSliceProvider.setPulsing(pulsing);
+                    }
                 }
             }, reason);
         }
@@ -5622,6 +5626,11 @@ public class StatusBar extends SystemUI implements DemoMode,
                     callback.wakeUpFromDoubleTapAod();
                 }
             }
+        }
+
+        @Override
+        public void onMediaChanged() {
+            fireNotificationMedia();
         }
 
         @Override
