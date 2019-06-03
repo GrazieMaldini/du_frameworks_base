@@ -44,6 +44,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.internal.annotations.VisibleForTesting;
@@ -86,6 +87,7 @@ public class KeyguardSliceView extends LinearLayout implements View.OnClickListe
     @VisibleForTesting
     TextView mTitle;
     private Row mRow;
+    private RelativeLayout mRowContainer;
     private int mTextColor;
     private float mDarkAmount = 0;
 
@@ -137,6 +139,7 @@ public class KeyguardSliceView extends LinearLayout implements View.OnClickListe
     protected void onFinishInflate() {
         super.onFinishInflate();
         mTitle = findViewById(R.id.title);
+        mRowContainer = findViewById(R.id.row_maincenter);
         mRow = findViewById(R.id.row);
         mTextColor = Utils.getColorAttr(mContext, R.attr.wallpaperTextColor);
         updateSettings();
