@@ -4603,6 +4603,12 @@ public final class Settings {
         public static final String LOCKDATE_FONT_SIZE= "lockdate_font_size";
 
         /**
+         * Select which lockscreen date style to display
+         * @hide
+         */
+        public static final String LOCKSCREEN_DATE_SELECTION = "lockscreen_date_selection";
+
+        /**
          * Change font size for the system lockscreen clock widget
          *
          * @hide
