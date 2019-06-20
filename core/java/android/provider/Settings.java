@@ -5234,6 +5234,12 @@ public final class Settings {
                BOOLEAN_VALIDATOR;
 
         /**
+         * Show lockscreen icon
+         * @hide
+         */   
+        public static final String SHOW_LOCKSCREEN_ICON = "show_lockscreen_icon";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5469,6 +5475,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(USE_OLD_MOBILETYPE);
             PRIVATE_SETTINGS.add(THEMING_SETTINGS_DASHBOARD_ICONS);
             PRIVATE_SETTINGS.add(LOCK_HIDE_STATUS_BAR);
+            PRIVATE_SETTINGS.add(SHOW_LOCKSCREEN_ICON);
         }
 
         /**
