@@ -762,7 +762,7 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
 
     private void updateClockFontStyle() {
         mClockFontStyle = Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.STATUS_BAR_CLOCK_FONT_STYLE, FONT_NORMAL,
+                Settings.System.STATUS_BAR_CLOCK_FONT_STYLE, FONT_GOOGLESANS,
 		UserHandle.USER_CURRENT);
         getClockFontStyle(mClockFontStyle);
         updateClock();
