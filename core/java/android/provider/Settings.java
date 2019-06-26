@@ -5197,6 +5197,12 @@ public final class Settings {
         public static final String USE_BLACKAF_THEME = "use_blackaf_theme";
 
         /**
+         * Whether to show or hide the edit icon
+         * @hide
+         */
+        public static final String QS_EDIT_TOGGLE = "qs_edit_toggle";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
