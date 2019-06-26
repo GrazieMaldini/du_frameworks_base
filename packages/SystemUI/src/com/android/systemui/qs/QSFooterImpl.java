@@ -329,8 +329,8 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
         final boolean isDemo = UserManager.isDeviceInDemoMode(mContext);
         mMultiUserSwitch.setVisibility(showUserSwitcher() ? View.VISIBLE : View.INVISIBLE);
         mEditContainer.setVisibility(isDemo || !mExpanded ? View.INVISIBLE : View.VISIBLE);
-        mSettingsButton.setVisibility(isDemo || !mExpanded ? View.INVISIBLE : View.VISIBLE);
         mRunningServicesButton.setVisibility(isRunningServicesEnabled() ? !isDemo && mExpanded ? View.VISIBLE : View.INVISIBLE : View.GONE);
+        mSettingsButton.setVisibility(isEditEnabled() ? isDemo || !mExpanded ? View.INVISIBLE : View.VISIBLE : View.GONE);
     }
 
     private boolean showUserSwitcher() {
@@ -389,14 +389,12 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
             } else {
                 startSettingsActivity();
             }*/
-            startSettingsActivity();
         } else if (v == mRunningServicesButton) {
             MetricsLogger.action(mContext,
                     mExpanded ? MetricsProto.MetricsEvent.ACTION_QS_EXPANDED_SETTINGS_LAUNCH
                             : MetricsProto.MetricsEvent.ACTION_QS_COLLAPSED_SETTINGS_LAUNCH);
-            startRunningServicesActivity();
-        }
-    }
+		}
+            }
 
     public boolean isRunningServicesEnabled() {
         return Settings.System.getInt(mContext.getContentResolver(),
@@ -416,6 +414,11 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
         nIntent.setClassName("com.android.settings",
             "com.android.settings.Settings$DirtyTweaksActivity");
         mActivityStarter.startActivity(nIntent, true /* dismissShade */);
+    }
+
+    public boolean isEditEnabled() {
+        return Settings.System.getInt(mContext.getContentResolver(),
+            Settings.System.QS_EDIT_TOGGLE, 1) == 1;
     }
 
     private void startRunningServicesActivity() {
