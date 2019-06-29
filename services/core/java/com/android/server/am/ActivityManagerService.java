@@ -4523,14 +4523,9 @@ public class ActivityManagerService extends IActivityManager.Stub
                         new String[] {PROC_START_SEQ_IDENT + app.startSeq});
             }
 
-            if (mGamingModeController != null) {
-              if (mGamingModeController.gamingModeMaster()) {
-                if (hostingType.equals("activity")) {
-                    if (startResult != null) {
-                         mGamingModeController.noteStarted(app.info.packageName);
-                    }
-                }
-              }
+            if (mGamingModeController != null && mGamingModeController.isGamingModeEnabled() &&
+                    hostingType.equals("activity") && startResult != null) {
+                mGamingModeController.noteStarted(app.info.packageName);
             }
 
             checkTime(startTime, "startProcess: returned from zygote!");
@@ -13027,10 +13022,10 @@ public class ActivityManagerService extends IActivityManager.Stub
         RescueParty.onSettingsProviderPublished(mContext);
 
         //mUsageStatsService.monitorPackages();
-    }
 
         // Gaming Mode provider
         mGamingModeController = new GamingModeController(mContext);
+    }
 
     void startPersistentApps(int matchFlags) {
         if (mFactoryTest == FactoryTest.FACTORY_TEST_LOW_LEVEL) return;
@@ -25069,17 +25064,14 @@ public class ActivityManagerService extends IActivityManager.Stub
                         mCurResumedPackage, mCurResumedUid);
             }
 
-            if (mCurResumedPackage != null) {
-                if (mGamingModeController != null) {
-                    if (mGamingModeController.gamingModeMaster()) {
-                        if(mGamingModeController.topAppChanged(mCurResumedPackage) && !mGamingModeController.getEnabled()) {
-                              Settings.System.putInt(mContext.getContentResolver(),
-                                 Settings.System.ENABLE_GAMING_MODE, 1);
-                         } else {
-                              Settings.System.putInt(mContext.getContentResolver(),
-                                 Settings.System.ENABLE_GAMING_MODE, 0);
-                         }
-                    }
+            if (mCurResumedPackage != null && mGamingModeController != null && mGamingModeController.isGamingModeEnabled()) {
+                if (mGamingModeController.topAppChanged(mCurResumedPackage) && !mGamingModeController.isGamingModeActivated()) {
+                    Settings.System.putInt(mContext.getContentResolver(),
+                        Settings.System.GAMING_MODE_ACTIVE, 1);
+                } else if (!mGamingModeController.topAppChanged(mCurResumedPackage) &&
+                        mGamingModeController.isGamingModeActivated()) {
+                    Settings.System.putInt(mContext.getContentResolver(),
+                        Settings.System.GAMING_MODE_ACTIVE, 0);
                 }
            }
        }
