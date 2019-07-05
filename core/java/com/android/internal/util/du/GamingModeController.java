@@ -72,7 +72,6 @@ public class GamingModeController {
     private boolean mGamingModeActivated;
     private static int mRingerState;
     private static int mZenState;
-    private static int mHeadsUpState;
     private static int mAdaptiveBrightness;
 
     public static final String GAMING_MODE_TURN_OFF = "android.intent.action.GAMING_MODE_TURN_OFF";
@@ -249,15 +248,6 @@ public class GamingModeController {
             Settings.System.putInt(mContext.getContentResolver(),
                     Settings.System.SCREEN_BRIGHTNESS_MODE, SCREEN_BRIGHTNESS_MODE_MANUAL);
         }
-        boolean blockHeadsUp = Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.GAMING_MODE_HEADSUP_TOGGLE, 1) == 1;
-        // Heads up
-        if (blockHeadsUp) {
-            mHeadsUpState = Settings.Global.getInt(mContext.getContentResolver(),
-                              Settings.Global.HEADS_UP_NOTIFICATIONS_ENABLED, 1);
-            Settings.Global.putInt(mContext.getContentResolver(),
-                    Settings.Global.HEADS_UP_NOTIFICATIONS_ENABLED, 0);
-        }
 
         // Ringer mode (0: Off, 1: Vibrate, 2:DND: 3:Silent)
         int ringerMode = Settings.System.getInt(mContext.getContentResolver(),
@@ -294,12 +284,6 @@ public class GamingModeController {
         if (lockBrightness) {
             Settings.System.putInt(mContext.getContentResolver(),
                     Settings.System.SCREEN_BRIGHTNESS_MODE, mAdaptiveBrightness);
-        }
-        boolean blockHeadsUp = Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.GAMING_MODE_HEADSUP_TOGGLE, 1) == 1;
-        if (blockHeadsUp) {
-            Settings.Global.putInt(mContext.getContentResolver(),
-                    Settings.Global.HEADS_UP_NOTIFICATIONS_ENABLED, mHeadsUpState);
         }
         int ringerMode = Settings.System.getInt(mContext.getContentResolver(),
                  Settings.System.GAMING_MODE_RINGER_MODE, 0);
