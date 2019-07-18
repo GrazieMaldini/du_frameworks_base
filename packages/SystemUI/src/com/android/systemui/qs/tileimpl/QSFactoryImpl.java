@@ -48,6 +48,7 @@ import com.android.systemui.qs.tiles.ScreenshotTile;
 import com.android.systemui.qs.tiles.ThemeTile;
 import com.android.systemui.qs.tiles.GamingModeTile;
 import com.android.systemui.qs.tiles.UserTile;
+import com.android.systemui.qs.tiles.VolumeTile;
 import com.android.systemui.qs.tiles.WifiTile;
 import com.android.systemui.qs.tiles.WorkModeTile;
 import com.android.systemui.qs.QSTileHost;
@@ -125,6 +126,8 @@ public class QSFactoryImpl implements QSFactory {
                 return new AlarmTile(mHost);
             case "music":
                 return new MusicTile(mHost);
+            case "volume_panel":
+                return new VolumeTile(mHost);
         }
 
         // Intent tiles.
