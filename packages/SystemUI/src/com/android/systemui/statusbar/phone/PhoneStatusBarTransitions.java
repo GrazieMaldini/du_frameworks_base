@@ -22,7 +22,6 @@ import android.animation.ObjectAnimator;
 import android.content.res.Resources;
 import android.view.View;
 
-import com.android.internal.util.du.Utils;
 import com.android.systemui.R;
 
 public final class PhoneStatusBarTransitions extends BarTransitions {
@@ -93,7 +92,7 @@ public final class PhoneStatusBarTransitions extends BarTransitions {
                     animateTransitionTo(mStatusIcons, newAlpha),
                     animateTransitionTo(mCenterClock, newAlphaBC),
                     animateTransitionTo(mLogoIcon, newAlpha)
-            );
+                    );
             if (isLightsOut(mode)) {
                 anims.setDuration(LIGHTS_OUT_DURATION);
             }
