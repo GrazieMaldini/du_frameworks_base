@@ -116,6 +116,7 @@ public class ThemeAccentUtils {
         "com.android.system.switch.stock", // 0
         "com.android.system.switch.md2", // 1
         "com.android.system.switch.oneplus", // 2
+        "com.android.system.switch.telegram", // 3
     };
 
     // Unloads the stock dark theme
