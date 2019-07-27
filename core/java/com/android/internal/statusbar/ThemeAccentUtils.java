@@ -153,6 +153,12 @@ public class ThemeAccentUtils {
         "com.android.systemui.qstile.triangles", // 18
         "com.android.systemui.qstile.divided", // 19
         "com.android.systemui.qstile.cosmos", // 20
+        "com.android.systemui.qstile.badge", //21
+        "com.android.systemui.qstile.badgetwo", //22
+        "com.android.systemui.qstile.hexagon", // 23
+        "com.android.systemui.qstile.star", // 24
+        "com.android.systemui.qstile.gear", // 25
+        "com.android.systemui.qstile.diamond", // 26
     };
 
     // QS header themes
