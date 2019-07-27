@@ -4928,6 +4928,18 @@ public final class Settings {
         public static final String THREE_FINGER_GESTURE = "three_finger_gesture";
 
         /**
+         * Battery Estimate
+         * @hide
+         */
+        public static final String SHOW_BATTERY_ESTIMATE = "show_battery_estimate";
+
+        /**
+         * Battery Estimate Position
+         * @hide
+         */
+        public static final String BATTERY_ESTIMATE_POSITION = "battery_estimate_position";
+
+        /**
          * The enabled mode for the theme tile.
          * - ACCENT
          * - STYLE
