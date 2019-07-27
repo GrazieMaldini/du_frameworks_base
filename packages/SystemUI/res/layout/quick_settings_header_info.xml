@@ -28,7 +28,7 @@
         android:layout_gravity="start|bottom|center"
         android:alpha="0"
         android:text="@string/quick_settings_header_onboarding_text"
-        android:textAppearance="@style/TextAppearance.QS.Status"
+        android:textAppearance="@style/TextAppearance.QS.TileLabel"
         android:textColor="?android:attr/textColorSecondary"
         android:visibility="invisible" />
 
