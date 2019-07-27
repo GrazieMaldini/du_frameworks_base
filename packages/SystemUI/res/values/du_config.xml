@@ -52,7 +52,4 @@
         <!-- Google's service for Elmyra -->
         <item>com.google.android.systemui.GoogleServices</item>
     </string-array>
-
-    <!-- Show battery icon in the QS Panel instead of in the header -->
-    <bool name="config_batteryInQSPanel">true</bool>
 </resources>
