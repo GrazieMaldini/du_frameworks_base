@@ -220,7 +220,6 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         mBatteryRemainingIcon = findViewById(R.id.batteryRemainingIcon);
 
         mUser = ActivityManager.getCurrentUser();
-        updateSettings();
 
         int estimatepos = Settings.System.getIntForUser(getContext().getContentResolver(),
                 BATTERY_ESTIMATE_POSITION, 0, mUser);
@@ -250,6 +249,7 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         mClockView.setOnClickListener(this);
         mDateView = findViewById(R.id.date);
 	mTraffic = findViewById(R.id.networkTraffic);
+        updateSettings();
     }
 
     private void updateStatusText() {
