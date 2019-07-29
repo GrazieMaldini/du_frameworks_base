@@ -220,7 +220,7 @@ public class QSContainerImpl extends FrameLayout implements
             mStatusBarBackground.setBackgroundColor(Color.TRANSPARENT);
         } else {
             mQsBackgroundAlpha = true;
-            mStatusBarBackground.setBackgroundColor(getResources().getColor(R.color.qs_status_bar_background));
+            mStatusBarBackground.setBackgroundColor(getResources().getColor(R.color.quick_settings_status_bar_background_color));
         }
     }
 
