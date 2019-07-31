@@ -209,4 +209,13 @@ public class ActionUtils {
         InputManager.getInstance().injectInputEvent(ev,
                 InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
     }
+
+    public static void takeScreenrecord(int mode) {
+        IWindowManager wm = WindowManagerGlobal.getWindowManagerService();
+        try {
+            wm.screenRecordAction(mode);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 }
