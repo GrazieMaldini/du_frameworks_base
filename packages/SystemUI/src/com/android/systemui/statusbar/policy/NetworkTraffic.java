@@ -45,6 +45,7 @@ public class NetworkTraffic extends TextView {
     private static final int MB = KB * KB;
     private static final int GB = MB * KB;
     private static final String symbol = "B/s";
+    private int mNetTrafSize = 15;
 
     private static DecimalFormat decimalFormat = new DecimalFormat("##0.#");
     static {
@@ -318,6 +319,20 @@ public class NetworkTraffic extends TextView {
         mTrafficHandler.removeMessages(1);
     }
 
+    private void updateTextSize() {
+        int txtSize;
+
+        mNetTrafSize = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.NETWORK_TRAFFIC_FONT_SIZE, 15);
+
+        if (mTrafficType == BOTH) {
+            txtSize = getResources().getDimensionPixelSize(R.dimen.net_traffic_multi_text_size);
+        } else {
+            txtSize = mNetTrafSize;
+        }
+        setTextSize(TypedValue.COMPLEX_UNIT_PX, (float)txtSize);
+    }
+
     protected void updateTrafficDrawable() {
         int intTrafficDrawable;
         if (mIsEnabled && mHideArrow) {
@@ -339,16 +354,6 @@ public class NetworkTraffic extends TextView {
         } else {
             setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         }
-    }
-
-    protected void updateTextSize() {
-        int txtSize;
-        if (mTrafficType == BOTH) {
-            txtSize = getResources().getDimensionPixelSize(R.dimen.net_traffic_multi_text_size);
-        } else {
-            txtSize = getResources().getDimensionPixelSize(R.dimen.net_traffic_single_text_size);
-        }
-        setTextSize(TypedValue.COMPLEX_UNIT_PX, (float)txtSize);
     }
 
     public void onDensityOrFontScaleChanged() {
