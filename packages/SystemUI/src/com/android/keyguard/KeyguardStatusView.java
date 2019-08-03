@@ -711,6 +711,14 @@ public class KeyguardStatusView extends GridLayout implements
     private void updateSettings() {
         final ContentResolver resolver = getContext().getContentResolver();
 
+	RelativeLayout.LayoutParams textClockParams = new RelativeLayout.LayoutParams(
+			RelativeLayout.LayoutParams.WRAP_CONTENT,
+			RelativeLayout.LayoutParams.WRAP_CONTENT);
+	textClockParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+
+	int leftPadding = (int) getResources().getDimension(R.dimen.custom_clock_left_padding);
+        int topPadding = (int) getResources().getDimension(R.dimen.custom_clock_top_margin);
+
         mShowClock = Settings.System.getIntForUser(resolver,
                 Settings.System.LOCKSCREEN_CLOCK, 1, UserHandle.USER_CURRENT) == 1;
         mShowInfo = Settings.System.getIntForUser(resolver,
@@ -720,6 +728,13 @@ public class KeyguardStatusView extends GridLayout implements
         mDateSelection = Settings.System.getIntForUser(resolver,
                 Settings.System.LOCKSCREEN_DATE_SELECTION, 0, UserHandle.USER_CURRENT);
 
+        if (mTextClock != null) {
+	    mTextClock.setGravity(Gravity.CENTER);
+	    mTextClock.setLayoutParams(textClockParams);
+	    mTextClock.setPaddingRelative(0, topPadding, 0, 0);
+	} else {
+	    mTextClock.setPaddingRelative(leftPadding, topPadding, 0, 0);
+	}
         setStyle();
     }
 
