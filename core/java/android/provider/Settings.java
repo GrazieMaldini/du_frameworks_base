@@ -4992,6 +4992,18 @@ public final class Settings {
          */
         public static final String STATUS_BAR_SHOW_CARRIER = "status_bar_show_carrier";
 
+        /**
+         * Settings for carrier label font size
+         * @hide
+         */
+        public static final String STATUS_BAR_CARRIER_FONT_SIZE = "status_bar_carrier_font_size";
+
+        /**
+         * Custom carrier label font style
+         * @hide
+         */
+        public static final String STATUS_BAR_CARRIER_FONT_STYLE = "status_bar_carrier_font_style";
+
          /**
          * Position of date
          * 0 - Left of clock
