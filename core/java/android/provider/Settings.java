@@ -5278,6 +5278,18 @@ public final class Settings {
         public static final String LOCKSCREEN_ALBUM_ART_FILTER = "lockscreen_album_art_filter";
 
         /**
+         * Whether to use a custom color for the visualizer on the lock screen
+         * @hide
+         */
+        public static final String LOCK_SCREEN_VISUALIZER_USE_CUSTOM_COLOR = "lock_screen_visualizer_use_custom_color";
+
+        /**
+         * Custom color of the visualizer on the lock screen
+         * @hide
+         */
+        public static final String LOCK_SCREEN_VISUALIZER_CUSTOM_COLOR = "lock_screen_visualizer_custom_color";
+
+        /**
          * Whether to show or hide the running services icon
          * @hide
          */
