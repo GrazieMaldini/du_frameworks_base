@@ -170,6 +170,8 @@ public class VolumeDialogImpl implements VolumeDialog,
     // Volume panel placement left or right
     private boolean mVolumePanelOnLeft;
 
+    private boolean mHasAlertSlider;
+
     public VolumeDialogImpl(Context context) {
         mContext =
                 new ContextThemeWrapper(context, R.style.qs_theme);
@@ -181,6 +183,7 @@ public class VolumeDialogImpl implements VolumeDialog,
         mShowActiveStreamOnly = showActiveStreamOnly();
         mHasSeenODICaptionsTooltip =
                 Prefs.getBoolean(context, Prefs.Key.HAS_SEEN_ODI_CAPTIONS_TOOLTIP, false);
+        mHasAlertSlider = mContext.getResources().getBoolean(com.android.internal.R.bool.config_hasAlertSlider);
         if (!mShowActiveStreamOnly) {
             mVolumePanelOnLeft = mContext.getResources().getBoolean(R.bool.config_audioPanelOnLeftSide);
         }
@@ -291,6 +294,10 @@ public class VolumeDialogImpl implements VolumeDialog,
         if (mHasSeenODICaptionsTooltip && mODICaptionsTooltipViewStub != null) {
             mDialogView.removeView(mODICaptionsTooltipViewStub);
             mODICaptionsTooltipViewStub = null;
+        }
+
+        if (mHasAlertSlider) {
+            mRinger.setVisibility(View.GONE);
         }
 
         mSettingsView = mDialog.findViewById(R.id.settings_container);
