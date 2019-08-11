@@ -5415,6 +5415,12 @@ public final class Settings {
         public static final String DOUBLE_TAP_SLEEP_GESTURE = "double_tap_sleep_gesture";
 
         /**
+          * Volume dialog timeout
+          * @hide
+          */
+        public static final String VOLUME_DIALOG_TIMEOUT = "volume_dialog_timeout";
+
+        /**
          * Whether to use the custom status bar header or not
          * @hide
          */
