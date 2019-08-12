@@ -159,6 +159,7 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
     protected int mClockStyle = STYLE_CLOCK_LEFT;
     protected int mClockDatePosition;
     protected boolean mShowClock;
+    protected boolean mQsHeader;
     private int mClockColor = 0xffffffff;
     private int mClockSize = 14;
     private int mAmPmStyle;
