@@ -65,7 +65,7 @@ public class NavBarTile extends QSTileImpl<BooleanState> {
     protected void handleUpdateState(BooleanState state, Object arg) {
         if (mSetting == null) return;
         final int value = arg instanceof Integer ? (Integer)arg : mSetting.getValue();
-        final boolean enable = value != 0;
+        final boolean enable = value != 1;
         state.value = enable;
         state.label = mContext.getString(R.string.quick_settings_navbar_title);
         state.icon = ResourceIcon.get(R.drawable.ic_qs_navbar);
