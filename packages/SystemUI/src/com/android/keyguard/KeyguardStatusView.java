@@ -597,6 +597,9 @@ public class KeyguardStatusView extends GridLayout implements
                 break;
             case 7: // custom text clock
                 mTextClock.setVisibility(mClockVisibility);
+                mKeyguardSlice.setPadding(0,(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
+        getResources().getDimensionPixelSize(R.dimen.widget_clock_normal_clock_padding), 
+        getResources().getDisplayMetrics()),0,0);
                 break;
             case 0: // default digital
             case 1: // digital (bold)
