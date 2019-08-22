@@ -6530,6 +6530,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     private boolean isHwKeysDisabled() {
         return mKeyHandler != null ? mKeyHandler.isHwKeysDisabled() : false;
+    }
+
     void launchKeyguardDismissIntent(Context context, UserHandle user, Intent launchIntent) {
         Intent keyguardIntent = new Intent("com.android.systemui.ACTION_DISMISS_KEYGUARD");
         keyguardIntent.setPackage("com.android.systemui");
