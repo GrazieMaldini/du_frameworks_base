@@ -5121,6 +5121,12 @@ public final class Settings {
 
         /** @hide */
         private static final Validator FINGERPRINT_ERROR_VIB_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * Unlock keystore with fingerprint after reboot
+         * @hide
+         */
+        public static final String FP_UNLOCK_KEYSTORE = "fp_unlock_keystore";
 		
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
