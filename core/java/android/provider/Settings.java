@@ -5305,6 +5305,12 @@ public final class Settings {
         public static final String ROAMING_INDICATOR_ICON = "roaming_indicator_icon";
 
         /**
+        ** What size to show for network traffic indicator in statusbar
+        ** @hide
+        **/
+        public static final String NETWORK_TRAFFIC_FONT_SIZE = "network_traffic_font_size";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5553,7 +5559,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(LOCKSCREEN_MEDIA_METADATA);
             PRIVATE_SETTINGS.add(LOCKSCREEN_MEDIA_BLUR);
             PRIVATE_SETTINGS.add(SCREEN_OFF_ANIMATION);
-	    PRIVATE_SETTINGS.add(HIDE_LOCKSCREEN_STATUS_BAR);
+            PRIVATE_SETTINGS.add(HIDE_LOCKSCREEN_STATUS_BAR);
             PRIVATE_SETTINGS.add(BATTERY_LIGHT_ENABLED);
             PRIVATE_SETTINGS.add(BATTERY_LIGHT_ALLOW_ON_DND);
             PRIVATE_SETTINGS.add(BATTERY_LIGHT_LOW_BLINKING);
@@ -5574,6 +5580,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(ENABLE_SUGGESTIONS);
             PRIVATE_SETTINGS.add(BUTTON_EXTRA_KEY_MAPPING);
             PRIVATE_SETTINGS.add(DEVICE_PROXI_CHECK_ENABLED);
+            PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_FONT_SIZE);
         }
 
         /**

@@ -54,6 +54,7 @@ public class NetworkTraffic extends TextView implements StatusIconDisplayable {
     private static final int MB = KB * KB;
     private static final int GB = MB * KB;
     private static final String symbol = "/s";
+    private int mNetTrafSize = 21;
 
     private static DecimalFormat decimalFormat = new DecimalFormat("##0.#");
     static {
@@ -114,7 +115,6 @@ public class NetworkTraffic extends TextView implements StatusIconDisplayable {
                 // Update view if there's anything new to show
                 if (!output.contentEquals(getText())) {
                     txtFont = getResources().getString(com.android.internal.R.string.config_headlineFontFamilyMedium);
-                    setTextSize(TypedValue.COMPLEX_UNIT_PX, (float)txtSize);
                     setTypeface(Typeface.create(txtFont, Typeface.NORMAL));
                     setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
                     setText(output);
@@ -137,6 +137,7 @@ public class NetworkTraffic extends TextView implements StatusIconDisplayable {
                 mTrafficVisible = true;
             }
             updateVisibility();
+            updateTextSize();
             if (mShowArrow)
                 updateTrafficDrawable();
 
@@ -230,7 +231,6 @@ public class NetworkTraffic extends TextView implements StatusIconDisplayable {
     public NetworkTraffic(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         final Resources resources = getResources();
-        txtSize = resources.getDimensionPixelSize(R.dimen.net_traffic_multi_text_size);
         txtImgPadding = resources.getDimensionPixelSize(R.dimen.net_traffic_txt_img_padding);
         mTintColor = resources.getColor(android.R.color.white);
         Handler mHandler = new Handler();
@@ -292,6 +292,7 @@ public class NetworkTraffic extends TextView implements StatusIconDisplayable {
 
     private void updateSettings() {
         updateVisibility();
+        updateTextSize();
         if (mIsEnabled) {
             if (mAttached) {
                 totalRxBytes = TrafficStats.getTotalRxBytes();
@@ -349,14 +350,23 @@ public class NetworkTraffic extends TextView implements StatusIconDisplayable {
         indicatorDown = false;
     }
 
+    private void updateTextSize() {
+        int txtSize;
+
+        mNetTrafSize = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.NETWORK_TRAFFIC_FONT_SIZE, 21);
+        }
+        setTextSize(TypedValue.COMPLEX_UNIT_PX, (float)txtSize);
+    }
+
     public void onDensityOrFontScaleChanged() {
         final Resources resources = getResources();
-        txtSize = resources.getDimensionPixelSize(R.dimen.net_traffic_multi_text_size);
         txtImgPadding = resources.getDimensionPixelSize(R.dimen.net_traffic_txt_img_padding);
         txtFont = resources.getString(com.android.internal.R.string.config_headlineFontFamilyMedium);
         setTextSize(TypedValue.COMPLEX_UNIT_PX, (float)txtSize);
         setCompoundDrawablePadding(txtImgPadding);
         setTypeface(Typeface.create(txtFont, Typeface.NORMAL));
+        updateTextSize();
     }
 
     @Override
