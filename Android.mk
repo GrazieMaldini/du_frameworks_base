@@ -17,6 +17,7 @@ LOCAL_PATH := $(call my-dir)
 
 # Load framework-specific path mappings used later in the build.
 include $(LOCAL_PATH)/pathmap.mk
+include vendor/du/support/common.mk
 
 # Build the master framework library.
 # The framework contains too many method references (>64K) for poor old DEX.
