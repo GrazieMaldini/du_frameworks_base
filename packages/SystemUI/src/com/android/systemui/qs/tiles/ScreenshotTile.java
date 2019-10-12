@@ -68,7 +68,7 @@ public class ScreenshotTile extends QSTileImpl<BooleanState> {
         try {
              Thread.sleep(1000); //1s
         } catch (InterruptedException ie) {}
-        XtendedUtils.takeScreenshot(mRegion ? false : true);
+        Utils.takeScreenshot(mRegion ? false : true);
     }
 
     @Override
