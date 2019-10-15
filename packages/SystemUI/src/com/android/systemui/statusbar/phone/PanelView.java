@@ -154,6 +154,9 @@ public abstract class PanelView extends FrameLayout {
     protected final SysuiStatusBarStateController mStatusBarStateController =
             (SysuiStatusBarStateController) Dependency.get(StatusBarStateController.class);
 
+    // omni additions start
+    protected boolean mDoubleTapToSleepEnabled;
+
     protected void onExpandingFinished() {
         mBar.onExpandingFinished();
     }
@@ -338,7 +341,7 @@ public abstract class PanelView extends FrameLayout {
                     onTrackingStarted();
                 }
                 if (isFullyCollapsed() && !mHeadsUpManager.hasPinnedHeadsUp()
-                        && !mStatusBar.isBouncerShowing()) {
+                        && !mStatusBar.isBouncerShowing() && !mDoubleTapToSleepEnabled) {
                     startOpening(event);
                 }
                 break;
@@ -506,7 +509,7 @@ public abstract class PanelView extends FrameLayout {
         } else if (mPanelClosedOnDown && !mHeadsUpManager.hasPinnedHeadsUp() && !mTracking
                 && !mStatusBar.isBouncerShowing() && !mKeyguardMonitor.isKeyguardFadingAway()) {
             long timePassed = SystemClock.uptimeMillis() - mDownTime;
-            if (timePassed < ViewConfiguration.getLongPressTimeout()) {
+            if (timePassed < ViewConfiguration.getLongPressTimeout() && !mDoubleTapToSleepEnabled) {
                 // Lets show the user that he can actually expand the panel
                 runPeekAnimation(PEEK_ANIMATION_DURATION, getPeekHeight(), true /* collapseWhenFinished */);
             } else {
