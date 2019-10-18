@@ -288,6 +288,11 @@ public class CellularTile extends QSTileImpl<SignalState> {
         return intent;
     }
 
+    @Override
+    public boolean isDualTarget() {
+        return true;
+    }
+
     private final class CellularDetailAdapter implements DetailAdapter {
 
         @Override
