@@ -4206,6 +4206,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             } else if (uri.equals(Settings.System.getUriFor(Settings.System.QS_TILE_TITLE_VISIBILITY))) {
                 updateQsPanelResources();
         }
+    }
 
         public void update() {
             updateQsPanelResources();
