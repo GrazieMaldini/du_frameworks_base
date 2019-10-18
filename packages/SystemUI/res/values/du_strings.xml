@@ -20,4 +20,7 @@
 
     <!-- QS customizer -->
     <string name="drag_or_tap_to_add_tiles">Drag or tap to add/remove tiles</string>
+
+    <!-- SystemUI tuner -->
+    <string name="systemui_tuner_navbar_title">Stock navbar</string>
 </resources>

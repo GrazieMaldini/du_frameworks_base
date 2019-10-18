@@ -351,6 +351,16 @@
             android:exported="false">
         </activity>
 
+        <activity android:name=".tuner.NavbarActivity"
+                  android:enabled="true"
+                  android:icon="@drawable/tuner"
+                  android:theme="@style/TunerSettings"
+                  android:label="@string/systemui_tuner_navbar_title"
+                  android:parentActivityName="com.dirtyunicorns.tweaks.DirtyTweaks"
+                  android:process=":tuner"
+                  android:exported="true">
+        </activity>
+
         <!-- Springboard for launching the share and edit activity. This needs to be in the main
              system ui process since we need to notify the status bar to dismiss the keyguard -->
         <receiver android:name=".screenshot.GlobalScreenshot$ActionProxyReceiver"
