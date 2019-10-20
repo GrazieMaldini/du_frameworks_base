@@ -1256,22 +1256,25 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 break;
             case LONG_PRESS_POWER_GLOBAL_ACTIONS:
                 mPowerKeyHandled = true;
-                performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, false,
-                        "Power - Long Press - Global Actions");
+            if (!(isKeyguardShowingAndNotOccluded() && isKeyguardSecure(mCurrentUserId) &&
+                    !mGlobalActionsOnLockDisable)) {
+                //performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, false,
+                //        "Power - Long Press - Global Actions");
+            	}
                 showGlobalActionsInternal();
                 break;
             case LONG_PRESS_POWER_SHUT_OFF:
             case LONG_PRESS_POWER_SHUT_OFF_NO_CONFIRM:
                 mPowerKeyHandled = true;
-                performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, false,
-                        "Power - Long Press - Shut Off");
+                //performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, false,
+                //        "Power - Long Press - Shut Off");
                 sendCloseSystemWindows(SYSTEM_DIALOG_REASON_GLOBAL_ACTIONS);
                 mWindowManagerFuncs.shutdown(behavior == LONG_PRESS_POWER_SHUT_OFF);
                 break;
             case LONG_PRESS_POWER_GO_TO_VOICE_ASSIST:
                 mPowerKeyHandled = true;
-                performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, false,
-                        "Power - Long Press - Go To Voice Assist");
+                //performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, false,
+                //        "Power - Long Press - Go To Voice Assist");
                 // Some devices allow the voice assistant intent during setup (and use that intent
                 // to launch something else, like Settings). So we explicitly allow that via the
                 // config_allowStartActivityForLongPressOnPowerInSetup resource in config.xml.
@@ -1279,8 +1282,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 break;
             case LONG_PRESS_POWER_ASSISTANT:
                 mPowerKeyHandled = true;
-                performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, false,
-                        "Power - Long Press - Go To Assistant");
+                //performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, false,
+                //       "Power - Long Press - Go To Assistant");
                 final int powerKeyDeviceId = Integer.MIN_VALUE;
                 launchAssistAction(null, powerKeyDeviceId);
                 break;
@@ -1293,8 +1296,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             break;
         case VERY_LONG_PRESS_POWER_GLOBAL_ACTIONS:
             mPowerKeyHandled = true;
-            performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, false,
-                    "Power - Very Long Press - Show Global Actions");
+            //performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, false,
+            //        "Power - Very Long Press - Show Global Actions");
             showGlobalActionsInternal();
             break;
         }
