@@ -343,7 +343,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         animateHide(mCenteredIconArea, animate, true);
 	animateHide(mCenterClockLayout, animate, true);
         if (mShowLogo) {
-            animateHide(mDULogo, animate);
+            animateHide(mDULogo, animate, true);
         }
     }
 
@@ -479,7 +479,8 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
             mClockStyle = Settings.System.getIntForUser(mContentResolver,
                     Settings.System.STATUSBAR_CLOCK_STYLE, 0,
                     UserHandle.USER_CURRENT);
-         } else if (mNotificationIconAreaInner != null) {
+         if (mNotificationIconAreaInner != null) {
+		}
             if (mShowLogo) {
                 if (mNotificationIconAreaInner.getVisibility() == View.VISIBLE) {
                     animateShow(mDULogo, animate);

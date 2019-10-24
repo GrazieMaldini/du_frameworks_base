@@ -4231,18 +4231,17 @@ public class StatusBar extends SystemUI implements DemoMode,
                     Settings.System.DOUBLE_TAP_SLEEP_GESTURE))) {
                 setLockscreenDoubleTapToSleep();
         }
-
+     }
         public void update() {
             setLockscreenDoubleTapToSleep();
         }
-    }
+     }
 
     private void setLockscreenDoubleTapToSleep() {
         if (mStatusBarWindow != null) {
             mStatusBarWindow.setLockscreenDoubleTapToSleep();
         }
     }
-
     private final BroadcastReceiver mBannerActionBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -4586,5 +4585,4 @@ public class StatusBar extends SystemUI implements DemoMode,
     public @TransitionMode int getStatusBarMode() {
         return mStatusBarMode;
     }
-
 }
