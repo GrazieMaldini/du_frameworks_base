@@ -311,6 +311,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
 	animateHide(mRightClock, animate, true);
         }
         animateHide(mSystemIconArea, animate, true);
+        animateHide(mDULogo, animate, true);
     }
 
     public void showSystemIconArea(boolean animate) {
@@ -319,6 +320,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         animateShow(mRightClock, animate);
         }
         animateShow(mSystemIconArea, animate);
+        animateShow(mDULogo, animate);
     }
 
     /*public void hideClock(boolean animate) {
@@ -344,18 +346,12 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         animateHide(mNotificationIconAreaInner, animate, true);
         animateHide(mCenteredIconArea, animate, true);
 	animateHide(mCenterClockLayout, animate, true);
-        if (mShowLogo) {
-            animateHide(mDULogo, animate, true);
-        }
     }
 
     public void showNotificationIconArea(boolean animate) {
         animateShow(mNotificationIconAreaInner, animate);
         animateShow(mCenteredIconArea, animate);
         animateShow(mCenterClockLayout, animate);
-        if (mShowLogo) {
-            animateShow(mDULogo, animate);
-        }
     }
 
     public void hideOperatorName(boolean animate) {
@@ -481,15 +477,13 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
             mClockStyle = Settings.System.getIntForUser(mContentResolver,
                     Settings.System.STATUSBAR_CLOCK_STYLE, 0,
                     UserHandle.USER_CURRENT);
-         if (mNotificationIconAreaInner != null) {
-		}
-            if (mShowLogo) {
-                if (mNotificationIconAreaInner.getVisibility() == View.VISIBLE) {
-                    animateShow(mDULogo, animate);
-                }
-            } else {
-                animateHide(mDULogo, animate, false);
-         }
+    		}
+
+        if (!mShowLogo) {
+            setVisibility(View.GONE);
+            return;
+        } else {
+            setVisibility(View.VISIBLE);
       }
      updateClockStyle(animate);
      setCarrierLabel(animate);
