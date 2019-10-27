@@ -130,7 +130,6 @@ public class CallbackHandler extends Handler implements EmergencyListener, Signa
                 signalCluster.setMobileDataIndicators(statusIcon, qsIcon, statusType, qsType,
                         activityIn, activityOut, stackedVoiceIcon, typeContentDescription,
                         typeContentDescriptionHtml, description, isWide, subId, roaming);
-                }
             }
         });
     }
@@ -172,5 +171,4 @@ public class CallbackHandler extends Handler implements EmergencyListener, Signa
     public void setListening(SignalCallback listener, boolean listening) {
         obtainMessage(MSG_ADD_REMOVE_SIGNAL, listening ? 1 : 0, 0, listener).sendToTarget();
     }
-
 }

@@ -390,12 +390,9 @@ public class StatusBarSignalPolicy implements NetworkControllerImpl.SignalCallba
         public int typeId;
         public boolean roaming;
         public boolean needsLeadingPadding;
-<<<<<<< HEAD
         public CharSequence typeContentDescription;
-=======
         public String typeContentDescription;
         public int volteId;
->>>>>>> 6eaa70be73f... SystemUI: Add new configuration for displaying Volte icon
 
         private MobileIconState(int subId) {
             super();

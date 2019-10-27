@@ -478,13 +478,6 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
                     Settings.System.STATUSBAR_CLOCK_STYLE, 0,
                     UserHandle.USER_CURRENT);
     		}
-
-        if (!mShowLogo) {
-            setVisibility(View.GONE);
-            return;
-        } else {
-            setVisibility(View.VISIBLE);
-      }
      updateClockStyle(animate);
      setCarrierLabel(animate);
    }
