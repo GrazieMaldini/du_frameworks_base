@@ -5030,13 +5030,6 @@ public final class Settings {
         public static final String HIDE_LOCKSCREEN_STATUS_BAR = "hide_lockscreen_status_bar";
 
         /**
-         * Whether user is allowed to pull down quick settings on secure keyguard.
-         * @hide
-         */
-        public static final String STATUS_BAR_LOCKED_ON_SECURE_KEYGUARD =
-                "status_bar_locked_on_secure_keyguard";
-
-        /**
          * Whether to allow one finger quick settings expansion on the right side of the statusbar.
          * @hide
          */
@@ -9637,6 +9630,13 @@ public final class Settings {
 
         private static final Validator VOLUME_LINK_NOTIFICATION_VALIDATOR = BOOLEAN_VALIDATOR;
 
+        /**
+         * Whether user is allowed to pull down quick settings on secure keyguard.
+         * @hide
+         */
+        public static final String STATUS_BAR_LOCKED_ON_SECURE_KEYGUARD =
+                "status_bar_locked_on_secure_keyguard";
+				
         /**
          * This are the settings to be backed up.
          *
