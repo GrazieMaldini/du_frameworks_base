@@ -104,7 +104,7 @@ public class BatteryMeterView extends LinearLayout implements
     private boolean mIgnoreTunerUpdates;
     private boolean mIsSubscribedForTunerUpdates;
     private boolean mCharging;
-    private int mBatteryStyle = BATTERY_STYLE_Q;
+    private int mBatteryStyle;
     private int mShowBatteryPercent;
     private boolean mBatteryPercentCharging;
     private final Handler mHandler = new Handler();
@@ -188,7 +188,7 @@ public class BatteryMeterView extends LinearLayout implements
                 getResources().getDimensionPixelOffset(R.dimen.battery_margin_bottom));
         addView(mBatteryIconView, mlp);
 
-        updateShowPercent();
+        updateSettings();
         mDualToneHandler = new DualToneHandler(context);
         // Init to not dark at all.
         onDarkChanged(new Rect(), 0, DarkIconDispatcher.DEFAULT_ICON_TINT);
