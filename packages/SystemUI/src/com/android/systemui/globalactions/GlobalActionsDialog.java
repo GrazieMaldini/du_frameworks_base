@@ -431,7 +431,7 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
 
         mRestartHot = new AdvancedAction(
                 RESTART_HOT_BUTTON,
-                R.drawable.ic_lock_restart_recovery,
+                R.drawable.ic_lock_restart_hot,
                 com.android.systemui.R.string.global_action_restart_hot,
                 mWindowManagerFuncs, mHandler) {
              public boolean showDuringKeyguard() {
@@ -444,7 +444,7 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
 
         mRestartRecovery = new AdvancedAction(
                 RESTART_RECOVERY_BUTTON,
-                com.android.systemui.R.drawable.ic_restart_recovery,
+                R.drawable.ic_lock_restart_recovery,
                 com.android.systemui.R.string.global_action_restart_recovery,
                 mWindowManagerFuncs, mHandler) {
 
