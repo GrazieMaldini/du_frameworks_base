@@ -130,7 +130,6 @@ public class CallbackHandler extends Handler implements EmergencyListener, Signa
                 signalCluster.setMobileDataIndicators(statusIcon, qsIcon, statusType, qsType,
                         activityIn, activityOut, stackedVoiceIcon, typeContentDescription,
                         typeContentDescriptionHtml, description, isWide, subId, roaming);
-                }
             }
         });
     }
