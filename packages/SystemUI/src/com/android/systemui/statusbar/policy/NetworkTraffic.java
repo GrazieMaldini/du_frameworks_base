@@ -31,6 +31,8 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.internal.util.du.Utils;
+
 import com.android.systemui.Dependency;
 import com.android.systemui.R;
 import com.android.systemui.statusbar.StatusIconDisplayable;
@@ -318,7 +320,7 @@ public class NetworkTraffic extends TextView implements StatusIconDisplayable {
 
     private void updateTrafficDrawable() {
         int indicatorDrawable;
-        if (mIsEnabled && mShowArrow) {
+        if (!Utils.hasNotch(mContext) && mIsEnabled && mShowArrow) {
             if (indicatorUp) {
                 indicatorDrawable = R.drawable.stat_sys_network_traffic_up_arrow;
                 Drawable d = getContext().getDrawable(indicatorDrawable);
