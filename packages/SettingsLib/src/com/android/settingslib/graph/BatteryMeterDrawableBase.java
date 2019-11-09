@@ -182,10 +182,6 @@ public class BatteryMeterDrawableBase extends Drawable {
         mIntrinsicHeight = context.getResources().getDimensionPixelSize(R.dimen.battery_height);
     }
 
-    public void setDashEffect(float[] intervals, float phase) {
-        mPathEffect = new DashPathEffect(intervals, phase);
-    }
-
     @Override
     public int getIntrinsicHeight() {
         return mIntrinsicHeight;
