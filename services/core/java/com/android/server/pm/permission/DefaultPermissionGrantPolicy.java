@@ -891,12 +891,21 @@ public final class DefaultPermissionGrantPolicy {
                 getDefaultProviderAuthorityPackage("com.android.providers.media.MediaProvider", userId),
                 userId, STORAGE_PERMISSIONS);
 
+        // Device Personalization Services
+        grantSystemFixedPermissionsToSystemPackage(pm,"com.google.android.as", userId,
+                CALENDAR_PERMISSIONS, CAMERA_PERMISSIONS, CONTACTS_PERMISSIONS, ALWAYS_LOCATION_PERMISSIONS,
+                MICROPHONE_PERMISSIONS, PHONE_PERMISSIONS, SMS_PERMISSIONS);
+
         // Google Sound Picker
         grantSystemFixedPermissionsToSystemPackage(pm,"com.google.android.soundpicker", userId,
                 STORAGE_PERMISSIONS);
 
         // Google Wallpapers
         grantSystemFixedPermissionsToSystemPackage(pm,"com.google.android.apps.wallpaper", userId,
+                PHONE_PERMISSIONS, STORAGE_PERMISSIONS);
+
+        // Pixel Launcher
+        grantSystemFixedPermissionsToSystemPackage(pm,"com.google.android.apps.nexuslauncher", userId,
                 PHONE_PERMISSIONS, STORAGE_PERMISSIONS);
 
         // Pixel Live Wallpapers
@@ -906,6 +915,18 @@ public final class DefaultPermissionGrantPolicy {
         // Google Markup
         grantSystemFixedPermissionsToSystemPackage(pm,"com.google.android.markup", userId,
                 STORAGE_PERMISSIONS);
+
+        // Google Photos
+        grantSystemFixedPermissionsToSystemPackage(pm,"com.google.android.apps.photos", userId,
+                CONTACTS_PERMISSIONS, PHONE_PERMISSIONS, STORAGE_PERMISSIONS, ALWAYS_LOCATION_PERMISSIONS);
+
+        // Google Recorder
+        grantSystemFixedPermissionsToSystemPackage(pm,"com.google.android.apps.recorder", userId,
+                MICROPHONE_PERMISSIONS, ALWAYS_LOCATION_PERMISSIONS);
+
+        // Settings Services
+        grantSystemFixedPermissionsToSystemPackage(pm,"com.google.android.settings.intelligence", userId,
+                PHONE_PERMISSIONS, ALWAYS_LOCATION_PERMISSIONS);
     }
 
     private String getDefaultSystemHandlerActivityPackageForCategory(PackageManagerWrapper pm,
