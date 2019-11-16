@@ -138,7 +138,6 @@
 
   <!-- Package Manager -->
   <java-symbol type="array" name="config_disabledComponents" />
-  <java-symbol type="array" name="config_forceEnabledComponents" />
 
   <!-- Button backlight -->
   <java-symbol type="integer" name="config_buttonBrightnessSettingDefault" />
