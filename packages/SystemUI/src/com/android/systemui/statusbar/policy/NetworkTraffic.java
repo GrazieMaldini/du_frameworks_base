@@ -355,7 +355,6 @@ public class NetworkTraffic extends TextView implements StatusIconDisplayable {
 
         mNetTrafSize = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.NETWORK_TRAFFIC_FONT_SIZE, 21);
-        }
         setTextSize(TypedValue.COMPLEX_UNIT_PX, (float)txtSize);
     }
 

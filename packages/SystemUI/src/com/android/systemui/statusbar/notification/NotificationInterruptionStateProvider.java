@@ -336,7 +336,7 @@ public class NotificationInterruptionStateProvider {
         String notificationPackageName = sbn.getPackageName().toLowerCase();
         isImportantHeadsUp = notificationPackageName.contains("dialer") ||
                 notificationPackageName.contains("clock");
-        return !getShadeController().isDozing() && mLessBoringHeadsUp && !isImp$
+        return !getShadeController().isDozing() && mLessBoringHeadsUp && mSkipHeadsUp && !isImportantHeadsUp;
     }
 
     /**
