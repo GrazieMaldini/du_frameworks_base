@@ -3995,7 +3995,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                 Settings.System.GAMING_MODE_ACTIVE, 1) == 1;
         mHeadsUpDisabled = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.GAMING_MODE_HEADSUP_TOGGLE, 1) == 1;
-        mEntryManager.setGamingPeekMode(mGamingModeActivated && mHeadsUpDisabled);
+        mNotificationInterruptionStateProvider.setGamingPeekMode(mGamingModeActivated && mHeadsUpDisabled);
     }
 
     public int getWakefulnessState() {

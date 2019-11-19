@@ -128,7 +128,6 @@ public class NetworkTraffic extends TextView implements StatusIconDisplayable {
                 // Update view if there's anything new to show
                 if (!output.contentEquals(getText())) {
                     txtFont = getResources().getString(com.android.internal.R.string.config_headlineFontFamilyMedium);
-                    setTextSize(TypedValue.COMPLEX_UNIT_PX, (float)txtSize);
 		            setTypeface(Typeface.create(txtFont, Typeface.NORMAL));
                     setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
                     setText(output);
@@ -355,6 +354,11 @@ public class NetworkTraffic extends TextView implements StatusIconDisplayable {
 
         mNetTrafSize = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.NETWORK_TRAFFIC_FONT_SIZE, 21);
+        if (mIsEnabled) {
+            txtSize = getResources().getDimensionPixelSize(R.dimen.net_traffic_multi_text_size);
+        } else {
+            txtSize = mNetTrafSize;
+        }
         setTextSize(TypedValue.COMPLEX_UNIT_PX, (float)txtSize);
     }
 
@@ -362,7 +366,6 @@ public class NetworkTraffic extends TextView implements StatusIconDisplayable {
         final Resources resources = getResources();
         txtImgPadding = resources.getDimensionPixelSize(R.dimen.net_traffic_txt_img_padding);
         txtFont = resources.getString(com.android.internal.R.string.config_headlineFontFamilyMedium);
-        setTextSize(TypedValue.COMPLEX_UNIT_PX, (float)txtSize);
         setCompoundDrawablePadding(txtImgPadding);
         setTypeface(Typeface.create(txtFont, Typeface.NORMAL));
         updateTextSize();
