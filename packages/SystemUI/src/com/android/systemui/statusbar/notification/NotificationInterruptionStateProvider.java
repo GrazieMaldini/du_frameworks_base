@@ -74,6 +74,8 @@ public class NotificationInterruptionStateProvider {
 
     private boolean mLessBoringHeadsUp;
 
+    private boolean mSkipHeadsUp;
+
     public NotificationInterruptionStateProvider(Context context) {
         this(context,
                 (PowerManager) context.getSystemService(Context.POWER_SERVICE),
@@ -325,11 +327,16 @@ public class NotificationInterruptionStateProvider {
         mLessBoringHeadsUp = lessBoring;
     }
 
+    public void setGamingPeekMode(boolean skipHeadsUp) {
+        mSkipHeadsUp = skipHeadsUp;
+    }
+
     public boolean shouldSkipHeadsUp(StatusBarNotification sbn) {
         boolean isImportantHeadsUp = false;
         String notificationPackageName = sbn.getPackageName().toLowerCase();
-        isImportantHeadsUp = notificationPackageName.contains("dialer");
-        return !getShadeController().isDozing() && mLessBoringHeadsUp && !isImportantHeadsUp;
+        isImportantHeadsUp = notificationPackageName.contains("dialer") ||
+                notificationPackageName.contains("clock");
+        return !getShadeController().isDozing() && mLessBoringHeadsUp && mSkipHeadsUp && !isImportantHeadsUp;
     }
 
     /**
@@ -346,7 +353,7 @@ public class NotificationInterruptionStateProvider {
 
         if (!mUseHeadsUp || mPresenter.isDeviceInVrMode() || shouldSkipHeadsUp(sbn)) {
             if (DEBUG_HEADS_UP) {
-                Log.d(TAG, "No heads up: no huns or vr mode or less boring headsup enabled");
+                Log.d(TAG, "No heads up: no huns or vr mode or less boring headsup enabled or gaming mode");
             }
             return false;
         }
