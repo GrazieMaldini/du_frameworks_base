@@ -1461,6 +1461,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (mPocketLockShowing) {
             return LONG_PRESS_POWER_HIDE_POCKET_LOCK;
         }
+        return mLongPressOnPowerBehavior;
     }
 
     private boolean hasLongPressOnPowerBehavior() {
