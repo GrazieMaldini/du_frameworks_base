@@ -49,4 +49,7 @@
     <dimen name="status_bar_mobile_type_height">8dp</dimen>
     <dimen name="status_bar_mobile_type_padding">2dp</dimen>
     <dimen name="status_bar_mobile_type_padding_limit">10dp</dimen>
+
+    <!-- The starting padding for the clock in the status bar. -->
+    <dimen name="status_bar_right_clock_starting_padding">2dp</dimen>
 </resources>
