@@ -3545,7 +3545,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     private void updateCorners() {
         boolean sysuiRoundedFwvals = Settings.Secure.getIntForUser(mContext.getContentResolver(),
                     Settings.Secure.SYSUI_ROUNDED_FWVALS, 1, UserHandle.USER_CURRENT) == 1;
-        if (SysuiRoundedFwvals && !isCurrentRoundedSameAsFw()) {
+        if (sysuiRoundedFwvals && !isCurrentRoundedSameAsFw()) {
             float density = Resources.getSystem().getDisplayMetrics().density;
             int resourceIdRadius = (int) mContext.getResources().getDimension(com.android.internal.R.dimen.rounded_corner_radius);
             Settings.Secure.putIntForUser(mContext.getContentResolver(),
