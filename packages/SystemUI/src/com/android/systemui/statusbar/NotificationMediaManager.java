@@ -587,29 +587,7 @@ public class NotificationMediaManager implements Dumpable {
             @Nullable Bitmap bmp) {
         Drawable artworkDrawable = null;
         if (bmp != null) {
-            switch (mAlbumArtFilter) {
-                case 0:
-                default:
-                    artworkDrawable = new BitmapDrawable(mBackdropBack.getResources(), bmp);
-                    break;
-                case 1:
-                    artworkDrawable = new BitmapDrawable(mBackdropBack.getResources(),
-                        ImageHelper.toGrayscale(bmp));
-                    break;
-                case 2:
-                    Drawable aw = new BitmapDrawable(mBackdropBack.getResources(), bmp);
-                    artworkDrawable = new BitmapDrawable(ImageHelper.getColoredBitmap(aw,
-                        mContext.getResources().getColor(R.color.accent_device_default_light)));
-                    break;
-                case 3:
-                    artworkDrawable = new BitmapDrawable(mBackdropBack.getResources(),
-                        ImageHelper.getBlurredImage(mContext, bmp, 7.0f));
-                    break;
-                case 4:
-                    artworkDrawable = new BitmapDrawable(mBackdropBack.getResources(),
-                        ImageHelper.getGrayscaleBlurredImage(mContext, bmp, 7.0f));
-                    break;
-            }
+            artworkDrawable = new BitmapDrawable(mBackdropBack.getResources(), bmp);
         }
         boolean hasMediaArtwork = artworkDrawable != null;
         boolean allowWhenShade = false;
