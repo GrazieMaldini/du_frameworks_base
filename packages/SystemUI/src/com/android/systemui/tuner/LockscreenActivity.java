@@ -26,7 +26,6 @@ public class LockscreenActivity extends TunerActivity {
     private static final String TAG_TUNER = "tuner";
 
     protected void onCreate(Bundle savedInstanceState) {
-        Dependency.initDependencies(this);
         super.onCreate(savedInstanceState);
 
         if (getFragmentManager().findFragmentByTag(TAG_TUNER) == null) {

@@ -73,17 +73,13 @@ public class NotificationInterruptionStateProvider {
     protected boolean mUseHeadsUp = false;
     private boolean mDisableNotificationAlerts;
 
-<<<<<<< HEAD
     private boolean mLessBoringHeadsUp;
 
     private boolean mSkipHeadsUp;
 
-    public NotificationInterruptionStateProvider(Context context) {
-=======
     @Inject
     public NotificationInterruptionStateProvider(Context context, NotificationFilter filter,
             StatusBarStateController stateController) {
->>>>>>> b11ec26359a5b45906e30b25d38b820a48610e4f
         this(context,
                 (PowerManager) context.getSystemService(Context.POWER_SERVICE),
                 IDreamManager.Stub.asInterface(
@@ -364,7 +360,7 @@ public class NotificationInterruptionStateProvider {
         String notificationPackageName = sbn.getPackageName().toLowerCase();
         isImportantHeadsUp = notificationPackageName.contains("dialer") ||
                 notificationPackageName.contains("clock");
-        return !getShadeController().isDozing() && mLessBoringHeadsUp && mSkipHeadsUp && !isImportantHeadsUp;
+        return mLessBoringHeadsUp && mSkipHeadsUp && !isImportantHeadsUp;
     }
 
     /**
@@ -377,7 +373,6 @@ public class NotificationInterruptionStateProvider {
     public boolean canAlertAwakeCommon(NotificationEntry entry) {
         StatusBarNotification sbn = entry.notification;
 
-<<<<<<< HEAD
         if (!mUseHeadsUp || mPresenter.isDeviceInVrMode() || shouldSkipHeadsUp(sbn)) {
             if (DEBUG_HEADS_UP) {
                 Log.d(TAG, "No heads up: no huns or vr mode or less boring headsup enabled or gaming mode");
@@ -388,11 +383,13 @@ public class NotificationInterruptionStateProvider {
         if (entry.shouldSuppressPeek()) {
             if (DEBUG_HEADS_UP) {
                 Log.d(TAG, "No heads up: suppressed by DND: " + sbn.getKey());
-=======
+            }
+            return false;
+        }
+
         if (mPresenter.isDeviceInVrMode()) {
             if (DEBUG_HEADS_UP) {
                 Log.d(TAG, "No alerting: no huns or vr mode");
->>>>>>> b11ec26359a5b45906e30b25d38b820a48610e4f
             }
             return false;
         }
