@@ -468,8 +468,9 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         mShowCarrierLabel = Settings.System.getIntForUser(mContentResolver,
                 Settings.System.STATUS_BAR_SHOW_CARRIER, 0, 
                 UserHandle.USER_CURRENT);
-        mTickerEnabled = Settings.System.getIntForUser(getContext(), mContentResolver,
-                Settings.System.STATUS_BAR_SHOW_TICKER, 0, UserHandle.USER_CURRENT);
+        mTickerEnabled = Settings.System.getIntForUser(
+                getContext().getContentResolver(), Settings.System.STATUS_BAR_SHOW_TICKER, 0,
+                UserHandle.USER_CURRENT);
         mHasCarrierLabel = (mShowCarrierLabel == 2 || mShowCarrierLabel == 3);
         if (!mShowClock) {
             mClockStyle = 1; // internally switch to centered clock layout because
