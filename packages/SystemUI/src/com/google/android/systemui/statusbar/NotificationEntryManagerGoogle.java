@@ -15,6 +15,7 @@ import com.android.systemui.statusbar.notification.NotificationEntryManager;
 import com.android.systemui.statusbar.notification.stack.NotificationListContainer;
 import com.android.systemui.statusbar.policy.HeadsUpManager;
 import com.google.android.collect.Sets;
+
 import java.util.HashSet;
 
 public class NotificationEntryManagerGoogle extends NotificationEntryManager {

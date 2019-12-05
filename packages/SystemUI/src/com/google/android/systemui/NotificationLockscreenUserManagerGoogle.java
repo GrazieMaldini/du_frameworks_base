@@ -4,6 +4,10 @@ import android.content.Context;
 import com.android.systemui.statusbar.NotificationLockscreenUserManagerImpl;
 import com.google.android.systemui.smartspace.SmartSpaceController;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class NotificationLockscreenUserManagerGoogle extends NotificationLockscreenUserManagerImpl {
     public NotificationLockscreenUserManagerGoogle(Context context) {
         super(context);
