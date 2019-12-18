@@ -617,12 +617,13 @@ public final class PowerManagerService extends SystemService
 
     // Smart charging
     private boolean mSmartChargingEnabled;
-    private boolean mSmartChargingResetStats;
+    private int mSmartChargingResetStats;
     private boolean mPowerInputSuspended = false;
     private int mSmartChargingLevel;
     private int mSmartChargingResumeLevel;
     private int mSmartChargingLevelDefaultConfig;
     private int mSmartChargingResumeLevelDefaultConfig;
+    private int mSmartChargingResetStatsDefaultConfig;
     private static String mPowerInputSupsendSysfsNode;
     private static String mPowerInputSupsendValue;
     private static String mPowerInputResumeValue;
@@ -1075,6 +1076,8 @@ public final class PowerManagerService extends SystemService
                 com.android.internal.R.integer.config_smartChargingBatteryLevel);
         mSmartChargingResumeLevelDefaultConfig = resources.getInteger(
                 com.android.internal.R.integer.config_smartChargingBatteryResumeLevel);
+        mSmartChargingResetStatsDefaultConfig = resources.getInteger(
+                com.android.internal.R.integer.config_smartChargingResetStats);
         mPowerInputSupsendSysfsNode = resources.getString(
                 com.android.internal.R.string.config_SmartChargingSysfsNode);
         mPowerInputSupsendValue = resources.getString(
@@ -1082,7 +1085,7 @@ public final class PowerManagerService extends SystemService
         mPowerInputResumeValue = resources.getString(
                 com.android.internal.R.string.config_SmartChargingResumeValue);
         mSmartChargingResetStats = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.SMART_CHARGING_RESET_STATS, 0) == 1;
+                Settings.System.SMART_CHARGING_RESET_STATS, mSmartChargingResetStatsDefaultConfig);
     }
 
     private void updateSettingsLocked() {
@@ -1122,7 +1125,7 @@ public final class PowerManagerService extends SystemService
                 Settings.System.SMART_CHARGING_RESUME_LEVEL,
                 mSmartChargingResumeLevelDefaultConfig);
         mSmartChargingResetStats = Settings.System.getInt(resolver,
-                Settings.System.SMART_CHARGING_RESET_STATS, 0) == 1;
+                Settings.System.SMART_CHARGING_RESET_STATS, mSmartChargingResetStatsDefaultConfig);
 
         if (mSupportsDoubleTapWakeConfig) {
             boolean doubleTapWakeEnabled = Settings.Secure.getIntForUser(resolver,
@@ -1960,7 +1963,7 @@ public final class PowerManagerService extends SystemService
 
         if (mSmartChargingEnabled && !mPowerInputSuspended && (mBatteryLevel >= mSmartChargingLevel)) {
             Slog.i(TAG, "Smart charging reset stats: " + mSmartChargingResetStats);
-            if (mSmartChargingResetStats) {
+            if (mSmartChargingResetStats >= 0) {
                 try {
                      mBatteryStats.resetStatistics();
                 } catch (RemoteException e) {
