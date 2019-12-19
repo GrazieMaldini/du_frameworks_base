@@ -140,12 +140,6 @@
   <!-- Whether device ignores the RSSNR signal implementation -->
   <java-symbol type="bool" name="config_ignoreRssnrSignalLevel" />
 
-  <!-- Whether device has a physical display cutout -->
-  <java-symbol type="bool" name="config_physicalDisplayCutout" />
-
-  <!-- Whether device has a big physical display cutout -->
-  <java-symbol type="bool" name="config_bigPhysicalDisplayCutout" />
-
   <java-symbol type="bool" name="config_hasNotificationLed" />
   <java-symbol type="bool" name="config_intrusiveBatteryLed" />
   <java-symbol type="bool" name="config_multiColorBatteryLed" />
