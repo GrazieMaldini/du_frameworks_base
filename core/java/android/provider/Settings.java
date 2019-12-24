@@ -5845,6 +5845,15 @@ public final class Settings {
         public static final String LONG_PRESS_KILL_DELAY = "long_press_kill_delay";
 
         /**
+         * Sensor block per-package
+         * @hide
+         */
+        public static final String SENSOR_BLOCK = "sensor_block";
+
+        private static final Validator SENSOR_BLOCK_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -15673,15 +15682,6 @@ public final class Settings {
          * @hide
          */
         public static final String ALLOW_SIGNATURE_FAKE = "allow_signature_fake";
-
-        /**
-         * Sensor block per-package
-         * @hide
-         */
-        public static final String SENSOR_BLOCK = "sensor_block";
-
-        private static final Validator SENSOR_BLOCK_VALIDATOR =
-                BOOLEAN_VALIDATOR;
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings

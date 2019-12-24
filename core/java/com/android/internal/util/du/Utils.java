@@ -26,11 +26,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
+import android.content.pm.ResolveInfo;
 import android.hardware.fingerprint.FingerprintManager;
 import android.hardware.input.InputManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.PowerManager;
+import android.os.UserHandle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.RemoteException;
@@ -50,6 +52,8 @@ import com.android.internal.R;
 import com.android.internal.statusbar.IStatusBarService;
 
 import java.util.Locale;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Utils {
 

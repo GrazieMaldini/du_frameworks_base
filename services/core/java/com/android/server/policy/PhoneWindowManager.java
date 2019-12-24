@@ -1721,7 +1721,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     Runnable mBackLongPress = new Runnable() {
         public void run() {
             if (Utils.killForegroundApplication(mContext)) {
-                performHapticFeedbackLw(null, HapticFeedbackConstants.LONG_PRESS, false);
+                performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, false, "Back - Long-Press");
                 Toast.makeText(mContext, R.string.app_killed_message, Toast.LENGTH_SHORT).show();
                 // Do nothing; just let it go.
             }
