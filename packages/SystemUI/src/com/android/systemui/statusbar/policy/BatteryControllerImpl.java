@@ -78,6 +78,8 @@ public class BatteryControllerImpl extends BroadcastReceiver implements BatteryC
     protected boolean mAodPowerSave;
     private boolean mTestmode = false;
     private boolean mHasReceivedBattery = false;
+    private Estimate mEstimate;
+    private boolean mFetchingEstimate = false;
     private int mLastLevel = 0;
 
     @Inject
