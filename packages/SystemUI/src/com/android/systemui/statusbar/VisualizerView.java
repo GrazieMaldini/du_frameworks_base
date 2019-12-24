@@ -343,8 +343,8 @@ public class VisualizerView extends View
     }
 
     private void setAmbientVisualizerEnabled() {
-        mAmbientVisualizerEnabled = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.AMBIENT_VISUALIZER_ENABLED, 0) == 1;
+        mAmbientVisualizerEnabled = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.AMBIENT_VISUALIZER_ENABLED, 0, UserHandle.USER_CURRENT) == 1;
     }
 
     public void setVisible(boolean visible) {
