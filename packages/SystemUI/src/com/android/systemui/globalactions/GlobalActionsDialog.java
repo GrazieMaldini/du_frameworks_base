@@ -472,12 +472,7 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
                 }
             } else if (GLOBAL_ACTION_KEY_SCREENSHOT.equals(actionKey)) {
                 if (Settings.Secure.getIntForUser(mContext.getContentResolver(),
-<<<<<<< HEAD
                             Settings.Secure.SCREENSHOT_IN_POWER_MENU, 0, getCurrentUser().id) != 0) {
-=======
-                            Settings.Secure.SCREENSHOT_IN_POWER_MENU, 0, getCurrentUser().id) != 0
-                        && !Utils.isInLockTaskMode()) {
->>>>>>> 308a80e04f23... Powermenu: Give screen record it's own item [1/2]
                     mItems.add(new ScreenshotAction());
                 }
             } else if (GLOBAL_ACTION_KEY_SCREENRECORD.equals(actionKey)) {
@@ -485,14 +480,11 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
                             Settings.Secure.SCREENRECORD_IN_POWER_MENU, 0, getCurrentUser().id) != 0) {
                     mItems.add(new ScreenrecordAction());
                 }
-<<<<<<< HEAD
             } else if (GLOBAL_ACTION_KEY_TORCH.equals(actionKey)) {
                 if (Settings.System.getInt(mContext.getContentResolver(),
                         Settings.System.POWERMENU_TORCH, 0) != 0) {
                     mItems.add(getTorchToggleAction());
                 }
-=======
->>>>>>> 308a80e04f23... Powermenu: Give screen record it's own item [1/2]
             /*} else if (GLOBAL_ACTION_KEY_LOGOUT.equals(actionKey)) {
                 if (mDevicePolicyManager.isLogoutEnabled()
                         && getCurrentUser().id != UserHandle.USER_SYSTEM) {

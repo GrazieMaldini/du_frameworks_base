@@ -790,11 +790,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 case MSG_DISPATCH_VOLKEY_SKIP_TRACK: {
                     sendSkipTrackEventToStatusBar(msg.arg1);
                     mVolumeMusicControlActive = true;
+                    }
                     break;
                 case MSG_TOGGLE_TORCH:
                     toggleFlashLight();
                     break;
-                }
             }
         }
     }

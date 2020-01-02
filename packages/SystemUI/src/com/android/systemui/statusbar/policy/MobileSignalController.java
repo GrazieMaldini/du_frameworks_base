@@ -1018,8 +1018,8 @@ public class MobileSignalController extends SignalController<
             builder.append("carrierNetworkChangeMode=").append(carrierNetworkChangeMode)
                     .append(',');
             builder.append("userSetup=").append(userSetup).append(',');
-            builder.append("defaultDataOff=").append(defaultDataOff(',');
-            builder.append("imsResitered=").append(imsResitered)(',');
+            builder.append("defaultDataOff=").append(defaultDataOff);
+            builder.append("imsResitered=").append(imsResitered);
             builder.append("isVolteRegistered=").append(isVolteRegistered);
         }
 
