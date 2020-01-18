@@ -712,25 +712,11 @@ public class KeyguardStatusView extends GridLayout implements
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)
                 mKeyguardSlice.getLayoutParams();
 
-	RelativeLayout.LayoutParams textClockParams = new RelativeLayout.LayoutParams(
-			RelativeLayout.LayoutParams.WRAP_CONTENT,
-			RelativeLayout.LayoutParams.WRAP_CONTENT,
-			mKeyguardSlice.getLayoutParams);
-	textClockParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-
         int leftPadding = (int) getResources().getDimension(R.dimen.custom_clock_left_padding);
         int topPadding = (int) getResources().getDimension(R.dimen.custom_clock_top_margin);
 
         mSmallClockView = findViewById(R.id.clock_view);
         mTextClock = findViewById(R.id.custom_text_clock_view);
-
-        if (mTextClock != null) {
-	    mTextClock.setGravity(Gravity.CENTER);
-	    mTextClock.setLayoutParams(textClockParams);
-	    mTextClock.setPaddingRelative(0, topPadding, 0, 0);
-	} else {
-	    mTextClock.setPaddingRelative(leftPadding, topPadding, 0, 0);
-	}
 
         switch (mClockSelection) {
             case 1: // hidden
