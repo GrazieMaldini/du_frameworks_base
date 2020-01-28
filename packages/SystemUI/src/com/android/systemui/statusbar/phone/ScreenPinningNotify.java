@@ -68,7 +68,7 @@ public class ScreenPinningNotify {
         mLastShowToastTime = showToastTime;
     }
 
-    private Toast makeAllUserToastAndShow(int resId)) {
+    private Toast makeAllUserToastAndShow(int resId) {
         Toast toast = SysUIToast.makeText(mContext, resId, Toast.LENGTH_LONG);
         toast.show();
         return toast;
