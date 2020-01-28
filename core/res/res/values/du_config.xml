@@ -161,7 +161,6 @@
         <item>com.facebook.katana.LoginActivity</item> 
     </string-array>
 
-<<<<<<< HEAD
     <!-- Soli -->
     <bool name="config_has_Soli">false</bool>
 

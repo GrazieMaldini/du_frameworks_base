@@ -40,6 +40,7 @@ public class NotificationEntryManagerGoogle extends NotificationEntryManager {
     };
     private String mWallpaperPackage;
 
+    @Inject
     public NotificationEntryManagerGoogle(Context context) {
         super(context);
         mContext = context;
