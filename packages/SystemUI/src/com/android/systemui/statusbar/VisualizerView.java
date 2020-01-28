@@ -612,8 +612,8 @@ public class VisualizerView extends View
         }
 
         protected void update() {
-            mAmbientVisualizerEnabled = Settings.System.getIntForUser(
-                getContext().getContentResolver(), Settings.System.AMBIENT_VISUALIZER_ENABLED, 0,
+            mAmbientVisualizerEnabled = Settings.Secure.getIntForUser(
+                getContext().getContentResolver(), Settings.Secure.AMBIENT_VISUALIZER_ENABLED, 0,
                 UserHandle.USER_CURRENT) == 1;
             setVisualizerEnabled();
             setAmbientVisualizerEnabled();
