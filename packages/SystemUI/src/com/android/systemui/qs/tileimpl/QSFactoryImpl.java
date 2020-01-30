@@ -100,7 +100,6 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<ScreenRecordTile> mScreenRecordTileProvider;
     private final Provider<HWKeysTile> mHWKeysTileProvider;
     private final Provider<DataSwitchTile> mDataSwitchTileProvider;
-    private final Provider<GamingModeTile> mGamingModeTileProvider;
 
     private QSTileHost mHost;
 
@@ -134,8 +133,7 @@ public class QSFactoryImpl implements QSFactory {
             Provider<CPUInfoTile> cpuInfoTileProvider,
             Provider<ScreenRecordTile> screenRecordTileProvider,
             Provider<HWKeysTile> hWKeysTileProvider,
-            Provider<DataSwitchTile> dataSwitchTileProvider,
-            Provider<GamingModeTile> gamingModeTileProvider) {
+            Provider<DataSwitchTile> dataSwitchTileProvider) {
         mWifiTileProvider = wifiTileProvider;
         mBluetoothTileProvider = bluetoothTileProvider;
         mCellularTileProvider = cellularTileProvider;
@@ -166,7 +164,6 @@ public class QSFactoryImpl implements QSFactory {
         mScreenRecordTileProvider = screenRecordTileProvider;
         mHWKeysTileProvider = hWKeysTileProvider;
         mDataSwitchTileProvider = dataSwitchTileProvider;
-        mGamingModeTileProvider = gamingModeTileProvider;
     }
 
     public void setHost(QSTileHost host) {
@@ -247,7 +244,7 @@ public class QSFactoryImpl implements QSFactory {
             case "theme":
                 return new ThemeTile(mHost);
             case "gaming":
-                return mGamingModeTileProvider.get();
+                return new GamingModeTile(mHost);
         }
 
         // Intent tiles.
