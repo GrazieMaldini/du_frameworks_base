@@ -36,6 +36,7 @@ import android.widget.ListView;
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.internal.util.du.Utils;
+import com.android.internal.util.du.ThemesUtils;
 
 import com.android.systemui.R;
 import com.android.systemui.plugins.qs.DetailAdapter;
@@ -135,7 +136,7 @@ public class ThemeTile extends QSTileImpl<BooleanState> {
 
         @Override
         public CharSequence getTitle() {
-            return mContext.getString(mMode == Mode.STYLE ?
+            return mContext.getString(
                     R.string.quick_settings_theme_tile_style_detail_title);
         }
 
@@ -202,8 +203,6 @@ public class ThemeTile extends QSTileImpl<BooleanState> {
             ThemeTileItem themeItem = (ThemeTileItem) item.tag;
             showDetail(false);
             if (mMode == Mode.STYLE) {
-                themeItem.commit();
-            } else {
                 themeItem.styleCommit(mContext);
                 for (int i = 0; i < ThemesUtils.PITCH_BLACK.length; i++) {
                     String pitch_black = ThemesUtils.PITCH_BLACK[i];
@@ -239,10 +238,10 @@ public class ThemeTile extends QSTileImpl<BooleanState> {
 
     @Override
     protected void handleUpdateState(BooleanState state, Object arg) {
-        state.label = mContext.getString(mMode == Mode.STYLE
-                ? R.string.system_theme_style_title);
-        state.icon = ResourceIcon.get(mMode == Mode.STYLE
-                ? R.drawable.ic_qs_style);
+        state.label = mContext.getString(
+                 R.string.system_theme_style_title);
+        state.icon = ResourceIcon.get(
+                  R.drawable.ic_qs_style);
     }
 
     @Override
@@ -260,6 +259,11 @@ public class ThemeTile extends QSTileImpl<BooleanState> {
         return null;
     }
 
+    @Override
+    protected void handleLongClick() {
+        handleClick();
+    }
+	
     @Override
     protected void handleSetListening(boolean listening) {
     }
