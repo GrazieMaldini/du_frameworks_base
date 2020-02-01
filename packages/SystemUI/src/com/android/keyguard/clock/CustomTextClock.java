@@ -88,7 +88,7 @@ public class CustomTextClock extends TextView implements ColorExtractor.OnColors
         mResources = context.getResources();
         mHours = mResources.getStringArray(R.array.type_clock_hours);
         mMinutes = mResources.getStringArray(R.array.type_clock_minutes);
-        mSystemAccent = mResources.getColor(R.color.custom_text_clock_top_color, null);
+        mSystemAccent = mResources.getColor(R.color.accent_device_default_light, null);
         mFallbackColor = mResources.getColor(R.color.custom_text_clock_top_fallback_color, null);
         onColorsChanged(mColorExtractor, 0);
     }
