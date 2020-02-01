@@ -5834,6 +5834,15 @@ public final class Settings {
         private static final Validator ACCENT_COLOR_VALIDATOR = ANY_INTEGER_VALIDATOR;
 
         /**
+         * Accent Color
+         * @hide
+         */
+        public static final String GRADIENT_COLOR = "gradient_color";
+
+        /** @hide */
+        private static final Validator GRADIENT_COLOR_VALIDATOR = ANY_INTEGER_VALIDATOR;
+
+        /**
          * User definable value of pulse notification screen brightness
          *
          * @hide
@@ -5979,7 +5988,8 @@ public final class Settings {
             DOUBLE_TAP_SLEEP_GESTURE,
             ACCENT_COLOR,
             PULSE_BRIGHTNESS,
-            DOZE_BRIGHTNESS
+            DOZE_BRIGHTNESS,
+            GRADIENT_COLOR
         };
 
         /**
@@ -6183,6 +6193,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(ACCENT_COLOR);
             PRIVATE_SETTINGS.add(PULSE_BRIGHTNESS);
             PRIVATE_SETTINGS.add(DOZE_BRIGHTNESS);
+            PRIVATE_SETTINGS.add(GRADIENT_COLOR);
         }
 
         /**
@@ -6348,6 +6359,7 @@ public final class Settings {
             VALIDATORS.put(ACCENT_COLOR, ACCENT_COLOR_VALIDATOR);
             VALIDATORS.put(PULSE_BRIGHTNESS, PULSE_BRIGHTNESS_VALIDATOR);
             VALIDATORS.put(DOZE_BRIGHTNESS, DOZE_BRIGHTNESS_VALIDATOR);
+            VALIDATORS.put(GRADIENT_COLOR, GRADIENT_COLOR_VALIDATOR);
         }
 
         /**
