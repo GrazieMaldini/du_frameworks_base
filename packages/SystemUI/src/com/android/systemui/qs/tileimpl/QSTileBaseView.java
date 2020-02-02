@@ -89,7 +89,6 @@ public class QSTileBaseView extends com.android.systemui.plugins.qs.QSTileView {
         addView(mIconFrame, new LayoutParams(size, size));
         backgroundView = new ImageView(getContext());
         foregroundView = new ImageView(getContext());
-        if (context.getResources().getBoolean(R.bool.config_useMaskForQs)) {
             Path path = new Path(PathParser.createPathFromPathData(
                     context.getResources().getString(ICON_MASK_ID)));
             float pathSize = AdaptiveIconDrawable.MASK_SIZE;
@@ -128,7 +127,7 @@ public class QSTileBaseView extends com.android.systemui.plugins.qs.QSTileView {
         mIconFrame.addView(foregroundView, lp);
         backgroundView.setLayoutParams(lp);
         foregroundView.setLayoutParams(lp);
-        }
+
         mIcon = icon;
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -150,7 +149,7 @@ public class QSTileBaseView extends com.android.systemui.plugins.qs.QSTileView {
         setClipToPadding(false);
         mCollapsedView = collapsedView;
         setFocusable(true);
-    }
+        }
 
     public View getBgCircle() {
         return backgroundView;
