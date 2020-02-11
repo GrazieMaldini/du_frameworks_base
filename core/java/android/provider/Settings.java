@@ -5394,25 +5394,25 @@ public final class Settings {
          * Whether to enable PULSE Edge lights
          * @hide
          */
-        public static final String PULSE_AMBIENT_LIGHT = "pulse_ambient_light";
+        public static final String NOTIFICATION_PULSE = "pulse_ambient_light";
 
          /**
          * Whether to enable Ambient Edge lights
          * @hide
          */
-        public static final String AMBIENT_NOTIFICATION_LIGHT_ENABLED = "ambient_notification_light_enabled";
+        public static final String AOD_NOTIFICATION_PULSE = "ambient_notification_light_enabled";
 
          /**
-         * Whether to enable Ambient Edge lights
+         * Whether hide everything on aod when  ambient lights are enabled
          * @hide
          */
-        public static final String AMBIENT_NOTIFICATION_LIGHT = "ambient_notification_light";
+        public static final String AOD_NOTIFICATION_PULSE_CLEAR  = "ambient_notification_light_hide_aod";
 
          /**
-         * Whether Ambient Edge lights are activated
+         * Whether to change aod pulse state
          * @hide
          */
-        public static final String AMBIENT_NOTIFICATION_LIGHT_ACTIVATED = "ambient_notification_light_activated";
+        public static final String AOD_NOTIFICATION_PULSE_TRIGGER = "ambient_notification_light";
 
         /**
          * Whether allowing pocket service to register sensors and dispatch informations.
@@ -5438,17 +5438,23 @@ public final class Settings {
         public static final String HEADS_UP_BLACKLIST_VALUES = "heads_up_blacklist_values";
 
         /**
-         * helper setting to contain the current pulse reason so we can check
-         * if it has been triggered from a notification or a gesture
+         * Whether Ambient Edge lights are activated
          * @hide
          */
-        public static final String PULSE_TRIGGER_REASON = "pulse_trigger_reason";
+        public static final String AOD_NOTIFICATION_PULSE_ACTIVATED = "ambient_notification_light_activated";
 
          /**
          * Whether to use accent color for pulse
          * @hide
          */
-        public static final String AMBIENT_NOTIFICATION_LIGHT_ACCENT = "ambient_notification_light_accent";
+        public static final String NOTIFICATION_PULSE_ACCENT = "ambient_notification_light_accent";
+
+        /**
+         * helper setting to contain the current pulse reason so we can check
+         * if it has been triggered from a notification or a gesture
+         * @hide
+         */
+        public static final String PULSE_TRIGGER_REASON = "pulse_trigger_reason";
 
         /**
          * Keys we no longer back up under the current schema, but want to continue to
