@@ -182,7 +182,7 @@ public class bananaUtils {
         float n = temp + 0.5f;
         // Use boolean to determine celsius or fahrenheit
         return String.valueOf((n - c) % 2 == 0 ? (int) temp :
-                ForC ? c * 9/5 + 32 + "°F" :c + "°C");
+                ForC ? c + "°C" :c * 9/5 + 32 + "°F");
     }
 
     // Method to detect whether an overlay is enabled or not
