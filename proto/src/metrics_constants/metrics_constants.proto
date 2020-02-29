@@ -7438,5 +7438,9 @@ message MetricsEvent {
 
     // BananaDroid constant
     BANANADROID = 1999;
+
+    // Panel for Mobile Data
+    PANEL_MOBILE_DATA = 2002;
+
   }
 }
