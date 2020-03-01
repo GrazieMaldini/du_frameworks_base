@@ -238,4 +238,6 @@ oneway interface IStatusBar
      * BananaDroid
      */
     void toggleCameraFlash();
+
+    void killForegroundApp();
 }

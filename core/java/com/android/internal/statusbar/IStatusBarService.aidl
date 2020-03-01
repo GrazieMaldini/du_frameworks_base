@@ -164,4 +164,6 @@ interface IStatusBarService
      * BananaDroid
      */
     void toggleCameraFlash();
+
+    void killForegroundApp();
 }
