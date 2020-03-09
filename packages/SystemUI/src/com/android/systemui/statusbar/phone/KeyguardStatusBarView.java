@@ -61,6 +61,8 @@ import com.android.systemui.statusbar.policy.UserSwitcherController;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
+import com.android.internal.util.banana.bananaUtils;
+
 /**
  * The header group on Keyguard.
  */
@@ -96,6 +98,8 @@ public class KeyguardStatusBarView extends RelativeLayout
     private View mCutoutSpace;
     private ViewGroup mStatusIconArea;
     private int mLayoutState = LAYOUT_NONE;
+
+    private boolean mhasNotch;
 
     /**
      * Draw this many pixels into the left/right side of the cutout to optimally use the space
@@ -206,7 +210,7 @@ public class KeyguardStatusBarView extends RelativeLayout
             // If we have no keyguard switcher, the screen width is under 600dp. In this case,
             // we only show the multi-user switch if it's enabled through UserManager as well as
             // by the user.
-            if (mMultiUserSwitch.isMultiUserEnabled()) {
+            if (!mhasNotch && mMultiUserSwitch.isMultiUserEnabled()) {
                 mMultiUserSwitch.setVisibility(View.VISIBLE);
             } else {
                 mMultiUserSwitch.setVisibility(View.GONE);
@@ -481,6 +485,7 @@ public class KeyguardStatusBarView extends RelativeLayout
     public void onOverlayChanged() {
         mShowPercentAvailable = getContext().getResources().getBoolean(
                 com.android.internal.R.bool.config_battery_percentage_setting_available);
+        mhasNotch = bananaUtils.hasNotch(getContext());
         mCarrierLabel.setTextAppearance(
                 Utils.getThemeAttr(mContext, com.android.internal.R.attr.textAppearanceSmall));
         onThemeChanged();
