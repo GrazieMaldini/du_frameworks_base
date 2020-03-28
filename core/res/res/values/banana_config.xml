@@ -194,4 +194,7 @@
     <!-- Screen off delay -->
     <integer name="config_screen_off_delay">1000</integer>
 
+    <!-- Enable face auth only when swiping security view -->
+    <bool name="config_faceAuthOnlyOnSecurityView">false</bool>
+
 </resources>
