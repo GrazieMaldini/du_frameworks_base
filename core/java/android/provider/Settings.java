@@ -4873,6 +4873,12 @@ public final class Settings {
         public static final String NETWORK_TRAFFIC_STATE = "network_traffic_state";
 
         /**
+         * What to show in the network traffic indicator
+         * @hide
+         */
+        public static final String NETWORK_TRAFFIC_MODE = "network_traffic_mode";
+
+        /**
          * Network traffic inactivity threshold (default is 1 kBs)
          * @hide
          */

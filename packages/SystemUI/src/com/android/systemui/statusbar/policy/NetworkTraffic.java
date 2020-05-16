@@ -54,6 +54,7 @@ public class NetworkTraffic extends TextView {
     private int mAutoHideThreshold;
     protected int mTintColor;
     private int mRefreshInterval = 1;
+    private int mIndicatorMode = 0;
 
     private boolean mScreenOn = true;
     protected boolean mVisible = true;
@@ -94,6 +95,7 @@ public class NetworkTraffic extends TextView {
                 if (output != getText()) {
                     setText(output);
                 }
+                makeVisible();
             } else {
                 // Add information for downlink if it's called for
                 CharSequence output = formatOutput(timeDelta, rxData, symbol);
@@ -176,7 +178,13 @@ public class NetworkTraffic extends TextView {
             long speedRxKB = (long)(rxData / (timeDelta / 1000f)) / KB;
                 long speedTxKB = (long)(txData / (timeDelta / 1000f)) / KB;
 
-            return (speedTxKB > speedRxKB);
+            if (mIndicatorMode == 0) {
+                return (speedTxKB > speedRxKB);
+            } else if (mIndicatorMode == 2) {
+                return true;
+            } else {
+                return false;
+            }
         }
     };
 
@@ -265,7 +273,10 @@ public class NetworkTraffic extends TextView {
         void observe() {
             ContentResolver resolver = mContext.getContentResolver();
             resolver.registerContentObserver(Settings.System
-                    .getUriFor(Settings.System.NETWORK_TRAFFIC_STATE), false,
+                    .getUriFor(Settings.System.NETWORK_TRAFFIC_STATE),
+            resolver.registerContentObserver(Settings.System
+                    .getUriFor(Settings.System.NETWORK_TRAFFIC_MODE), false,
+                    this, UserHandle.USER_ALL); false,
                     this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System
                     .getUriFor(Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD), false,
@@ -327,6 +338,9 @@ public class NetworkTraffic extends TextView {
         mIsEnabled = Settings.System.getIntForUser(resolver,
                 Settings.System.NETWORK_TRAFFIC_STATE, 1,
                 UserHandle.USER_CURRENT) == 1;
+        mIndicatorMode = Settings.System.getIntForUser(resolver,
+                Settings.System.NETWORK_TRAFFIC_MODE, 0,
+                UserHandle.USER_CURRENT);
         mAutoHideThreshold = Settings.System.getIntForUser(resolver,
                 Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD, 1,
                 UserHandle.USER_CURRENT);
