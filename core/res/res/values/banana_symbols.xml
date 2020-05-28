@@ -70,6 +70,9 @@
   <java-symbol type="string" name="config_pocketBridgeSysfsInpocket" />
   <java-symbol type="bool" name="config_pocketModeSupported" />
 
+  <!-- Pocket Service -->
+  <java-symbol type="string" name="config_pocketJudgeVendorSensorName" />
+
     <!-- Path to fast charging status file to detect whether an oem fast charger is active -->
     <java-symbol type="string" name="config_oemFastChargerStatusPath" />
 
