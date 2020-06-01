@@ -56,4 +56,7 @@
     <!-- Whether to use the mask for the quicksettings icons-->
     <bool name="config_useMaskForQs">true</bool>
 
+    <!-- Whether to dim the FOD icon -->
+    <bool name="config_fodIconDim">false</bool>
+
 </resources>
