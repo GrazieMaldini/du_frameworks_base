@@ -32,6 +32,7 @@ import android.os.ServiceManager;
 import android.os.SystemClock;
 import android.view.IWindowManager;
 import android.view.WindowManagerGlobal;
+import android.util.TypedValue;
 
 import com.android.internal.R;
 import com.android.internal.statusbar.IStatusBarService;
@@ -161,5 +162,11 @@ public class bananaUtils {
                 }
             }
         }
+    }
+
+    public static int getThemeAccentColor (final Context context) {
+        final TypedValue value = new TypedValue ();
+        context.getTheme ().resolveAttribute (android.R.attr.colorAccent, value, true);
+        return value.data;
     }
 }
