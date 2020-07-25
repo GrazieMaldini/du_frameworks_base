@@ -134,4 +134,7 @@
     <!-- Pulse brightness -->
     <java-symbol type="integer" name="config_screenBrightnessPulse" />
 
+    <!-- DC Dimming -->
+    <java-symbol type="string" name="config_deviceDcDimmingSysfsNode" />
+
 </resources>
