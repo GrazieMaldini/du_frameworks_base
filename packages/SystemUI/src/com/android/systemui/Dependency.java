@@ -39,6 +39,7 @@ import com.android.systemui.assist.AssistManager;
 import com.android.systemui.broadcast.BroadcastDispatcher;
 import com.android.systemui.bubbles.BubbleController;
 import com.android.systemui.colorextraction.SysuiColorExtractor;
+import com.android.systemui.custom.CustomSettingsService;
 import com.android.systemui.dagger.qualifiers.Background;
 import com.android.systemui.dagger.qualifiers.Main;
 import com.android.systemui.dock.DockManager;
@@ -332,6 +333,7 @@ public class Dependency {
     @Inject Lazy<MediaOutputDialogFactory> mMediaOutputDialogFactory;
     @Inject Lazy<TaskHelper> mTaskHelper;
     @Inject Lazy<PulseController> mPulseController;
+    @Inject Lazy<CustomSettingsService> mCustomSettingsService;
 
     @Inject
     public Dependency() {
@@ -531,6 +533,7 @@ public class Dependency {
         mProviders.put(RecordingController.class, mRecordingController::get);
         mProviders.put(Divider.class, mDivider::get);
         mProviders.put(PulseController.class, mPulseController::get);
+        mProviders.put(CustomSettingsService.class, mCustomSettingsService::get);
 
         mProviders.put(MediaOutputDialogFactory.class, mMediaOutputDialogFactory::get);
 
