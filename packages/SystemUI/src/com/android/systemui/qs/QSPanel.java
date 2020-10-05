@@ -32,6 +32,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -494,8 +495,11 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         if (mListening) {
             refreshAllTiles();
         }
-        if (mTileLayout != null) {
-            mTileLayout.updateResources();
+        if (mRegularTileLayout != null) {
+            mRegularTileLayout.updateResources();
+        }
+        if (mHorizontalTileLayout != null) {
+            mHorizontalTileLayout.updateResources();
         }
     }
 
@@ -580,9 +584,9 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
                 newLayout.setMaxColumns(landscapeAndMedia ? 3 : TileLayout.NO_MAX_COLUMNS);
             if (needsDynamicRowsAndColumns()) {
                 newLayout.setMinRows(horizontal ? 2 : 1);
-                // Let's use 3 columns to match the current layout
-                newLayout.setMaxColumns(horizontal ? 3 : TileLayout.NO_MAX_COLUMNS);
             }
+            // request layout to calc num of columns
+            newLayout.updateSettings();
             updateTileLayoutMargins();
             updateFooterMargin();
             updateMediaDisappearParameters();
@@ -895,6 +899,7 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
 
         if (mTileLayout != null) {
             mTileLayout.addTile(r);
+            configureTile(r.tile, r.tileView);
         }
 
         return r;
@@ -1165,6 +1170,27 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         }
     }
 
+    public int getNumColumns() {
+        return mTileLayout.getNumColumns();
+    }
+
+    public void updateSettings() {
+        if (mRegularTileLayout != null) {
+            mRegularTileLayout.updateSettings();
+        }
+        if (mHorizontalTileLayout != null) {
+            mHorizontalTileLayout.updateSettings();
+        }
+        if (mTileLayout != null) {
+            for (TileRecord r : mRecords) {
+                configureTile(r.tile, r.tileView);
+            }
+        }
+    }
+
+    private void configureTile(QSTile t, QSTileView v) {
+        v.setHideLabel(!mTileLayout.isShowTitles());
+    }
 
     protected static class Record {
         DetailAdapter detailAdapter;
@@ -1220,5 +1246,15 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         default void setExpansion(float expansion) {}
 
         int getNumVisibleTiles();
+
+        int getNumColumns();
+
+        default void updateSettings() {}
+
+        boolean isShowTitles();
+
+        default int getSettingsColumns() {
+            return getNumColumns();
+        }
     }
 }
