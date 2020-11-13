@@ -163,5 +163,6 @@ interface IStatusBarService
     /**
      * BananaDroid
      */
-    void toggleCameraFlash();
+    void toggleCameraFlash(boolean proximityCheck);
+    void triggerElmyraAction(String action);
 }

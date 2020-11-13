@@ -238,5 +238,6 @@ oneway interface IStatusBar
     /**
      * BananaDroid
      */
-    void toggleCameraFlash();
+    void toggleCameraFlash(boolean proximityCheck);
+    void triggerElmyraAction(String action);
 }

@@ -33,6 +33,8 @@ import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.ViewConfiguration;
 
+import com.android.internal.util.banana.bananaUtils;
+
 import java.util.List;
 
 public final class LineageButtons {
@@ -206,6 +208,76 @@ public final class LineageButtons {
             mVolBtnMusicControls = Settings.System.getIntForUser(
                     resolver, Settings.System.VOLUME_BUTTON_MUSIC_CONTROL, 1,
                     UserHandle.USER_CURRENT) == 1;
+        }
+    }
+
+    // Elmyra app actions
+    public void performTriggeredAction(String action, Context context, boolean interactive) {
+        switch(action) {
+            case "flashlight":
+                bananaUtils.toggleCameraFlash(false);
+                break;
+            case "assist":
+                bananaUtils.startAssist();
+                break;
+            case "screenshot":
+                // already disabled when screen is OFF by Elmyra app
+                bananaUtils.takeScreenshot(true/*full*/);
+                break;
+            case "partialscreenshot":
+                // already disabled when screen is OFF by Elmyra app
+                bananaUtils.takeScreenshot(false/*full*/);
+                break;
+            case "camera":
+                if (!interactive) {
+                    bananaUtils.switchScreenOff(context);
+                }
+                bananaUtils.launchCamera(context);
+                break;
+            case "mute":
+                bananaUtils.triggerHushMute(context);
+                break;
+            case "screen":
+                if (interactive) {
+                    bananaUtils.switchScreenOff(context);
+                } else {
+                    bananaUtils.switchScreenOn(context);
+                }
+                break;
+            case "skiptrack":
+                skipTrack();
+                break;
+            case "previoustrack":
+                previousTrack();
+                break;
+            case "voicesearch":
+                bananaUtils.launchVoiceSearch(context);
+                break;
+            case "volumepanel":
+                // already disabled when screen is OFF by Elmyra app
+                bananaUtils.toggleVolumePanel(context);
+                break;
+            case "powermenu":
+                // already disabled when screen is OFF by Elmyra app
+                bananaUtils.showPowerMenu();
+                break;
+            case "toggleqspanel":
+                // already disabled when screen is OFF by Elmyra app
+                bananaUtils.toggleQsPanel();
+                break;
+            case "togglenotificationspanel":
+                // already disabled when screen is OFF by Elmyra app
+                bananaUtils.toggleNotifications();
+                break;
+            case "clearallnotifications":
+                // already disabled when screen is OFF by Elmyra app
+                bananaUtils.clearAllNotifications();
+                break;
+            case "toggleringermodes":
+                bananaUtils.toggleRingerModes(context);
+                break;
+            default:
+                break;
         }
     }
 }
