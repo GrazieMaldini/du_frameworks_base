@@ -33,4 +33,7 @@
 
     <dimen name="vol_dot_spacer">4dp</dimen>
 
+    <!-- Qs visibility -->
+    <dimen name="screenrecord_dot_size">48dp</dimen>
+
 </resources>
