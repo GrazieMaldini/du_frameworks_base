@@ -5042,6 +5042,12 @@ public final class Settings {
         public static final String HEADS_UP_NOTIFICATION_SNOOZE = "heads_up_notification_snooze";
 
         /**
+         * Whether to show heads up only for dialer and sms apps
+         * @hide
+         */
+        public static final String LESS_BORING_HEADS_UP = "less_boring_heads_up";
+
+        /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
          * it to PRIVATE_SETTINGS below. Also add a validator that can validate
