@@ -48,6 +48,8 @@ import java.io.FileDescriptor;
 import java.io.IOException;
 import java.lang.reflect.Field;
 
+import com.android.internal.util.banana.PixelPropsUtils;
+
 /** @hide */
 public final class Zygote {
     /*
@@ -888,6 +890,9 @@ public final class Zygote {
 
         // Modify model to defy Next-Generation Assistant in the Google app
         maybeSetGoogleModel(args.mPackageName, loggingTag);
+
+        // Set pixel props
+        PixelPropsUtils.setProps(args.mPackageName);
     }
 
     private static final String USAP_ERROR_PREFIX = "Invalid command to USAP: ";
