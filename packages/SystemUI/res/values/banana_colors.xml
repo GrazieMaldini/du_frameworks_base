@@ -19,4 +19,7 @@
     <!-- QS date color-->
     <color name="qs_date_color">#FF4C4C4C</color>
 
+    <color name="default_volume_transparency">#CCFFFFFF</color>
+    <color name="accent_volume_transparency">#66FFFFFF</color>
+
 </resources>

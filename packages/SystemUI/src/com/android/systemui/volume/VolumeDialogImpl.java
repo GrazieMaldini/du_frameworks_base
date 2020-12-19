@@ -296,7 +296,7 @@ public class VolumeDialogImpl implements VolumeDialog,
         mDialog = LayoutInflater.from(mContext).inflate(R.layout.volume_dialog,
                 (ViewGroup) null, false);
 
-        mDialog.setOnTouchListener((v, event) -> {
+       mDialog.setOnTouchListener((v, event) -> {
             if (mShowing) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_OUTSIDE:
@@ -363,6 +363,11 @@ public class VolumeDialogImpl implements VolumeDialog,
         if (mExpandRows != null) {
             setLayoutGravity(mExpandRows.getLayoutParams(), panelGravity);
             mExpandRows.setRotation(mVolumePanelOnLeft ? -90 : 90);
+        }
+
+        LinearLayout belowContainer = mDialog.findViewById(R.id.main_below);
+        if (belowContainer != null) {
+            setLayoutGravity(belowContainer.getLayoutParams(), panelGravity);
         }
 
         if (mRows.isEmpty()) {
@@ -543,11 +548,8 @@ public class VolumeDialogImpl implements VolumeDialog,
         row.view = LayoutInflater.from(mContext).inflate(R.layout.volume_dialog_row, null);
         row.view.setId(row.stream);
         row.view.setTag(row);
-        row.header = row.view.findViewById(R.id.volume_row_header);
+        row.header = row.view.findViewById(R.id.volume_row_percentage);
         row.header.setId(20 * row.stream);
-        if (stream == STREAM_ACCESSIBILITY) {
-            row.header.setFilters(new InputFilter[] {new InputFilter.LengthFilter(13)});
-        }
         row.dndIcon = row.view.findViewById(R.id.dnd_icon);
         row.slider = row.view.findViewById(R.id.volume_row_slider);
         row.slider.setProgressTintMode(PorterDuff.Mode.SRC_ATOP);
@@ -1207,7 +1209,6 @@ public class VolumeDialogImpl implements VolumeDialog,
     private void removeRow(VolumeRow volumeRow) {
         mRows.remove(volumeRow);
         mDialogRowsView.removeView(volumeRow.view);
-        mConfigurableTexts.remove(volumeRow.header);
     }
 
     protected void onStateChangedH(State state) {
@@ -1312,11 +1313,6 @@ public class VolumeDialogImpl implements VolumeDialog,
             row.slider.setMin(min);
         }
 
-        // update header text
-        Util.setText(row.header, getStreamLabelH(ss));
-        row.slider.setContentDescription(row.header.getText());
-        mConfigurableTexts.add(row.header, ss.name);
-
         // update icon
         final boolean iconEnabled = (mAutomute || ss.muteSupported) && !zenMuted;
         row.icon.setEnabled(iconEnabled);
@@ -1400,7 +1396,7 @@ public class VolumeDialogImpl implements VolumeDialog,
         boolean useActiveColoring = isActive && row.slider.isEnabled();
         final ColorStateList tint = useActiveColoring
                 ? Utils.getColorAccent(mContext)
-                : Utils.getColorAttr(mContext, android.R.attr.colorForeground);
+                : Utils.getColorAttr(mContext, android.R.attr.textColorSecondary);
         final int alpha = useActiveColoring
                 ? Color.alpha(tint.getDefaultColor())
                 : getAlphaAttr(android.R.attr.secondaryContentAlpha);
@@ -1412,7 +1408,7 @@ public class VolumeDialogImpl implements VolumeDialog,
         if (!mEnableVolumePanelTint) row.slider.setProgressBackgroundTintList(tint);
         row.slider.setAlpha(((float) alpha) / 255);
         row.icon.setImageTintList(tint);
-        row.icon.setImageAlpha(alpha);
+        row.header.setTextColor(tint);
         row.cachedTint = tint;
     }
 
@@ -1466,6 +1462,7 @@ public class VolumeDialogImpl implements VolumeDialog,
                 row.slider.setProgress(newProgress, true);
             }
         }
+        Util.setText(row.header, Utils.formatPercentage((enable && !row.ss.muted) ? vlevel : 0, row.ss.levelMax));
     }
 
     private void recheckH(VolumeRow row) {
@@ -1665,6 +1662,12 @@ public class VolumeDialogImpl implements VolumeDialog,
                 }
             }
             final int userLevel = getImpliedLevel(seekBar, progress);
+            if (mRow.ss.level == (mRow.ss.levelMin + 1) && userLevel <= mRow.ss.level) {
+                seekBar.setProgress((mRow.ss.levelMin + 1) * 100);
+                Util.setText(mRow.header,Utils.formatPercentage(mRow.ss.levelMin + 1, mRow.ss.levelMax));
+                return;
+            }
+            Util.setText(mRow.header, Utils.formatPercentage(userLevel, mRow.ss.levelMax));
             if (mRow.ss.level != userLevel || mRow.ss.muted && userLevel > 0) {
                 mRow.userAttempt = SystemClock.uptimeMillis();
                 if (mRow.requestedLevel != userLevel) {
