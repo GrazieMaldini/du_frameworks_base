@@ -26,6 +26,7 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.Point;
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.RemoteException;
@@ -159,6 +160,7 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
         public void onScreenTurnedOn() {
             if (mUpdateMonitor.isFingerprintDetectionRunning()) {
                 show();
+                triggerFodIconAnimation();
             }
         }
     };
@@ -521,4 +523,10 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
             mHandler.post(() -> updatePosition());
         }
     };
+
+    public void triggerFodIconAnimation() {
+        AnimatedVectorDrawable fodIconAnimatedVectorDrawable = (AnimatedVectorDrawable) mContext.getDrawable(R.drawable.fod_icon_default_animated);
+        setImageDrawable(fodIconAnimatedVectorDrawable);
+        fodIconAnimatedVectorDrawable.start();
+    }
 }
