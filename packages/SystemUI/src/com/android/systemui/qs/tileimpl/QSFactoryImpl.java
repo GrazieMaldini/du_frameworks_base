@@ -92,6 +92,7 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<RebootTile> mRebootTileProvider;
     private final Provider<SoundTile> mSoundTileProvider;
     private final Provider<ScreenshotTile> mScreenshotTileProvider;
+    private final Provider<ThemeTile> mThemeTileProvider;
 
     private final Lazy<QSHost> mQsHostLazy;
 
@@ -123,7 +124,8 @@ public class QSFactoryImpl implements QSFactory {
             Provider<AODTile> aodTileProvider,
             Provider<RebootTile> rebootTileProvider,
             Provider<SoundTile> soundTileProvider,
-            Provider<ScreenshotTile> screenshotTileProvider) {
+            Provider<ScreenshotTile> screenshotTileProvider,
+            Provider<ThemeTile> themeTileProvider) {
         mQsHostLazy = qsHostLazy;
         mWifiTileProvider = wifiTileProvider;
         mBluetoothTileProvider = bluetoothTileProvider;
@@ -152,6 +154,7 @@ public class QSFactoryImpl implements QSFactory {
         mRebootTileProvider = rebootTileProvider;
         mSoundTileProvider = soundTileProvider;
         mScreenshotTileProvider = screenshotTileProvider;
+        mThemeTileProvider = themeTileProvider;
     }
 
     public QSTile createTile(String tileSpec) {
@@ -217,8 +220,8 @@ public class QSFactoryImpl implements QSFactory {
                 return mSoundTileProvider.get();
             case "screenshot":
                 return mScreenshotTileProvider.get();
-//            case "theme":
-//                return new ThemeTile(mHost);
+            case "theme":
+                return mThemeTileProvider.get();
         }
 
         // Custom tiles

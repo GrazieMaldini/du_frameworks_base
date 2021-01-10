@@ -50,6 +50,8 @@ import com.android.systemui.qs.tileimpl.QSTileImpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class ThemeTile extends QSTileImpl<BooleanState> {
 
     static final List<ThemeTileItem> sThemeItems = new ArrayList<ThemeTileItem>();
@@ -124,6 +126,7 @@ public class ThemeTile extends QSTileImpl<BooleanState> {
     private Mode mMode;
     private static UiModeManager mUiModeManager;
 
+    @Inject
     public ThemeTile(QSHost host) {
         super(host);
         mOverlayManager = IOverlayManager.Stub.asInterface(
