@@ -64,6 +64,30 @@ public class ThemesUtils {
             "com.android.theme.solarizeddark.systemui",
     };
 
+    public static final String[] CHARCOAL_BLACK = {
+            "com.android.theme.color.primary.charcoalblack",
+    };
+
+    public static final String[] CLEAR = {
+            "com.android.theme.color.primary.clear",
+    };
+
+    public static final String[] ETHEREAL = {
+            "com.android.theme.color.primary.ethereal",
+    };
+
+    public static final String[] FLAME = {
+            "com.android.theme.color.primary.flame",
+    };
+
+    public static final String[] NATURE = {
+            "com.android.theme.color.primary.nature",
+    };
+
+    public static final String[] OCEAN = {
+            "com.android.theme.color.primary.ocean",
+    };
+
     public static final String[] STATUSBAR_ICONS = {
             "com.android.theme.icon_pack.filled.android",
             "com.android.theme.icon_pack.rounded.android",
