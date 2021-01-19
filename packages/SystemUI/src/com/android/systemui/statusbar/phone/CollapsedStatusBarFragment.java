@@ -319,9 +319,9 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     }
 
     public void hideSystemIconArea(boolean animate) {
-        animateHide(mSystemIconArea, animate);
+        animateHide(mSystemIconArea, animate, true);
         for (View batteryBar: mBatteryBars) {
-            animateHide(batteryBar, animate);
+            animateHide(batteryBar, animate, true);
         }
     }
 
@@ -333,7 +333,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     }
 
     public void hideClock(boolean animate) {
-        animateHiddenState(mClockView, clockHiddenMode(), animate);
+        animateHide(mClockView, animate, clockHiddenMode() == View.INVISIBLE);
     }
 
     public void showClock(boolean animate) {
@@ -353,9 +353,9 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     }
 
     public void hideNotificationIconArea(boolean animate) {
-        animateHide(mNotificationIconAreaInner, animate);
-        animateHide(mCenteredIconArea, animate);
-        animateHide(mCustomIconArea, animate);
+        animateHide(mNotificationIconAreaInner, animate, true);
+        animateHide(mCenteredIconArea, animate, true);
+        animateHide(mCustomIconArea, animate, true);
     }
 
     public void showNotificationIconArea(boolean animate) {
@@ -366,7 +366,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
 
     public void hideOperatorName(boolean animate) {
         if (mOperatorNameFrame != null) {
-            animateHide(mOperatorNameFrame, animate);
+            animateHide(mOperatorNameFrame, animate, true);
         }
     }
 
@@ -378,7 +378,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
 
     public void hideCarrierName(boolean animate) {
         if (mCustomCarrierLabel != null) {
-            animateHide(mCustomCarrierLabel, animate);
+            animateHide(mCustomCarrierLabel, animate, mHasCarrierLabel);
         }
     }
 
@@ -389,16 +389,16 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     }
 
     /**
-     * Animate a view to INVISIBLE or GONE
+     * Hides a view.
      */
-    private void animateHiddenState(final View v, int state, boolean animate) {
+    private void animateHide(final View v, boolean animate, final boolean invisible) {
         if (v instanceof Clock && !((Clock)v).shouldBeVisible()) {
             return;
         }
         v.animate().cancel();
         if (!animate) {
             v.setAlpha(0f);
-            v.setVisibility(state);
+            v.setVisibility(invisible ? View.INVISIBLE : View.GONE);
             return;
         }
 
@@ -407,14 +407,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
                 .setDuration(160)
                 .setStartDelay(0)
                 .setInterpolator(Interpolators.ALPHA_OUT)
-                .withEndAction(() -> v.setVisibility(state));
-    }
-
-    /**
-     * Hides a view.
-     */
-    private void animateHide(final View v, boolean animate) {
-        animateHiddenState(v, View.INVISIBLE, animate);
+                .withEndAction(() -> v.setVisibility(invisible ? View.INVISIBLE : View.GONE));
     }
 
     /**
@@ -495,7 +488,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         if (mHasCarrierLabel) {
             animateShow(mCustomCarrierLabel, animate);
         } else {
-            animateHide(mCustomCarrierLabel, animate);
+            animateHide(mCustomCarrierLabel, animate, false);
         }
     }
 }
