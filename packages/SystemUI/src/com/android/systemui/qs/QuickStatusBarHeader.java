@@ -497,11 +497,11 @@ public class QuickStatusBarHeader extends RelativeLayout implements View.OnClick
     }
 
     private int getBatteryPercentMode() {
-        boolean showBatteryPercent = Settings.System
+        boolean showBatteryEstimate = Settings.System
                 .getIntForUser(getContext().getContentResolver(),
                 QS_SHOW_BATTERY_PERCENT, 0, UserHandle.USER_CURRENT) == 1;
-        return showBatteryPercent ?
-               BatteryMeterView.MODE_ON : BatteryMeterView.MODE_ESTIMATE;
+        return showBatteryEstimate ?
+               BatteryMeterView.MODE_ESTIMATE : BatteryMeterView.MODE_ON;
     }
 
     public void setBatteryPercentMode() {
