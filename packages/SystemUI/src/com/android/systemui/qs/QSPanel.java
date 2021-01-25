@@ -160,6 +160,7 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
 
     // omni
     private int mFooterMargin;
+    private boolean mShowMediaDivider = true;
 
     @Inject
     public QSPanel(
@@ -355,6 +356,7 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         tunerService.addTunable(this, QS_SHOW_AUTO_BRIGHTNESS);
         tunerService.addTunable(this, QS_SHOW_BRIGHTNESS_SLIDER);
         Dependency.get(OmniSettingsService.class).addIntObserver(this, QS_SHOW_SECURITY);
+        Dependency.get(OmniSettingsService.class).addIntObserver(this, Settings.System.OMNI_QS_SHOW_MEDIA_DIVIDER);
 
         if (mHost != null) {
             setTiles(mHost.getTiles());
@@ -559,13 +561,8 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
     private boolean switchTileLayout(boolean force) {
         /** Whether or not the QuickQSPanel currently contains a media player. */
         boolean horizontal = shouldUseHorizontalLayout();
-        if (mDivider != null) {
-            if (!horizontal && mUsingMediaPlayer && mMediaHost.getVisible()) {
-                mDivider.setVisibility(View.VISIBLE);
-            } else {
-                mDivider.setVisibility(View.GONE);
-            }
-        }
+        updateMediaDividerVisibility();
+
         if (horizontal != mUsingHorizontalLayout || force) {
             mUsingHorizontalLayout = horizontal;
             View visibleView = horizontal ? mHorizontalLinearLayout : (View) mRegularTileLayout;
@@ -1179,7 +1176,10 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
             if (mSecurityFooter != null) {
                 mSecurityFooter.setForceHide(newValue != null && newValue == 0);
             }
-       }
+        } else if (Settings.System.OMNI_QS_SHOW_MEDIA_DIVIDER.equals(key)) {
+            mShowMediaDivider = newValue == null || newValue.intValue() == 1;
+            updateMediaDividerVisibility();
+        }
     }
 
     private class H extends Handler {
@@ -1229,6 +1229,21 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
 
     private void configureTile(QSTile t, QSTileView v) {
         v.setHideLabel(!mTileLayout.isShowTitles());
+    }
+
+    private void updateMediaDividerVisibility() {
+        boolean horizontal = shouldUseHorizontalLayout();
+        if (mDivider != null) {
+            if (!horizontal && mUsingMediaPlayer && mMediaHost.getVisible()) {
+                if (mShowMediaDivider) {
+                    mDivider.setVisibility(View.VISIBLE);
+                } else {
+                    mDivider.setVisibility(View.INVISIBLE);
+                }
+            } else {
+                mDivider.setVisibility(View.GONE);
+            }
+        }
     }
 
     protected static class Record {
