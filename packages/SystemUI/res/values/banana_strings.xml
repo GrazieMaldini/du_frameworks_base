@@ -183,5 +183,6 @@
     <string name="tuner_battery_location_bar">Show battery in status bar</string>
     <string name="tuner_status_bar_bg_transparency">Transparent status bar background</string>
     <string name="tuner_qs_media_player">Media player - reboot required</string>
+    <string name="tuner_prefer_three_rows">Prefer 3 rows - reboot required</string>
 
 </resources>
