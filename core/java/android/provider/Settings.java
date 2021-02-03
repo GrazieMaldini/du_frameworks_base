@@ -9798,6 +9798,7 @@ public final class Settings {
                 "qs_show_auto_brightness";
 
         /**
+         * Whether to show qs brightness slider in quickbar
          * @hide
          */
         public static final String QS_SHOW_BRIGHTNESS_SLIDER =
@@ -9827,6 +9828,13 @@ public final class Settings {
          */
         public static final String ACCENT_COLOR = "accent_color";
 
+
+        /**
+         * Whether to show qs brightness slider when qs is expanded
+         * @hide
+         */
+        public static final String QS_SHOW_BRIGHTNESS_SLIDER_EXPANDED =
+                "qs_show_brightness_slider_show_expanded";
 
         /**
          * Keys we no longer back up under the current schema, but want to continue to
