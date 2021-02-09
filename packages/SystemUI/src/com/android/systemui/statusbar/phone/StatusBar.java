@@ -1156,13 +1156,16 @@ public class StatusBar extends SystemUI implements DemoMode,
                 mFODCircleViewImpl.registerCallback(mFODCircleViewImplCallback);
     }
 
-    private void initCoreOverlays(){
+    private void initCoreOverlays() {
         boolean aodAvailable = mContext.getResources().getBoolean(
                     com.android.internal.R.bool.config_dozeAlwaysOnDisplayAvailable);
-        try{
-            mOverlayManager.setEnabled("com.google.android.pixel.setupwizard.overlay.aod",
-                aodAvailable, mLockscreenUserManager.getCurrentUserId());
-        } catch (RemoteException ignored) {
+        String setupWizardOverlay = "com.google.android.pixel.setupwizard.overlay.aod";
+        if (bananaUtils.isPackageInstalled(mContext, setupWizardOverlay)) {
+            try {
+                mOverlayManager.setEnabled(setupWizardOverlay,
+                    aodAvailable, mLockscreenUserManager.getCurrentUserId());
+            } catch (RemoteException ignored) {
+            }
         }
     }
 
