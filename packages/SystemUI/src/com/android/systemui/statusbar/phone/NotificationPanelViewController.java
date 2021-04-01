@@ -65,7 +65,7 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.internal.util.LatencyTracker;
-import com.android.internal.util.banana.bananaUtils;
+import com.android.internal.util.banana.ActionUtils;
 import com.android.keyguard.KeyguardClockSwitch;
 import com.android.keyguard.KeyguardStatusView;
 import com.android.keyguard.KeyguardUpdateMonitor;
@@ -573,7 +573,7 @@ public class NotificationPanelViewController extends PanelViewController {
         mDoubleTapGesture = new GestureDetector(mView.getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
-                bananaUtils.switchScreenOff(mView.getContext());
+                ActionUtils.switchScreenOff(mView.getContext());
                 return true;
             }
         });
@@ -581,7 +581,7 @@ public class NotificationPanelViewController extends PanelViewController {
                 new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
-                bananaUtils.switchScreenOff(mView.getContext());
+                ActionUtils.switchScreenOff(mView.getContext());
                 return true;
             }
         });
