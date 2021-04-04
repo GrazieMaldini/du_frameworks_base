@@ -38,7 +38,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.content.pm.UserInfo;
 import android.hardware.biometrics.BiometricSourceType;
 import android.media.AudioAttributes;
@@ -101,7 +100,7 @@ import com.android.systemui.statusbar.phone.StatusBar;
 import com.android.systemui.util.DeviceConfigProxy;
 import com.android.systemui.util.InjectionInflationController;
 
-import com.android.internal.util.banana.bananaConstants;
+import com.android.internal.util.banana.fod.FodUtils;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -753,8 +752,7 @@ public class KeyguardViewMediator extends SystemUI implements Dumpable {
                 QuickStepContract.isGesturalMode(navigationModeController.addListener(mode -> {
                     mInGestureNavigationMode = QuickStepContract.isGesturalMode(mode);
                 }));
-        PackageManager packageManager = context.getPackageManager();
-        mHasFod = packageManager.hasSystemFeature(bananaConstants.Features.FOD);
+        mHasFod = FodUtils.hasFodSupport(context);
     }
 
     public void userActivity() {
