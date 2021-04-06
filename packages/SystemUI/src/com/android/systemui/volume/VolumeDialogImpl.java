@@ -65,12 +65,10 @@ import android.util.Log;
 import android.util.Slog;
 import android.util.SparseBooleanArray;
 import android.view.ContextThemeWrapper;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.AccessibilityDelegate;
 import android.view.ViewGroup;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.view.ViewPropertyAnimator;
 import android.view.ViewStub;
 import android.view.Window;
@@ -81,7 +79,6 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -137,7 +134,7 @@ public class VolumeDialogImpl implements VolumeDialog,
     private ViewGroup mDialogRowsView;
     private ViewGroup mRinger;
     private ImageButton mRingerIcon;
-    private FrameLayout mODICaptionsView;
+    private ViewGroup mODICaptionsView;
     private CaptionsToggleImageButton mODICaptionsIcon;
     private View mSettingsView;
     private ImageButton mSettingsIcon;
@@ -168,9 +165,6 @@ public class VolumeDialogImpl implements VolumeDialog,
     private ViewStub mODICaptionsTooltipViewStub;
     private View mODICaptionsTooltipView = null;
 
-    // Volume panel placement left or right
-    private boolean mVolumePanelOnLeft;
-
     public VolumeDialogImpl(Context context) {
         mContext =
                 new ContextThemeWrapper(context, R.style.qs_theme);
@@ -182,9 +176,6 @@ public class VolumeDialogImpl implements VolumeDialog,
         mShowActiveStreamOnly = showActiveStreamOnly();
         mHasSeenODICaptionsTooltip =
                 Prefs.getBoolean(context, Prefs.Key.HAS_SEEN_ODI_CAPTIONS_TOOLTIP, false);
-        if (!mShowActiveStreamOnly) {
-            mVolumePanelOnLeft = mContext.getResources().getBoolean(R.bool.config_audioPanelOnLeftSide);
-        }
     }
 
     @Override
@@ -211,13 +202,7 @@ public class VolumeDialogImpl implements VolumeDialog,
     }
 
     private void initDialog() {
-        int land_margin = (int) mContext.getResources().getDimension(
-                R.dimen.volume_dialog_panel_land_margin);
-
         mDialog = new CustomDialog(mContext);
-
-        // Gravitate various views left/right depending on panel placement setting.
-        final int panelGravity = mVolumePanelOnLeft ? Gravity.LEFT : Gravity.RIGHT;
 
         mConfigurableTexts = new ConfigurableTexts(mContext);
         mHovering = false;
@@ -239,10 +224,6 @@ public class VolumeDialogImpl implements VolumeDialog,
         lp.setTitle(VolumeDialogImpl.class.getSimpleName());
         lp.windowAnimations = -1;
         lp.gravity = mContext.getResources().getInteger(R.integer.volume_dialog_gravity);
-        if (!mShowActiveStreamOnly) {
-            lp.gravity &= ~(Gravity.LEFT | Gravity.RIGHT);
-            lp.gravity |= panelGravity;
-        }
         mWindow.setAttributes(lp);
         mWindow.setLayout(WRAP_CONTENT, WRAP_CONTENT);
 
@@ -251,7 +232,7 @@ public class VolumeDialogImpl implements VolumeDialog,
         mDialogView.setAlpha(0);
         mDialog.setCanceledOnTouchOutside(true);
         mDialog.setOnShowListener(dialog -> {
-            mDialogView.setTranslationX(getAnimatorX());
+            if (!isLandscape()) mDialogView.setTranslationX(mDialogView.getWidth() / 2.0f);
             mDialogView.setAlpha(0);
             mDialogView.animate()
                     .alpha(1)
@@ -277,60 +258,21 @@ public class VolumeDialogImpl implements VolumeDialog,
             return true;
         });
 
-        if (!mShowActiveStreamOnly) {
-            if(isLandscape()){
-                FrameLayout layout = mDialog.findViewById(R.id.volume_dialog);
-                setLayoutGravity(layout.getLayoutParams(), panelGravity);
-            }else{
-                LinearLayout layout = mDialog.findViewById(R.id.volume_dialog);
-                setLayoutGravity(layout.getLayoutParams(), panelGravity);
-            }
-        }
-
         mDialogRowsView = mDialog.findViewById(R.id.volume_dialog_rows);
         mRinger = mDialog.findViewById(R.id.ringer);
         if (mRinger != null) {
             mRingerIcon = mRinger.findViewById(R.id.ringer_icon);
             mZenIcon = mRinger.findViewById(R.id.dnd_icon);
-            if(isLandscape() && mVolumePanelOnLeft){
-                MarginLayoutParams ringerLayoutParams = (MarginLayoutParams) mRinger.getLayoutParams();
-                ringerLayoutParams.setMargins(0, 0, land_margin, 0);
-                mRinger.setLayoutParams(ringerLayoutParams);
-            }
-            // Apply ringer layout gravity based on panel left/right setting
-            // Layout type is different between landscape/portrait.
-            setLayoutGravity(mRinger.getLayoutParams(), panelGravity);
         }
 
         mODICaptionsView = mDialog.findViewById(R.id.odi_captions);
         if (mODICaptionsView != null) {
             mODICaptionsIcon = mODICaptionsView.findViewById(R.id.odi_captions_icon);
-            if (!mShowActiveStreamOnly){
-                if(isLandscape()){
-                    setLayoutGravity(mODICaptionsView.getLayoutParams(), panelGravity);
-                    MarginLayoutParams captionsLayoutParams = (MarginLayoutParams) mODICaptionsView.getLayoutParams();
-                    if(mVolumePanelOnLeft){
-                        captionsLayoutParams.setMargins(land_margin, 0, 0, 0);
-                    }
-                    mODICaptionsView.setLayoutParams(captionsLayoutParams);
-                }else{
-                    setLayoutGravity(mODICaptionsView.getLayoutParams(), panelGravity);
-                }
-            }
         }
-        mODICaptionsTooltipViewStub = mDialog.findViewById(mVolumePanelOnLeft ?
-                R.id.odi_captions_tooltip_stub_left :
-                R.id.odi_captions_tooltip_stub);
+        mODICaptionsTooltipViewStub = mDialog.findViewById(R.id.odi_captions_tooltip_stub);
         if (mHasSeenODICaptionsTooltip && mODICaptionsTooltipViewStub != null) {
             mDialogView.removeView(mODICaptionsTooltipViewStub);
             mODICaptionsTooltipViewStub = null;
-        }
-
-        if(isLandscape() && mVolumePanelOnLeft){
-            LinearLayout mainView = mDialog.findViewById(R.id.main);
-            MarginLayoutParams mainLayoutParams = (MarginLayoutParams) mainView.getLayoutParams();
-            mainLayoutParams.setMargins(0, land_margin, land_margin, 0);
-            mainView.setLayoutParams(mainLayoutParams);
         }
 
         mSettingsView = mDialog.findViewById(R.id.settings_container);
@@ -371,22 +313,6 @@ public class VolumeDialogImpl implements VolumeDialog,
         initRingerH();
         initSettingsH();
         initODICaptionsH();
-    }
-
-    // Helper to set layout gravity.
-    // Particular useful when the ViewGroup in question
-    // is different for portait vs landscape.
-    private void setLayoutGravity(Object obj, int gravity) {
-        if (obj instanceof FrameLayout.LayoutParams) {
-            ((FrameLayout.LayoutParams) obj).gravity = gravity;
-        } else if (obj instanceof LinearLayout.LayoutParams) {
-            ((LinearLayout.LayoutParams) obj).gravity = gravity;
-        }
-    }
-
-    private float getAnimatorX() {
-        final float x = mDialogView.getWidth() / 2.0f;
-        return mVolumePanelOnLeft ? -x : x;
     }
 
     protected ViewGroup getDialogView() {
@@ -841,7 +767,7 @@ public class VolumeDialogImpl implements VolumeDialog,
                     tryToRemoveCaptionsTooltip();
                     mIsAnimatingDismiss = false;
                 }, 50));
-        animator.translationX(getAnimatorX());
+        if (!isLandscape()) animator.translationX(mDialogView.getWidth() / 2.0f);
         animator.start();
         checkODICaptionsTooltip(true);
         mController.notifyVisible(false);
