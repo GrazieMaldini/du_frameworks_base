@@ -1,5 +1,7 @@
 package com.android.systemui.statusbar.policy;
 
+import java.text.DecimalFormat;
+
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -9,6 +11,7 @@ import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.graphics.drawable.Drawable;
 import android.graphics.PorterDuff.Mode;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.view.Gravity;
 import android.net.ConnectivityManager;
@@ -24,10 +27,11 @@ import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
+import com.android.systemui.R;
 
 /*
 *
@@ -40,7 +44,7 @@ public class NetworkTraffic extends TextView {
     private static final int KB = 1024;
     private static final int MB = KB * KB;
     private static final int GB = MB * KB;
-    private static final String symbol = "/S";
+    private static final String symbol = "/s";
 
     protected boolean mIsEnabled;
     private boolean mAttached;
@@ -49,7 +53,6 @@ public class NetworkTraffic extends TextView {
     private long lastUpdateTime;
     private int mAutoHideThreshold;
     protected int mTintColor;
-    protected int mLocation;
     private int mRefreshInterval = 1;
     private int mIndicatorMode = 0;
 
@@ -173,7 +176,7 @@ public class NetworkTraffic extends TextView {
 
         private boolean shouldShowUpload(long rxData, long txData, long timeDelta) {
             long speedRxKB = (long)(rxData / (timeDelta / 1000f)) / KB;
-            long speedTxKB = (long)(txData / (timeDelta / 1000f)) / KB;
+                long speedTxKB = (long)(txData / (timeDelta / 1000f)) / KB;
 
             if (mIndicatorMode == 0) {
                 return (speedTxKB > speedRxKB);
@@ -190,10 +193,8 @@ public class NetworkTraffic extends TextView {
     }
 
     protected void makeVisible() {
-        boolean show = mLocation == 1;
-        setVisibility(show ? View.VISIBLE
-                : View.GONE);
-        mVisible = show;
+        setVisibility(View.VISIBLE);
+        mVisible = true;
     }
 
     /*
@@ -250,11 +251,11 @@ public class NetworkTraffic extends TextView {
     }
 
     protected RelativeSizeSpan getSpeedRelativeSizeSpan() {
-        return new RelativeSizeSpan(0.70f);
+        return new RelativeSizeSpan(0.80f);
     }
 
     protected RelativeSizeSpan getUnitRelativeSizeSpan() {
-        return new RelativeSizeSpan(0.65f);
+        return new RelativeSizeSpan(0.75f);
     }
 
     private Runnable mRunnable = new Runnable() {
@@ -273,9 +274,6 @@ public class NetworkTraffic extends TextView {
             ContentResolver resolver = mContext.getContentResolver();
             resolver.registerContentObserver(Settings.System
                     .getUriFor(Settings.System.NETWORK_TRAFFIC_STATE), false,
-                    this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System
-                    .getUriFor(Settings.System.NETWORK_TRAFFIC_LOCATION), false,
                     this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System
                     .getUriFor(Settings.System.NETWORK_TRAFFIC_MODE), false,
@@ -338,16 +336,13 @@ public class NetworkTraffic extends TextView {
     protected void setMode() {
         ContentResolver resolver = mContext.getContentResolver();
         mIsEnabled = Settings.System.getIntForUser(resolver,
-                Settings.System.NETWORK_TRAFFIC_STATE, 0,
+                Settings.System.NETWORK_TRAFFIC_STATE, 1,
                 UserHandle.USER_CURRENT) == 1;
-        mLocation = Settings.System.getIntForUser(resolver,
-                Settings.System.NETWORK_TRAFFIC_LOCATION, 0,
-                UserHandle.USER_CURRENT);
         mIndicatorMode = Settings.System.getIntForUser(resolver,
                 Settings.System.NETWORK_TRAFFIC_MODE, 0,
                 UserHandle.USER_CURRENT);
         mAutoHideThreshold = Settings.System.getIntForUser(resolver,
-                Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD, 0,
+                Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD, 1,
                 UserHandle.USER_CURRENT);
         mRefreshInterval = Settings.System.getIntForUser(resolver,
                 Settings.System.NETWORK_TRAFFIC_REFRESH_INTERVAL, 1,
@@ -372,9 +367,8 @@ public class NetworkTraffic extends TextView {
     }
 
     protected void setSpacingAndFonts() {
-        String txtFont = getResources().getString(com.android.internal.R.string.config_headlineFontFamily);
-        setTypeface(Typeface.create(txtFont, Typeface.BOLD));
-        setLineSpacing(0.75f, 0.75f);
+        setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD));
+        setLineSpacing(0.80f, 0.80f);
     }
 
     public void onDensityOrFontScaleChanged() {
