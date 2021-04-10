@@ -126,15 +126,6 @@
     <integer name="config_proximityCheckTimeout">250</integer>
     <bool name="config_proximityCheckOnWakeEnabledByDefault">false</bool>
 
-    <!-- Does the device support battery LED? -->
-    <bool name="config_intrusiveBatteryLed">false</bool>
-    <!-- Does the battery LED support multiple colors?
-         Used to decide if the user can change the colors -->
-    <bool name="config_multiColorBatteryLed">false</bool>
-    <!-- Do the battery/notification LEDs support pulsing?
-         Used to decide if we show pulse settings -->
-    <bool name="config_ledCanPulse">true</bool>
-
     <bool name="config_has_weird_dt_sensor">false</bool>
 
      <!-- Defines the sysfs attribute path used by pocket bridge
