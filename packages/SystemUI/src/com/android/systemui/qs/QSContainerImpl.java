@@ -142,12 +142,10 @@ public class QSContainerImpl extends FrameLayout {
 
         if (mQsBackGroundAlpha < 255 ) {
             mBackground.setVisibility(View.INVISIBLE);
-            mBackgroundGradient.setVisibility(View.INVISIBLE);
             mQsBackGround.setAlpha(mQsBackGroundAlpha);
             setBackground(mQsBackGround);
         } else {
             mBackground.setVisibility(View.VISIBLE);
-            mBackgroundGradient.setVisibility(View.VISIBLE);
         }
     }
 
