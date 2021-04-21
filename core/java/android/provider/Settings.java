@@ -5308,18 +5308,6 @@ public final class Settings {
         public static final String RIGHT_VERTICAL_BACK_SWIPE_APP_ACTIVITY_ACTION = "right_vertical_back_swipe_app_activity_action";
 
         /**
-         * Whether to show or hide the edit icon
-         * @hide
-         */
-        public static final String QS_EDIT_TOGGLE = "qs_edit_toggle";
-
-        /**
-         * Whether to show or hide the running services icon
-         * @hide
-         */
-        public static final String QS_RUNNING_SERVICES_TOGGLE = "qs_running_services_toggle";
-
-        /**
          * Which action to display in the fourth (user) button in power menu
          * 0: None
          * 1: Screenshot
