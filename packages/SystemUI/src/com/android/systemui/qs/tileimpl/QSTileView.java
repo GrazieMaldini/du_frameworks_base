@@ -17,8 +17,6 @@ package com.android.systemui.qs.tileimpl;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
-import android.os.UserHandle;
-import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -163,16 +161,5 @@ public class QSTileView extends QSTileBaseView {
         mLabelContainer.setOnLongClickListener(longClick);
         mLabelContainer.setClickable(false);
         mLabelContainer.setLongClickable(false);
-    }
-
-    @Override
-    public void textVisibility() {
-        if (Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.QS_TILE_TITLE_VISIBILITY, 1,
-                UserHandle.USER_CURRENT) == 1) {
-           mLabelContainer.setVisibility(View.VISIBLE);
-        } else {
-           mLabelContainer.setVisibility(View.GONE);
-        }
     }
 }
