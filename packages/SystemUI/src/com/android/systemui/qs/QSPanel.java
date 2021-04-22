@@ -497,9 +497,6 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         if (mTileLayout != null) {
             mTileLayout.updateResources();
         }
-        if (mCustomizePanel != null) {
-            mCustomizePanel.updateResources();
-        }
     }
 
     protected void updatePadding() {
@@ -581,6 +578,10 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
                 newLayout.setMinRows(landscapeAndMedia ? 2 : 1);
                 // Let's use 3 columns to match the current layout
                 newLayout.setMaxColumns(landscapeAndMedia ? 3 : TileLayout.NO_MAX_COLUMNS);
+            if (needsDynamicRowsAndColumns()) {
+                newLayout.setMinRows(horizontal ? 2 : 1);
+                // Let's use 3 columns to match the current layout
+                newLayout.setMaxColumns(horizontal ? 3 : TileLayout.NO_MAX_COLUMNS);
             }
             updateTileLayoutMargins();
             updateFooterMargin();
