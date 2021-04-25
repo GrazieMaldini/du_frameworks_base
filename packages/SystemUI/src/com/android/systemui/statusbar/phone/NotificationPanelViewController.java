@@ -1355,7 +1355,7 @@ public class NotificationPanelViewController extends PanelViewController {
         if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
             mConflictingQsExpansionGesture = false;
         }
-        if (action == MotionEvent.ACTION_DOWN && isFullyCollapsed() && mQsExpansionEnabled && !isQSEventBlocked()) {
+        if (action == MotionEvent.ACTION_DOWN && isFullyCollapsed() && mQsExpansionEnabled) {
             mTwoFingerQsExpandPossible = true;
         }
         if (mTwoFingerQsExpandPossible && isOpenQsEvent(event) && event.getY(event.getActionIndex())
@@ -3465,7 +3465,7 @@ public class NotificationPanelViewController extends PanelViewController {
             if (mQsExpanded) {
                 flingSettings(0 /* vel */, FLING_COLLAPSE, null /* onFinishRunnable */,
                         true /* isClick */);
-            } else if (mQsExpansionEnabled && !isQSEventBlocked()) {
+            } else if (mQsExpansionEnabled) {
                 mLockscreenGestureLogger.write(MetricsEvent.ACTION_SHADE_QS_TAP, 0, 0);
                 flingSettings(0 /* vel */, FLING_EXPAND, null /* onFinishRunnable */,
                         true /* isClick */);
@@ -3494,8 +3494,8 @@ public class NotificationPanelViewController extends PanelViewController {
             mLastOverscroll = 0f;
             mQsExpansionFromOverscroll = false;
             setQsExpansion(mQsExpansionHeight);
-            flingSettings((!mQsExpansionEnabled || isQSEventBlocked()) && open ? 0f : velocity,
-                    open && (mQsExpansionEnabled && !isQSEventBlocked())  ? FLING_EXPAND : FLING_COLLAPSE, () -> {
+            flingSettings(!mQsExpansionEnabled && open ? 0f : velocity,
+                    open && mQsExpansionEnabled ? FLING_EXPAND : FLING_COLLAPSE, () -> {
                         mStackScrollerOverscrolling = false;
                         setOverScrolling(false);
                         updateQsState();
