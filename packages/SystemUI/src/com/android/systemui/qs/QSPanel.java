@@ -629,8 +629,6 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
                 newLayout.setMinRows(landscapeAndMedia ? 2 : 1);
                 // Let's use 3 columns to match the current layout
                 newLayout.setMaxColumns(landscapeAndMedia ? 3 : TileLayout.NO_MAX_COLUMNS);
-            if (needsDynamicRowsAndColumns()) {
-                newLayout.setMinRows(horizontal ? 2 : 1);
             }
             // request layout to calc num of columns
             newLayout.updateSettings();
