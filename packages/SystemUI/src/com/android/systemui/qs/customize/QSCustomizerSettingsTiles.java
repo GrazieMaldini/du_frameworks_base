@@ -33,7 +33,7 @@ import android.widget.Switch;
 
 import com.android.systemui.R;
 
-import com.bananadroid.support.preferences.SystemSettingsSwitchPreference
+import com.bananadroid.support.preferences.SystemSettingsSwitch;
 
 public class QSCustomizerSettingsTiles extends LinearLayout {
     private static final String TAG = "QSCustomizer::QSCustomizerSettings";

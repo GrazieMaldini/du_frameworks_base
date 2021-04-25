@@ -36,7 +36,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/tuner_prefer_three_rows"/>
 
-            <com.bananadroid.support.preferences.SystemSettingsSwitchPreference
+            <com.bananadroid.support.preferences.SystemSettingsSwitch
                 android:id="@+id/qs_layout_pref_three_rows"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/tuner_qs_media_player" />
 
-            <com.bananadroid.support.preferences.SystemSettingsSwitchPreference
+            <com.bananadroid.support.preferences.SystemSettingsSwitch
                 android:id="@+id/qs_media_player"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/tuner_qs_show_media_divider"/>
 
-            <com.bananadroid.support.preferences.SystemSettingsSwitchPreference
+            <com.bananadroid.support.preferences.SystemSettingsSwitch
                 android:id="@+id/qs_show_media_divider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/tuner_show_drag_handle" />
 
-            <com.bananadroid.support.preferences.SystemSettingsSwitchPreference
+            <com.bananadroid.support.preferences.SystemSettingsSwitch
                 android:id="@+id/qs_show_drag_handle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/tuner_show_secure_title" />
 
-            <com.bananadroid.support.preferences.SystemSettingsSwitchPreference
+            <com.bananadroid.support.preferences.SystemSettingsSwitch
                 android:id="@+id/qs_show_secure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
