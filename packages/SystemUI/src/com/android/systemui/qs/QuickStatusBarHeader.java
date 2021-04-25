@@ -938,12 +938,6 @@ public class QuickStatusBarHeader extends RelativeLayout implements View.OnClick
         return mMicCameraIndicatorsEnabled || mAllIndicatorsEnabled;
     }
 
-    @Override
-    public void onTuningChanged(String key, String newValue) {
-        mClockView.setClockVisibleByUser(!StatusBarIconController.getIconBlacklist(
-                mContext, newValue).contains("clock"));
-    }
-
     private void updateStatusbarProperties() {
         mBatteryMeterView.useWallpaperTextColor(mLandscape);
     }
@@ -972,5 +966,7 @@ public class QuickStatusBarHeader extends RelativeLayout implements View.OnClick
             mIsQsAutoBrightnessEnabled = TunerService.parseIntegerSwitch(newValue, true);
             updateResources();
         }
+        mClockView.setClockVisibleByUser(!StatusBarIconController.getIconBlacklist(
+                mContext, newValue).contains("clock"));
     }
 }
